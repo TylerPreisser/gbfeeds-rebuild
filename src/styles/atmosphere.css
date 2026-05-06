@@ -1,0 +1,81 @@
+/* ==========================================================================
+   atmosphere.css — GB Feeds physical-object atmosphere layer
+   Paper-grain, hairline rules, scanned-grain overlay.
+   All atmosphere layers respect prefers-reduced-motion (static paint only).
+   ========================================================================== */
+
+/* ─── Paper grain ────────────────────────────────────────────────────────────
+   Applies public/textures/grain.webp at 6% opacity over the bone-paper bg.
+   mix-blend-mode: multiply preserves paper warmth.
+   Fixed-position so it doesn't tile on scroll (feels physically present).
+   pointer-events: none so it never blocks interaction.
+   ───────────────────────────────────────────────────────────────────────── */
+.paper-grain {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: url('/textures/grain.webp');
+  background-repeat: repeat;
+  background-size: 256px 256px;
+  opacity: 0.06;
+  mix-blend-mode: multiply;
+}
+
+/* ─── Hairline rules ────────────────────────────────────────────────────────
+   24px-pitch ruled-paper SVG background.
+   Used on long-form content sections: /our-story, /journal/[slug],
+   /customer-reviews. Applied at 18% opacity per design brief § 4.
+   ───────────────────────────────────────────────────────────────────────── */
+.hairlines {
+  background-image: url('/textures/ruled.svg');
+  background-repeat: repeat;
+  background-size: 24px 24px;
+  opacity: 0.18;
+}
+
+/* ─── Scanned-grain overlay ─────────────────────────────────────────────────
+   High-frequency scan grain on hero <img> plates.
+   20% opacity, multiply blend → 35mm-on-newsprint effect.
+   Applied as a child overlay inside the <Image> atomic component
+   when the scannedGrain prop is true.
+   ───────────────────────────────────────────────────────────────────────── */
+.scanned-grain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: url('/textures/scanned-grain.webp');
+  background-repeat: repeat;
+  background-size: 512px 512px;
+  opacity: 0.10;
+  mix-blend-mode: multiply;
+}
+
+/* ─── prefers-reduced-motion ────────────────────────────────────────────────
+   All atmosphere layers are static paint — no animation, no transition.
+   This block documents the explicit no-op for these elements under
+   reduced-motion: they are already static (no animations to cancel).
+   Kept as a reminder that ANY future animation added here must
+   respect this media query.
+   ───────────────────────────────────────────────────────────────────────── */
+/* ─── BagTag dynamic-import placeholder ─────────────────────────────────────
+   Reserves height while the framer-motion chunk loads for BagTagTriptych.
+   Prevents CLS on PDP when dynamic(ssr:false) loading state is visible.
+   min-height matches the rendered height of BagTagTriptychStatic (3-stat row).
+   ───────────────────────────────────────────────────────────────────────── */
+.bag-tag-placeholder {
+  min-height: 12rem;
+  background: var(--color-paper-3);
+  border: 1px solid var(--color-rule);
+  border-radius: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .paper-grain,
+  .hairlines,
+  .scanned-grain {
+    /* Already static — no animation transitions to cancel. */
+    animation: none;
+    transition: none;
+  }
+}

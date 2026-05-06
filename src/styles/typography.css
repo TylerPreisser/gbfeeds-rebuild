@@ -1,0 +1,105 @@
+/* ==========================================================================
+   typography.css — GB Feeds type defaults
+   Sets body font, heading defaults, mono stamp family, and italic policy.
+   Consumes CSS vars from tokens.css (paper, ink, font-body, font-display, font-mono).
+   ========================================================================== */
+
+/* ─── Body defaults ─────────────────────────────────────────────────────────
+   DM Serif Display as the editorial body face.
+   Bone-paper background + deep loam-black ink from design brief § 4.
+   ───────────────────────────────────────────────────────────────────────── */
+body {
+  font-family: var(--font-body), 'Times New Roman', serif;
+  color: var(--color-ink);
+  background-color: var(--color-paper);
+  line-height: 1.4;
+  font-size: var(--text-body-md);
+}
+
+/* ─── Display headings ──────────────────────────────────────────────────────
+   Bebas Neue: all-caps, grain-elevator-signage tracking at 0.02em.
+   Leading 1.0 for H1/H2. Per design brief § 3 Default Settings.
+   ───────────────────────────────────────────────────────────────────────── */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-display), 'Arial Narrow', sans-serif;
+  letter-spacing: 0.02em;
+  line-height: 1.0;
+  text-transform: uppercase;
+  font-weight: 400; /* Bebas Neue has one weight — 400 */
+}
+
+/* H1/H2: tightest leading */
+h1,
+h2 {
+  line-height: 1.0;
+}
+
+/* H3/H4: slightly looser for sub-sections */
+h3,
+h4 {
+  line-height: 1.05;
+}
+
+/* ─── Mono stamps ────────────────────────────────────────────────────────────
+   JetBrains Mono: dates, counties, lot codes, SKU stamps, price labels.
+   Tracking 0.04em for letterpressed look. Per design brief § 3.
+   ───────────────────────────────────────────────────────────────────────── */
+code,
+pre,
+kbd,
+.stamp {
+  font-family: var(--font-mono), 'Courier New', monospace;
+  letter-spacing: 0.04em;
+  line-height: 1.2;
+}
+
+/* ─── Italic policy ──────────────────────────────────────────────────────────
+   Italic DM Serif Display reserved ONLY for:
+   - Greg's first-person interjections in founder narrative
+   - Journal field-notes pull-quotes
+   - Testimonial blockquotes
+   Never used decoratively. Per design brief § 3 "Italic policy".
+   ───────────────────────────────────────────────────────────────────────── */
+.prose-italic,
+blockquote,
+.testimonial-pull,
+.journal-pull-quote {
+  font-family: var(--font-body), 'Times New Roman', serif;
+  font-style: italic;
+  line-height: 1.2; /* testimonial pulls, design brief § 3 */
+}
+
+/* Long-form journal body: 1.5 leading per design brief § 3 */
+.journal-body {
+  line-height: 1.5;
+}
+
+/* ─── Paragraph body leading ────────────────────────────────────────────────
+   1.4 for editorial body paragraphs (design brief § 3 Default Settings).
+   ───────────────────────────────────────────────────────────────────────── */
+p {
+  line-height: 1.4;
+}
+
+/* ─── Stat triptych leading ─────────────────────────────────────────────────
+   1.05 for bag-tag stat triptych numbers (design brief § 3).
+   Applied via BagTagTriptych component.
+   ───────────────────────────────────────────────────────────────────────── */
+.bag-tag-stat {
+  line-height: 1.05;
+  letter-spacing: 0.0em; /* no tracking at display-xl scale */
+}
+
+/* ─── Counter (240px antler-inches) ─────────────────────────────────────────
+   At counter scale, hold tracking at 0.0em — optical openness already exists.
+   Per design brief § 3.
+   ───────────────────────────────────────────────────────────────────────── */
+.antler-counter {
+  letter-spacing: 0.0em;
+  line-height: 1.0;
+}

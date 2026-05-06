@@ -1,0 +1,101 @@
+/* ==========================================================================
+   tokens.css — Tailwind v4 @theme block
+   GB Feeds — Kansas Field Logbook design system
+   All color values: OKLCH-first (Tailwind v4 native), HEX provided as comment.
+   Type scale: clamp() fluid scale, mobile-first, verbatim from design brief § 3.
+   ========================================================================== */
+
+@theme {
+  /* ─── Font families ──────────────────────────────────────────────────────── */
+  /* CSS vars set by next/font/google in layout.tsx; consumed here */
+  --font-display: var(--font-display), 'Arial Narrow', sans-serif;
+  --font-body: var(--font-body), 'Times New Roman', serif;
+  --font-mono: var(--font-mono), 'Courier New', monospace;
+
+  /* ─── Color tokens — Paper (warm canvas surfaces) ───────────────────────── */
+  /* #EDE7D9 — Page background, dominant brand surface */
+  --color-paper: oklch(0.927 0.022 78);
+  /* #F2EEE2 — Alternating section bands */
+  --color-paper-2: oklch(0.945 0.014 75);
+  /* #F8F4EB — Card backgrounds, FAQ accordion expanded */
+  --color-paper-3: oklch(0.962 0.010 78);
+
+  /* ─── Color tokens — Ink (text) ─────────────────────────────────────────── */
+  /* #0F0E0B — Primary body text, H1/H2, button fill, nav links */
+  --color-ink: oklch(0.145 0.008 60);
+  /* #3A3933 — Secondary text, deck/subhead, FAQ answer copy */
+  --color-ink-muted: oklch(0.345 0.012 60);
+  /* #6E6A60 — Caption text, fine print, footer secondary */
+  --color-ink-quiet: oklch(0.520 0.015 60);
+
+  /* ─── Color tokens — Accent (oxblood-brick, the ONE saturated color) ────── */
+  /* #B33A1A — Counter digits, county pins, hover underlines, Field Club */
+  --color-accent: oklch(0.502 0.158 35);
+  /* #9A2F12 — Hover/active state for accent CTAs, pressed county pins */
+  --color-accent-2: oklch(0.430 0.150 35);
+
+  /* ─── Color tokens — State (signal colors) ──────────────────────────────── */
+  /* #5B6E3D — "In Stock" stamp (moss/olive) */
+  --color-success: oklch(0.510 0.062 130);
+  /* #C99A3D — "Low Stock" stamp (wheat/amber) */
+  --color-warn: oklch(0.745 0.110 75);
+  /* #6E2310 — "Sold Out" stamp, form error (deep oxblood-noir) */
+  --color-danger: oklch(0.330 0.115 25);
+
+  /* ─── Color tokens — Lines ───────────────────────────────────────────────── */
+  /* #BDB29C — 24px hairline ruled-logbook lines (1px), default border */
+  --color-rule: oklch(0.760 0.018 70);
+  /* #9C9079 — Section dividers, heavier divider above footer */
+  --color-rule-strong: oklch(0.640 0.020 65);
+
+  /* ─── Color tokens — Shadow (warm sepia) ────────────────────────────────── */
+  /* rgba(75, 60, 40, 0.18) — Sticky mobile add-to-cart, modal backdrop */
+  --color-shadow: oklch(0.30 0.020 55 / 0.18);
+
+  /* ─── Color tokens — 6-step warm-gray ladder ────────────────────────────── */
+  /* #FAF7F0 */
+  --color-gray-50: oklch(0.972 0.008 78);
+  /* #EAE4D6 */
+  --color-gray-100: oklch(0.918 0.012 75);
+  /* #CEC5B2 */
+  --color-gray-300: oklch(0.804 0.015 70);
+  /* #928873 */
+  --color-gray-500: oklch(0.605 0.018 65);
+  /* #544E42 */
+  --color-gray-700: oklch(0.395 0.015 60);
+  /* #241F18 */
+  --color-gray-900: oklch(0.215 0.010 60);
+
+  /* ─── Type scale — fluid clamp() scale, verbatim from design brief § 3 ──── */
+  /* 11→12px stamps */
+  --text-mono-xs: clamp(0.6875rem, 0.625rem + 0.25vw, 0.75rem);
+  /* 14→16px caps/captions */
+  --text-body-sm: clamp(0.875rem, 0.8125rem + 0.3125vw, 1rem);
+  /* 16→18px body */
+  --text-body-md: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+  /* 20→24px lede */
+  --text-body-lg: clamp(1.25rem, 1.15rem + 0.5vw, 1.5rem);
+  /* 32→48px eyebrows */
+  --text-display-sm: clamp(2rem, 1.6rem + 2vw, 3rem);
+  /* 48→80px H2 */
+  --text-display-md: clamp(3rem, 2.4rem + 3vw, 5rem);
+  /* 72→128px H1 */
+  --text-display-lg: clamp(4.5rem, 3.6rem + 4.5vw, 8rem);
+  /* 96→192px bag-tag triptych */
+  --text-display-xl: clamp(6rem, 4.8rem + 6vw, 12rem);
+  /* 128→240px counter */
+  --text-counter: clamp(8rem, 6.4rem + 8vw, 15rem);
+
+  /* ─── Spacing primitives ─────────────────────────────────────────────────── */
+  /* Container: max-width 1280px, fluid padding */
+  --container-max: 80rem; /* 1280px */
+  --spacing-section-y: clamp(4rem, 10vw, 9rem);
+  --spacing-margin-gutter: clamp(2rem, 6vw, 5rem);
+
+  /* ─── Border radius ──────────────────────────────────────────────────────── */
+  /* Sharp-edged aesthetic — 0px radius for all brand components */
+  --radius-none: 0px;
+
+  /* ─── Shadow primitives ──────────────────────────────────────────────────── */
+  --shadow-sticky: 0 2px 12px oklch(0.30 0.020 55 / 0.18);
+}

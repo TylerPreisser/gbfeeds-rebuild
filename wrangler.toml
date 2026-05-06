@@ -1,0 +1,13 @@
+# GB Feeds — Cloudflare Pages project configuration
+# This file configures the Pages deployment (static export from `out/`).
+# The Cloudflare Worker (forms proxy) has its own wrangler.toml in cloudflare-worker/.
+
+name = "gbfeeds-rebuild"
+pages_build_output_dir = "out"
+
+# Deployment is managed by the CI workflow:
+#   cloudflare/wrangler-action@v3
+#   npx wrangler pages deploy out --project-name=gbfeeds-rebuild
+#
+# Local preview (after `npm run build`):
+#   npx wrangler pages dev out --compatibility-date=2026-05-06

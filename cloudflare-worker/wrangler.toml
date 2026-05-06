@@ -1,0 +1,23 @@
+# GB Feeds — Cloudflare Worker: forms proxy (gbfeeds-forms)
+# Deployed separately from the Pages site via `wrangler deploy` in cloudflare-worker/.
+#
+# Worker secrets are managed via CLI — NEVER inline secrets here:
+#   wrangler secret put RESEND_API_KEY
+#   wrangler secret put TURNSTILE_SECRET_KEY
+
+name = "gbfeeds-forms"
+main = "index.ts"
+compatibility_date = "2026-05-06"
+
+# KV namespace binding for per-IP rate limiting (1 request / 60s)
+# Replace placeholder IDs with real namespace IDs from:
+#   wrangler kv namespace create RATE_LIMIT_KV
+#   wrangler kv namespace create RATE_LIMIT_KV --preview
+[[kv_namespaces]]
+binding = "RATE_LIMIT_KV"
+id = "REPLACE_WITH_PRODUCTION_KV_NAMESPACE_ID"
+preview_id = "REPLACE_WITH_PREVIEW_KV_NAMESPACE_ID"
+
+# Non-secret vars (safe to commit)
+[vars]
+ALLOWED_ORIGINS = "https://gbfeeds.com,https://*.gbfeeds-rebuild.pages.dev"

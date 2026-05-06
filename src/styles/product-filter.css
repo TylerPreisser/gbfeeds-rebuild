@@ -1,0 +1,28 @@
+/* ==========================================================================
+   product-filter.css — /products category filter visibility rules
+   Controls card visibility based on [data-active-cat] on the grid wrapper.
+   All 16 product cards are always in the HTML (static, crawlable).
+   When a category is selected, non-matching cards are hidden via CSS only.
+   No JavaScript required for filtering — filter chips are plain <Link> elements.
+   ========================================================================== */
+
+/* ─── Category filter hide rules ─────────────────────────────────────────────
+   Pattern: [data-active-cat="<cat>"] [data-cat]:not([data-cat="<cat>"]) { display:none }
+   "all" is the default — show everything, no hide rules needed.
+   ───────────────────────────────────────────────────────────────────────── */
+
+[data-active-cat="deer-feed"] [data-cat]:not([data-cat="deer-feed"]) {
+  display: none;
+}
+
+[data-active-cat="deer-feeders"] [data-cat]:not([data-cat="deer-feeders"]) {
+  display: none;
+}
+
+[data-active-cat="tactacam"] [data-cat]:not([data-cat="tactacam"]) {
+  display: none;
+}
+
+[data-active-cat="apparel"] [data-cat]:not([data-cat="apparel"]) {
+  display: none;
+}

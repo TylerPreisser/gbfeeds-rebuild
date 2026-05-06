@@ -1,0 +1,51 @@
+# Cloudflare Pages _headers
+# Applied at the CDN edge before serving any response.
+# Per-path blocks are evaluated in order; more specific paths take priority.
+
+# ── Immutable static assets ──────────────────────────────────────────────────
+# Next.js hashes all filenames under /_next/static/ at build time.
+# These files are safe to cache forever (1 year = 31536000s).
+/_next/static/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Product images (AVIF/WebP/JPEG, 5 widths — 6A.2 sets unoptimized: true)
+/products/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Atmosphere textures (grain.webp, ruled.svg, scanned-grain.webp)
+/textures/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Favicons + PWA icons
+/icons/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Pre-generated OG cards (1200×630 PNG — fixed at build time)
+/og/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Lifestyle + gallery photos
+/photos/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Brand assets (logo SVG, signature SVG, logo PNG)
+/brand/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# ── Dynamic data ──────────────────────────────────────────────────────────────
+# harvests.json is Greg-updated; 5-minute CDN TTL ensures live counter refreshes
+/data/*
+  Cache-Control: public, max-age=300, must-revalidate
+
+# ── All pages + default ──────────────────────────────────────────────────────
+# 5-minute must-revalidate for HTML pages. Cloudflare edge re-validates stale
+# pages on next request without waiting for a full build redeployment.
+/*
+  Cache-Control: public, max-age=300, must-revalidate
+  Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: interest-cohort=(), payment=(self "https://js.stripe.com"), camera=(), microphone=(), geolocation=()
+  Cross-Origin-Opener-Policy: same-origin
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://challenges.cloudflare.com https://cdn.trustedsite.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https:; connect-src 'self' https://www.google-analytics.com https://*.workers.dev https://challenges.cloudflare.com https://forms.gbfeeds.com; frame-src https://challenges.cloudflare.com https://www.googletagmanager.com; frame-ancestors 'none'; form-action 'self' https://buy.stripe.com; base-uri 'self'; upgrade-insecure-requests

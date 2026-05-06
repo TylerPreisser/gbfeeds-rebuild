@@ -1,0 +1,48 @@
+# Next.js / Node
+node_modules/
+.next/
+out/
+
+# Environment files (never commit secrets)
+.env
+.env.local
+.env.*.local
+.env.development.local
+.env.production.local
+.env.test.local
+
+# Wrangler local dev secrets (Worker)
+.dev.vars
+cloudflare-worker/.dev.vars
+
+# Cloudflare / Wrangler runtime artifacts
+.wrangler/
+.mf/
+.cf/
+
+# Vercel (not used, but guard against accidental init)
+.vercel/
+
+# macOS
+.DS_Store
+**/.DS_Store
+
+# Test / coverage / reporting
+coverage/
+playwright-report/
+test-results/
+lhci-report/
+
+# TypeScript incremental build info
+*.tsbuildinfo
+next-env.d.ts
+
+# Editor
+.vscode/
+.idea/
+
+# Claude Code session metadata (orchestration-only, not source)
+.claude/
+
+# Phase 1 + 2 source mirror staging — re-derivable; not part of the deployed build
+_inherited_assets/

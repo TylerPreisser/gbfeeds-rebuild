@@ -1,0 +1,23 @@
+/* ==========================================================================
+   globals.css — GB Feeds rebuild entry CSS
+   The SOLE CSS file imported by src/app/layout.tsx.
+   Import order is intentional: tokens → reset → typography → atmosphere.
+   ========================================================================== */
+
+/* 1. Tailwind v4 base + utilities (processed by @tailwindcss/postcss) */
+@import 'tailwindcss';
+
+/* 2. Design-system tokens — @theme block, colors, type scale, spacing */
+@import './tokens.css';
+
+/* 3. Modern CSS reset (Josh Comeau-style) */
+@import './reset.css';
+
+/* 4. Typography defaults — body font, heading uppercase, mono stamps, italic policy */
+@import './typography.css';
+
+/* 5. Atmosphere layer — paper-grain, hairlines, scanned-grain overlay */
+@import './atmosphere.css';
+
+/* 6. Product filter — [data-active-cat] CSS visibility rules for /products grid */
+@import './product-filter.css';

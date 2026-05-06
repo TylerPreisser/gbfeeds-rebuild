@@ -1,0 +1,57 @@
+# Cloudflare Pages _redirects
+# Legacy GoDaddy OLS URL → new SEO-clean slug (all 301 permanent)
+# Source: Phase 2 live recon sitemap.ols.xml + Phase 5 architecture § 3 _redirects block
+
+# ── PDP slug remaps ─────────────────────────────────────────────────────────
+# OLS used lowercase slugs, often with typos or verbose names.
+# New slugs are shorter, SEO-clean, and canonical on gbfeeds.com.
+
+/products/ols/products/buckchow                                                                        /products/buck-chow-40lb/                          301
+/products/ols/products/corn-candy                                                                      /products/corn-candy-7lb/                          301
+/products/ols/products/buck-chow-2000lb-pallet                                                         /products/buck-chow-2000lb-pallet/                 301
+/products/ols/products/gb-feeds-digital-print-camo-hat                                                 /products/camo-hat/                                301
+/products/ols/products/gb-feeds-black-hat                                                              /products/black-hat/                               301
+/products/ols/products/reveal-x-20                                                                     /products/reveal-x/                                301
+/products/ols/products/reveal-x-pro                                                                    /products/reveal-x-pro/                            301
+/products/ols/products/tactacam-reveal-bundle-pack-x-gen-20-camera-lithium-battery-pack-sd-card-bundle /products/tactacam-reveal-bundle/                  301
+/products/ols/products/32gb-sd-card                                                                    /products/32gb-sd-card/                            301
+/products/ols/products/lithium-recharable-battery-cartridge                                            /products/lithium-battery/                         301
+/products/ols/products/adjustable-camera-stake                                                         /products/camera-stake/                            301
+/products/ols/products/external-solar-panel                                                            /products/solar-panel/                             301
+/products/ols/products/texas-wildlife-supply-2000lb-gravity-protein-feeder-with-ladder--catwalk        /products/tws-2000lb-gravity-feeder/               301
+/products/ols/products/texas-wildlife-supply-600lb-protein-gravity-feeder                              /products/tws-600lb-gravity-feeder/                301
+/products/ols/products/texas-wildlife-supply-600lb-lucky-buck-spin-feeder                              /products/tws-600lb-lucky-buck-spin/               301
+/products/ols/products/texas-wildlife-supply-2000lb-spin-feeder                                        /products/tws-2000lb-spin-feeder/                  301
+
+# ── OLS catalog index + root ─────────────────────────────────────────────────
+/products/ols/products                                                                                  /products/                                         301
+/products/ols                                                                                           /products/                                         301
+
+# ── OLS category pages → filtered products index ────────────────────────────
+/products/ols/categories/deer-feed-products                                                             /products/?cat=deer-feed                           301
+/products/ols/categories/deer-feeders                                                                   /products/?cat=deer-feeders                        301
+/products/ols/categories/apparel                                                                        /products/?cat=apparel                             301
+/products/ols/categories/tactacam-reveal-products                                                       /products/?cat=tactacam                            301
+
+# ── OLS cart / checkout → products index ────────────────────────────────────
+# Wildcard: /products/ols/cart/... and /products/ols/checkout/... all → /products/
+/products/ols/cart/*                                                                                    /products/                                         301
+/products/ols/checkout/*                                                                                /products/                                         301
+
+# ── Legal page consolidation ─────────────────────────────────────────────────
+# Live site had two /terms pages (a GoDaddy CMS duplicate-page artifact)
+/terms-and-conditions                                                                                   /terms/                                            301
+/terms-and-conditions-1                                                                                 /terms/                                            301
+/privacy-policy                                                                                         /privacy/                                          301
+
+# ── OLS user portal → home ───────────────────────────────────────────────────
+# The GoDaddy OLS account portal (/m/*) is retired entirely in the rebuild.
+# All portal paths redirect to home; authenticated users can contact Greg directly.
+/m/login                                                                                                /                                                  301
+/m/reset                                                                                                /                                                  301
+/m/create                                                                                               /                                                  301
+/m/create-account                                                                                       /                                                  301
+/m/account                                                                                              /                                                  301
+/m/orders                                                                                               /                                                  301
+/m/api/*                                                                                                /                                                  301
+/m/*                                                                                                    /                                                  301

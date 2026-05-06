@@ -1,0 +1,56 @@
+name: Deploy Cloudflare Worker
+
+# ─────────────────────────────────────────────────────────────────────────────
+# WORKER-RUNTIME SECRETS
+# The following secrets are NOT in any GitHub secret or workflow env var.
+# They are stored encrypted in Cloudflare's secret store and injected at
+# Worker runtime only. Set them once via the Wrangler CLI:
+#
+#   cd cloudflare-worker
+#   wrangler secret put RESEND_API_KEY          # paste Resend API key
+#   wrangler secret put TURNSTILE_SECRET_KEY    # paste Cloudflare Turnstile secret
+#
+# Rotation: run `wrangler secret put <KEY>` again with the new value.
+# Never place these values in this file, .env, GitHub Secrets, or CF Pages env vars.
+# ─────────────────────────────────────────────────────────────────────────────
+
+on:
+  push:
+    branches: [main]
+    # Only fire when Worker source changes — Pages deploys proceed independently.
+    paths:
+      - 'cloudflare-worker/**'
+
+# Prevent concurrent Worker deploys on main — queue, don't cancel.
+concurrency:
+  group: ${{ github.workflow }}-deploy-worker
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  deploy-worker:
+    name: Deploy Worker (gbfeeds-forms)
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.11'
+          cache: 'npm'
+
+      - name: Install Worker dependencies
+        working-directory: cloudflare-worker
+        run: npm ci
+
+      - name: Deploy Worker to Cloudflare
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          workingDirectory: cloudflare-worker
+          command: deploy --env production

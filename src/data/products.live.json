@@ -1,0 +1,672 @@
+{
+  "products": [
+    {
+      "id": 2,
+      "sku": "BC-40LB-2023",
+      "slug": "buck-chow-40lb",
+      "legacyOlsSlug": "buckchow",
+      "displayName": "Buck Chow High Protein Feed — 40LB",
+      "category": "deer-feed",
+      "priceUsd": "19.99",
+      "salePriceUsd": null,
+      "onSale": false,
+      "available": true,
+      "shortDescription": "The perfect balance of attraction and nutrition — 20% high protein deer feed with GB Feeds’ Real Results Protein Pellets, antler growing minerals, and long-range aroma.",
+      "descriptionFormatted": "Extra Inches Aren’t An Accident\nThe perfect balance of attraction and nutrition, Buck Chow is a complete, 20% high protein deer feed, featuring GB Feed’s Real Results Protein Pellets and antler growing minerals combined with all natural grains and roasted soybeans to deliver year round attraction and nutrition for better herd health and maximum antler growth.\n- Tested and proven right here in the Midwest\n- Designed to be fed year-round from early spring all the way through shed season\n- Includes minerals such as Calcium and Phosphorus for optimal herd health and antler growth\n- Long Range Aroma To Attract Deer\n- Can be used in gravity feeders, spin feeders or ground piles\n- Over 5,000 inches of proven results and counting!",
+      "primaryImage": "/products/buck-chow-40lb/buck-chow-40lb-hero-1024.avif",
+      "images": [
+        {
+          "src": "/products/buck-chow-40lb/buck-chow-40lb-hero-1024.avif",
+          "alt": "Buck Chow 40lb bag in a Kansas field"
+        },
+        {
+          "src": "/products/buck-chow-40lb/buck-chow-40lb-alt-1-1024.avif",
+          "alt": "Buck Chow 40lb bag close-up showing label"
+        },
+        {
+          "src": "/products/buck-chow-40lb/buck-chow-40lb-alt-2-1024.avif",
+          "alt": "Deer feeding on Buck Chow in a field"
+        }
+      ],
+      "paymentLinkUrl": "about:blank#TODO-create-stripe-link-BC-40LB-2023",
+      "bagTag": [
+        {
+          "label": "PROTEIN",
+          "value": "20",
+          "unit": "%"
+        },
+        {
+          "label": "FAT",
+          "value": "4",
+          "unit": "%"
+        },
+        {
+          "label": "FIBER",
+          "value": "8",
+          "unit": "%"
+        }
+      ],
+      "weight": "40 LB"
+    },
+    {
+      "id": 3,
+      "sku": "CC-7LB-2023",
+      "slug": "corn-candy-7lb",
+      "legacyOlsSlug": "corn-candy",
+      "displayName": "Corn Candy Flavored Attractant — 7LB",
+      "category": "deer-feed",
+      "priceUsd": "17.99",
+      "salePriceUsd": null,
+      "onSale": false,
+      "available": true,
+      "shortDescription": "Turn your corn into deer candy — enhances the aroma, flavor, and nutrition of whole corn. Each 7lb bag treats 400–500lbs of corn.",
+      "descriptionFormatted": "Turn Your Corn Into Deer Candy\nDesigned to enhance the Aroma, Flavor and Nutrition of your whole corn, Corn Candy is the secret weapon to help deer find your feed site quicker and come back more often. Corn Candy can be added into your feeder with your whole corn or over the top of a ground pile feed site to increase the attractiveness and give you the edge over other hunters in your area.\n- Each 7lb bag treats approximately 500lbs of corn\n- Helps deer find your feed 5X faster than regular corn\n- Economical way to enhance your deer feed\n- Allows you to pull deer from longer ranges",
+      "primaryImage": "/products/corn-candy-7lb/corn-candy-7lb-hero-1024.avif",
+      "images": [
+        {
+          "src": "/products/corn-candy-7lb/corn-candy-7lb-hero-1024.avif",
+          "alt": "Corn Candy 7lb bag"
+        },
+        {
+          "src": "/products/corn-candy-7lb/corn-candy-7lb-alt-1-1024.avif",
+          "alt": "Corn Candy poured over corn in a feeder"
+        }
+      ],
+      "paymentLinkUrl": "about:blank#TODO-create-stripe-link-CC-7LB-2023",
+      "bagTag": [
+        {
+          "label": "TREATS",
+          "value": "500",
+          "unit": "LB"
+        },
+        {
+          "label": "AROMA",
+          "value": "5X",
+          "unit": "BOOST"
+        },
+        {
+          "label": "WEIGHT",
+          "value": "7",
+          "unit": "LB"
+        }
+      ],
+      "weight": "7 LB"
+    },
+    {
+      "id": 4,
+      "sku": "BC-2000LB-2023",
+      "slug": "buck-chow-2000lb-pallet",
+      "legacyOlsSlug": "buck-chow-2000lb-pallet",
+      "displayName": "Buck Chow — 2,000LB Pallet",
+      "category": "deer-feed",
+      "priceUsd": "999.99",
+      "salePriceUsd": "949.99",
+      "onSale": true,
+      "available": true,
+      "shortDescription": "50 bags of Buck Chow 40LB — a full pallet for serious property managers. Tested and proven right here in the Midwest.",
+      "descriptionFormatted": "Extra Inches Aren’t An Accident\nWhere nutrition meets attraction, Buck Chow is a complete, 20% high protein deer feed, featuring GB Feed’s Real Results Protein Pellets and antler growing minerals combined with all natural grains and roasted soybeans to deliver year round attraction and nutrition for better herd health and maximum antler growth.\n- 2,000lb Pallet- (50) 40lb Bags of Buck Chow\n- Tested and proven right here in the Midwest\n- Designed to be fed year-round from early spring all the way through shed season\n- Includes minerals such as Calcium and Phosphorus for optimal herd health and antler growth\n- Long Range Aroma To Attract Deer",
+      "primaryImage": "/products/buck-chow-2000lb-pallet/buck-chow-2000lb-pallet-hero-1024.avif",
+      "images": [
+        {
+          "src": "/products/buck-chow-2000lb-pallet/buck-chow-2000lb-pallet-hero-1024.avif",
+          "alt": "Buck Chow 2,000lb pallet of 50 bags"
+        },
+        {
+          "src": "/products/buck-chow-2000lb-pallet/buck-chow-2000lb-pallet-alt-1-1024.avif",
+          "alt": "Individual Buck Chow 40lb bag from the pallet"
+        }
+      ],
+      "paymentLinkUrl": "about:blank#TODO-create-stripe-link-BC-2000LB-2023",
+      "bagTag": [
+        {
+          "label": "PROTEIN",
+          "value": "20",
+          "unit": "%"
+        },
+        {
+          "label": "BAGS",
+          "value": "50",
+          "unit": "COUNT"
+        },
+        {
+          "label": "WEIGHT",
+          "value": "2000",
+          "unit": "LB"
+        }
+      ],
+      "weight": "2000 LB"
+    },
+    {
+      "id": 6,
+      "sku": "GB-CAMOHAT",
+      "slug": "camo-hat",
+      "legacyOlsSlug": "gb-feeds-digital-print-camo-hat",
+      "displayName": "GB Feeds Digital Print Camo Hat",
+      "category": "apparel",
+      "priceUsd": "25.00",
+      "salePriceUsd": "19.99",
+      "onSale": true,
+      "available": true,
+      "shortDescription": "Represent GB Feeds in the field. Digital print camo pattern with the GB Feeds logo.",
+      "descriptionFormatted": "GB Feeds Digital Print Camo Hat",
+      "primaryImage": "/products/camo-hat/camo-hat-hero-1024.avif",
+      "images": [
+        {
+          "src": "/products/camo-hat/camo-hat-hero-1024.avif",
+          "alt": "GB Feeds Digital Print Camo Hat front view"
+        },
+        {
+          "src": "/products/camo-hat/camo-hat-alt-1-1024.avif",
+          "alt": "GB Feeds Digital Print Camo Hat side view"
+        }
+      ],
+      "paymentLinkUrl": "about:blank#TODO-create-stripe-link-GB-CAMOHAT",
+      "bagTag": [
+        {
+          "label": "STYLE",
+          "value": "CAMO"
+        },
+        {
+          "label": "FIT",
+          "value": "ADJ"
+        },
+        {
+          "label": "BRAND",
+          "value": "GB"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "sku": "GB-BLKHAT",
+      "slug": "black-hat",
+      "legacyOlsSlug": "gb-feeds-black-hat",
+      "displayName": "GB Feeds Black Hat",
+      "category": "apparel",
+      "priceUsd": "25.00",
+      "salePriceUsd": "19.99",
+      "onSale": true,
+      "available": false,
+      "shortDescription": "The classic GB Feeds black hat. Structured fit with embroidered logo.",
+      "descriptionFormatted": "GB Feeds Black Hat",
+      "primaryImage": "/products/black-hat/black-hat-hero-1024.avif",
+      "images": [
+        {
+          "src": "/products/black-hat/black-hat-hero-1024.avif",
+          "alt": "GB Feeds Black Hat front view"
+        },
+        {
+          "src": "/products/black-hat/black-hat-alt-1-1024.avif",
+          "alt": "GB Feeds Black Hat side view"
+        }
+      ],
+      "paymentLinkUrl": "about:blank#TODO-create-stripe-link-GB-BLKHAT",
+      "bagTag": [
+        {
+          "label": "STYLE",
+          "value": "BLACK"
+        },
+        {
+          "label": "FIT",
+          "value": "ADJ"
+        },
+        {
+          "label": "BRAND",
+          "value": "GB"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "sku": "RVL-X",
+      "slug": "reveal-x",
+      "legacyOlsSlug": "reveal-x-20",
+      "displayName": "Reveal X 2.0",
+      "category": "tactacam",
+      "priceUsd": "119.99",
+      "salePriceUsd": null,
+      "onSale": false,
+      "available": true,
+      "shortDescription": "Tactacam’s REVEAL X 2.0 — low-glow IR, fastest trigger speed, cellular photo delivery. The must-have camera for remote observation.",
+      "descriptionFormatted": "Tactacam’s REVEAL X 2.0 combines long-lasting power performance with remarkable image quality, day or night. X 2.0 comes with the low-glow IR advantage, delivering the fastest shutter trigger, longest range detection, and clearest image captures with minimal to no motion blur, even at night! Weather-resistant body, instant photo delivery, and simple operation make this a must-have cellular camera for all remote or outdoor observation.",
+      "primaryImage": "/products/reveal-x/reveal-x-hero-1024.avif",
+      "images": [
+        {
+          "src": "/products/reveal-x/reveal-x-hero-1024.avif",
+          "alt": "Tactacam Reveal X 2.0 trail camera front view"
+        },
+        {
+          "src": "/products/reveal-x/reveal-x-alt-1-1024.avif",
+          "alt": "Tactacam Reveal X 2.0 front angle view"
+        },
+        {
+          "src": "/products/reveal-x/reveal-x-alt-2-1024.avif",
+          "alt": "Tactacam Reveal X 2.0 back panel"
+        }
+      ],
+      "paymentLinkUrl": "about:blank#TODO-create-stripe-link-RVL-X",
+      "bagTag": [
+        {
+          "label": "MEGAPIX",
+          "value": "32",
+          "unit": "MP"
+        },
+        {
+          "label": "TRIGGER",
+          "value": "0.3",
+          "unit": "SEC"
+        },
+        {
+          "label": "RANGE",
+          "value": "80",
+          "unit": "FT"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "sku": "RVL-X-PRO",
+      "slug": "reveal-x-pro",
+      "legacyOlsSlug": "reveal-x-pro",
+      "displayName": "Reveal X-Pro",
+      "category": "tactacam",
+      "priceUsd": "149.99",
+      "salePriceUsd": null,
+      "onSale": false,
+      "available": true,
+      "shortDescription": "No-glow flash technology — virtually undetectable day or night. Built-in GPS, LCD screen, weather-resistant body.",
+      "descriptionFormatted": "Tactacam’s REVEAL X-PRO is a powerhouse for discreet cellular image capture. X-PRO provides no-glow flash technology, making it virtually undetectable to humans or animals, day or night. The built-in GPS, convenient LCD screen, and weather-resistant body allow for seamless, fast, and resiliant setup anywhere you need it.",
+      "primaryImage": "/products/reveal-x-pro/reveal-x-pro-hero-1024.avif",
+      "images": [
+        {
+          "src": "/products/reveal-x-pro/reveal-x-pro-hero-1024.avif",
+          "alt": "Tactacam Reveal X-Pro trail camera front view"
+        },
+        {
+          "src": "/products/reveal-x-pro/reveal-x-pro-alt-1-1024.avif",
+          "alt": "Tactacam Reveal X-Pro front angle"
+        },
+        {
+          "src": "/products/reveal-x-pro/reveal-x-pro-alt-2-1024.avif",
+          "alt": "Tactacam Reveal X-Pro LCD screen"
+        }
+      ],
+      "paymentLinkUrl": "about:blank#TODO-create-stripe-link-RVL-X-PRO",
+      "bagTag": [
+        {
+          "label": "MEGAPIX",
+          "value": "32",
+          "unit": "MP"
+        },
+        {
+          "label": "FLASH",
+          "value": "NO-GLO"
+        },
+        {
+          "label": "GPS",
+          "value": "BUILT-IN"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "sku": "TCT-RVL-X-GEN",
+      "slug": "tactacam-reveal-bundle",
+      "legacyOlsSlug": "tactacam-reveal-bundle-pack-x-gen-20-camera-lithium-battery-pack-sd-card-bundle",
+      "displayName": "Tactacam Reveal Bundle Pack",
+      "category": "tactacam",
+      "priceUsd": "179.99",
+      "salePriceUsd": null,
+      "onSale": false,
+      "available": true,
+      "shortDescription": "Everything you need out of the box — X Gen 2.0 camera + lithium battery pack + 32GB SD card bundle.",
+      "descriptionFormatted": "BUNDLE INCLUDES:\n1-GEN X 2.0 Camera: Tactacam’s REVEAL X 2.0 combines long-lasting power performance with remarkable image quality, day or night.\n1-REVEAL 32gb full size SD CARD\n1-Rechargeable Lithium Battery Pack: Tactacam’s REVEAL Lithium Cartridge is a long-life rechargeable battery that eliminates battery waste and provides replenishable power to REVEAL cellular cameras. The Cartridge is conveniently charged with the included 5V USB-C cable. *Not compatible with REVEAL Gen 1 models.",
+      "primaryImage": "/products/tactacam-reveal-bundle/tactacam-reveal-bundle-hero-1024.avif",
+      "images": [
+        {
+          "src": "/products/tactacam-reveal-bundle/tactacam-reveal-bundle-hero-1024.avif",
+          "alt": "Tactacam Reveal Bundle Pack — camera, battery, and SD card"
+        },
+        {
+          "src": "/products/tactacam-reveal-bundle/tactacam-reveal-bundle-alt-1-1024.avif",
+          "alt": "Tactacam Reveal Bundle Pack side view"
+        }
+      ],
+      "paymentLinkUrl": "about:blank#TODO-create-stripe-link-TCT-RVL-X-GEN",
+      "bagTag": [
+        {
+          "label": "ITEMS",
+          "value": "3",
+          "unit": "PC"
+        },
+        {
+          "label": "STORAGE",
+          "value": "32",
+          "unit": "GB"
+        },
+        {
+          "label": "BATTERY",
+          "value": "LITHIUM"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "sku": "32G-SD-CRD",
+      "slug": "32gb-sd-card",
+      "legacyOlsSlug": "32gb-sd-card",
+      "displayName": "32GB SD Card",
+      "category": "tactacam",
+      "priceUsd": "19.99",
+      "salePriceUsd": null,
+      "onSale": false,
+      "available": true,
+      "shortDescription": "Tactacam’s REVEAL 32GB SD Card — high-performance memory for all REVEAL cellular camera models.",
+      "descriptionFormatted": "Tactacam’s REVEAL 32GB SD Card is a high-performance memory card to store and transmit all photo and video captures from your REVEAL cellular camera. Full compatibility with any REVEAL camera model. 32GB SD CARD",
+      "primaryImage": "/products/32gb-sd-card/32gb-sd-card-hero-1024.avif",
+      "images": [
+        {
+          "src": "/products/32gb-sd-card/32gb-sd-card-hero-1024.avif",
+          "alt": "Tactacam 32GB SD card in packaging"
+        },
+        {
+          "src": "/products/32gb-sd-card/32gb-sd-card-alt-1-1024.avif",
+          "alt": "Tactacam 32GB SD card front view"
+        }
+      ],
+      "paymentLinkUrl": "about:blank#TODO-create-stripe-link-32G-SD-CRD",
+      "bagTag": [
+        {
+          "label": "STORAGE",
+          "value": "32",
+          "unit": "GB"
+        },
+        {
+          "label": "COMPAT",
+          "value": "ALL",
+          "unit": "RVLX"
+        },
+        {
+          "label": "CLASS",
+          "value": "10"
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "sku": "LTH-RCH-BTT-CRT",
+      "slug": "lithium-battery",
+      "legacyOlsSlug": "lithium-recharable-battery-cartridge",
+      "displayName": "Lithium Rechargeable Battery Cartridge",
+      "category": "tactacam",
+      "priceUsd": "49.99",
+      "salePriceUsd": null,
+      "onSale": false,
+      "available": true,
+      "shortDescription": "Long-life rechargeable lithium battery for REVEAL cellular cameras. USB-C charging. Eliminates battery waste.",
+      "descriptionFormatted": "Tactacam’s REVEAL Lithium Cartridge is a long-life rechargeable battery that eliminates battery waste and provides replenishable power to REVEAL cellular cameras. The Cartridge is conveniently charged with the included 5V USB-C cable. *Not compatible with REVEAL Gen 1 models.",
+      "primaryImage": "/products/lithium-battery/lithium-battery-hero-1024.avif",
+      "images": [
+        {
+          "src": "/products/lithium-battery/lithium-battery-hero-1024.avif",
+          "alt": "Tactacam Reveal lithium battery cartridge bottom view"
+        },
+        {
+          "src": "/products/lithium-battery/lithium-battery-alt-1-1024.avif",
+          "alt": "Tactacam Reveal lithium battery cartridge front view"
+        }
+      ],
+      "paymentLinkUrl": "about:blank#TODO-create-stripe-link-LTH-RCH-BTT-CRT",
+      "bagTag": [
+        {
+          "label": "TYPE",
+          "value": "LITHIUM"
+        },
+        {
+          "label": "CHARGE",
+          "value": "USB-C"
+        },
+        {
+          "label": "RUNTIME",
+          "value": "90",
+          "unit": "DAYS"
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "sku": "DJS-CMR-STK",
+      "slug": "camera-stake",
+      "legacyOlsSlug": "adjustable-camera-stake",
+      "displayName": "Adjustable Camera Stake",
+      "category": "tactacam",
+      "priceUsd": "49.99",
+      "salePriceUsd": null,
+      "onSale": false,
+      "available": true,
+      "shortDescription": "Telescopic ground-mount stake for REVEAL cellular cameras. 20\"-54\" height adjustment, no tools required.",
+      "descriptionFormatted": "Tactacam’s REVEAL Adjustable Camera Stake is a secure telescopic mounting stick for ground installation of your REVEAL cellular camera. Its steel body provides secure footing with 20\"-54\" camera height adjustment. Both the center spike and detachable side arm are rotatable, offering enhanced adjustability. Easy setup; no tools required.",
+      "primaryImage": "/products/camera-stake/camera-stake-hero-1024.avif",
+      "images": [
+        {
+          "src": "/products/camera-stake/camera-stake-hero-1024.avif",
+          "alt": "Tactacam Reveal adjustable camera stake front view"
+        },
+        {
+          "src": "/products/camera-stake/camera-stake-alt-1-1024.avif",
+          "alt": "Adjustable camera stake in field, front angle"
+        },
+        {
+          "src": "/products/camera-stake/camera-stake-alt-2-1024.avif",
+          "alt": "Adjustable camera stake in field, side view"
+        }
+      ],
+      "paymentLinkUrl": "about:blank#TODO-create-stripe-link-DJS-CMR-STK",
+      "bagTag": [
+        {
+          "label": "HEIGHT",
+          "value": "20-54",
+          "unit": "IN"
+        },
+        {
+          "label": "BODY",
+          "value": "STEEL"
+        },
+        {
+          "label": "SETUP",
+          "value": "NO TOOLS"
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "sku": "XTR-SLR-PNL",
+      "slug": "solar-panel",
+      "legacyOlsSlug": "external-solar-panel",
+      "displayName": "External Solar Panel",
+      "category": "tactacam",
+      "priceUsd": "59.99",
+      "salePriceUsd": null,
+      "onSale": false,
+      "available": true,
+      "shortDescription": "12V external solar panel for all REVEAL camera models. Integrated rechargeable lithium system keeps your camera running indefinitely.",
+      "descriptionFormatted": "Tactacam’s REVEAL 12V External Solar Panel provides power to all models of REVEAL cellular cameras. With its integrated rechargeable lithium system, the Panel eliminates battery waste and is equipped to keep your camera powered, even if your camera’s internal batteries are drained.",
+      "primaryImage": "/products/solar-panel/solar-panel-hero-1024.avif",
+      "images": [
+        {
+          "src": "/products/solar-panel/solar-panel-hero-1024.avif",
+          "alt": "Tactacam Reveal external solar panel front view"
+        }
+      ],
+      "paymentLinkUrl": "about:blank#TODO-create-stripe-link-XTR-SLR-PNL",
+      "bagTag": [
+        {
+          "label": "VOLTAGE",
+          "value": "12",
+          "unit": "V"
+        },
+        {
+          "label": "COMPAT",
+          "value": "ALL",
+          "unit": "RVLX"
+        },
+        {
+          "label": "RUNTIME",
+          "value": "INFIN"
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "sku": "TXS-WLD-SPP-2",
+      "slug": "tws-2000lb-gravity-feeder",
+      "legacyOlsSlug": "txs-wld-spp-2",
+      "displayName": "TWS 2,000LB Gravity Protein Feeder w/ Ladder & Catwalk",
+      "category": "deer-feeders",
+      "priceUsd": "1999.99",
+      "salePriceUsd": null,
+      "onSale": false,
+      "available": true,
+      "shortDescription": "Texas Wildlife Supply 2,000lb gravity protein feeder with ladder and catwalk — the serious property manager’s feeder.",
+      "descriptionFormatted": "Texas Wildlife Supply 2,000lb Gravity Protein Feeder with Ladder & Catwalk. Built for serious habitat management. Gravity-fed design handles 2,000 lbs of protein feed. Includes ladder and catwalk for easy filling.",
+      "primaryImage": "/products/tws-2000lb-gravity-feeder/tws-2000lb-gravity-feeder-hero-1024.avif",
+      "images": [
+        {
+          "src": "/products/tws-2000lb-gravity-feeder/tws-2000lb-gravity-feeder-hero-1024.avif",
+          "alt": "TWS 2,000lb gravity protein feeder with ladder and catwalk"
+        }
+      ],
+      "paymentLinkUrl": "about:blank#TODO-create-stripe-link-TXS-WLD-SPP-2",
+      "bagTag": [
+        {
+          "label": "CAPACITY",
+          "value": "2000",
+          "unit": "LB"
+        },
+        {
+          "label": "TYPE",
+          "value": "GRAVITY"
+        },
+        {
+          "label": "INCL",
+          "value": "LADDER"
+        }
+      ],
+      "weight": "220 LB"
+    },
+    {
+      "id": 16,
+      "sku": "TXS-WLD-SPP-600",
+      "slug": "tws-600lb-gravity-feeder",
+      "legacyOlsSlug": "txs-wld-spp-600",
+      "displayName": "TWS 600LB Protein Gravity Feeder",
+      "category": "deer-feeders",
+      "priceUsd": "999.99",
+      "salePriceUsd": null,
+      "onSale": false,
+      "available": true,
+      "shortDescription": "Texas Wildlife Supply 600lb gravity protein feeder — rugged construction for year-round property management.",
+      "descriptionFormatted": "Texas Wildlife Supply 600lb Protein Gravity Feeder. Rugged construction, designed for year-round property management. Gravity-fed design with a 600lb capacity.",
+      "primaryImage": "/products/tws-600lb-gravity-feeder/tws-600lb-gravity-feeder-hero-1024.avif",
+      "images": [
+        {
+          "src": "/products/tws-600lb-gravity-feeder/tws-600lb-gravity-feeder-hero-1024.avif",
+          "alt": "TWS 600lb protein gravity feeder"
+        }
+      ],
+      "paymentLinkUrl": "about:blank#TODO-create-stripe-link-TXS-WLD-SPP-600",
+      "bagTag": [
+        {
+          "label": "CAPACITY",
+          "value": "600",
+          "unit": "LB"
+        },
+        {
+          "label": "TYPE",
+          "value": "GRAVITY"
+        },
+        {
+          "label": "MATERIAL",
+          "value": "STEEL"
+        }
+      ],
+      "weight": "120 LB"
+    },
+    {
+      "id": 17,
+      "sku": "TXS-WLD-SPP-6001",
+      "slug": "tws-600lb-lucky-buck-spin",
+      "legacyOlsSlug": "txs-wld-spp-6001",
+      "displayName": "TWS 600LB Lucky Buck Spin Feeder",
+      "category": "deer-feeders",
+      "priceUsd": "999.99",
+      "salePriceUsd": null,
+      "onSale": false,
+      "available": true,
+      "shortDescription": "Texas Wildlife Supply 600lb Lucky Buck spin feeder — timer-controlled spin delivery for optimized feed attraction.",
+      "descriptionFormatted": "Texas Wildlife Supply 600lb Lucky Buck Spin Feeder. Timer-controlled spin delivery system optimizes feed attraction patterns. 600lb capacity with heavy-duty steel construction.",
+      "primaryImage": "/products/tws-600lb-lucky-buck-spin/tws-600lb-lucky-buck-spin-hero-1024.avif",
+      "images": [
+        {
+          "src": "/products/tws-600lb-lucky-buck-spin/tws-600lb-lucky-buck-spin-hero-1024.avif",
+          "alt": "TWS 600lb Lucky Buck spin feeder"
+        }
+      ],
+      "paymentLinkUrl": "about:blank#TODO-create-stripe-link-TXS-WLD-SPP-6001",
+      "bagTag": [
+        {
+          "label": "CAPACITY",
+          "value": "600",
+          "unit": "LB"
+        },
+        {
+          "label": "TYPE",
+          "value": "SPIN"
+        },
+        {
+          "label": "TIMER",
+          "value": "INCL"
+        }
+      ],
+      "weight": "115 LB"
+    },
+    {
+      "id": 18,
+      "sku": "TXS-WLD-SPP-21",
+      "slug": "tws-2000lb-spin-feeder",
+      "legacyOlsSlug": "txs-wld-spp-21",
+      "displayName": "TWS 2,000LB Spin Feeder",
+      "category": "deer-feeders",
+      "priceUsd": "1699.99",
+      "salePriceUsd": null,
+      "onSale": false,
+      "available": true,
+      "shortDescription": "Texas Wildlife Supply 2,000lb spin feeder — maximum capacity for large properties with high deer density.",
+      "descriptionFormatted": "Texas Wildlife Supply 2,000lb Spin Feeder. Maximum capacity spin delivery for large properties and high deer density management. Heavy-duty steel with timer-controlled spin system.",
+      "primaryImage": "/products/tws-2000lb-spin-feeder/tws-2000lb-spin-feeder-hero-1024.avif",
+      "images": [
+        {
+          "src": "/products/tws-2000lb-spin-feeder/tws-2000lb-spin-feeder-hero-1024.avif",
+          "alt": "TWS 2,000lb spin feeder"
+        }
+      ],
+      "paymentLinkUrl": "about:blank#TODO-create-stripe-link-TXS-WLD-SPP-21",
+      "bagTag": [
+        {
+          "label": "CAPACITY",
+          "value": "2000",
+          "unit": "LB"
+        },
+        {
+          "label": "TYPE",
+          "value": "SPIN"
+        },
+        {
+          "label": "TIMER",
+          "value": "INCL"
+        }
+      ],
+      "weight": "200 LB"
+    }
+  ]
+}
