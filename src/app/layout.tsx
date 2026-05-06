@@ -5,6 +5,8 @@ import '@/styles/globals.css';
 import { MotionProvider } from '@/components/motion/MotionProvider';
 import { RouteChangeTracker } from '@/components/composite/RouteChangeTracker';
 import { TrustedSiteBadge } from '@/components/composite/TrustedSiteBadge';
+import { NavBar } from '@/components/composite/NavBar';
+import { Footer } from '@/components/composite/Footer';
 // Pattern: MotionProvider is imported directly (not via dynamic() with ssr:false).
 // layout.tsx is an RSC; importing a 'use client' component from an RSC is valid —
 // Next.js App Router handles the boundary. MotionProvider's Lenis init runs inside
@@ -160,7 +162,9 @@ export default function RootLayout({
         <MotionProvider>
           {/* Route-change tracker: fires trackPageView on every App Router navigation */}
           <RouteChangeTracker />
+          <NavBar />
           {children}
+          <Footer />
         </MotionProvider>
 
         {/*
