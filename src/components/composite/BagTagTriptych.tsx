@@ -100,6 +100,7 @@ function StatPanel({ stat, index, reducedMotion }: StatPanelProps) {
 
   return (
     <m.div
+      data-testid="bag-tag"
       className="flex flex-col items-center justify-center gap-2 px-4 py-6"
       initial="hidden"
       whileInView="visible"
