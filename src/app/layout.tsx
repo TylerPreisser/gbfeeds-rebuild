@@ -67,7 +67,7 @@ export const metadata: Metadata = {
   },
   description:
     "A small batch specialty deer feed company that specializes in creating the world's best deer feeds for the world's best deer hunters.",
-  metadataBase: new URL(process.env['NEXT_PUBLIC_SITE_URL'] ?? 'https://gbfeeds.com'),
+  metadataBase: new URL(process.env['NEXT_PUBLIC_SITE_URL'] || 'https://gbfeeds.com'),
   alternates: {
     canonical: '/',
   },

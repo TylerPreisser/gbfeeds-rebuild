@@ -12,8 +12,9 @@ import { getAllProducts } from '@/data/products';
 import { getAllJournalSlugs } from '@/data/journal-index';
 import { getAllSeasonPhases } from '@/data/seasons';
 
-const SITE_URL =
-  process.env['NEXT_PUBLIC_SITE_URL']?.replace(/\/$/, '') ?? 'https://gbfeeds.com';
+const SITE_URL = (
+  process.env['NEXT_PUBLIC_SITE_URL'] || 'https://gbfeeds.com'
+).replace(/\/$/, '');
 
 function url(path: string): string {
   const withSlash = path.endsWith('/') ? path : `${path}/`;

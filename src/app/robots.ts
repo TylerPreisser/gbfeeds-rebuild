@@ -7,8 +7,9 @@ import type { MetadataRoute } from 'next';
 // Required for output: 'export' static export compatibility
 export const dynamic = 'force-static';
 
-const SITE_URL =
-  process.env['NEXT_PUBLIC_SITE_URL']?.replace(/\/$/, '') ?? 'https://gbfeeds.com';
+const SITE_URL = (
+  process.env['NEXT_PUBLIC_SITE_URL'] || 'https://gbfeeds.com'
+).replace(/\/$/, '');
 
 export default function robots(): MetadataRoute.Robots {
   return {

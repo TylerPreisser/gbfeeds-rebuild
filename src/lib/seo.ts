@@ -7,8 +7,9 @@ import type { Product, FAQ, Testimonial, JournalEntry } from '@/types/product';
 
 // ─── Site constants ───────────────────────────────────────────────────────────
 
-const SITE_URL =
-  process.env['NEXT_PUBLIC_SITE_URL']?.replace(/\/$/, '') ?? 'https://gbfeeds.com';
+const SITE_URL = (
+  process.env['NEXT_PUBLIC_SITE_URL'] || 'https://gbfeeds.com'
+).replace(/\/$/, '');
 
 const SITE_NAME = 'GB Feeds';
 
