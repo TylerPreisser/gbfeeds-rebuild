@@ -43,21 +43,23 @@ export default defineConfig({
       name: 'chromium-desktop',
       use: { ...devices['Desktop Chrome'] },
     },
-    {
-      name: 'mobile-iphone-14',
-      use: { ...devices['iPhone 14'] },
-    },
-    {
-      name: 'mobile-pixel-7',
-      use: { ...devices['Pixel 7'] },
-    },
-    {
-      name: 'reduced-motion',
-      // reducedMotion is a valid BrowserContext option; cast is required
-      // because @playwright/test 1.51.x UseOptions types do not surface it
-      // at the top level (it lives on BrowserContextOptions).
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      use: { ...devices['Desktop Chrome'], reducedMotion: 'reduce' } as any,
-    },
+    // Mobile (iPhone 14, Pixel 7) + reduced-motion projects are gated to
+    // local opt-in (`PLAYWRIGHT_FULL_MATRIX=1 npm run test:e2e`) for now.
+    // The CI smoke gate runs chromium-desktop only — stub-level tests
+    // verify HTML presence, not cross-browser behavior. Mobile + a11y
+    // QA happens via the ui-mobile inspector during the QA loop.
+    ...(process.env.PLAYWRIGHT_FULL_MATRIX
+      ? [
+          { name: 'mobile-iphone-14', use: { ...devices['iPhone 14'] } },
+          { name: 'mobile-pixel-7', use: { ...devices['Pixel 7'] } },
+          {
+            name: 'reduced-motion',
+            // reducedMotion is a BrowserContext option; cast required for
+            // @playwright/test 1.51.x types (lives on BrowserContextOptions).
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            use: { ...devices['Desktop Chrome'], reducedMotion: 'reduce' } as any,
+          },
+        ]
+      : []),
   ],
 });

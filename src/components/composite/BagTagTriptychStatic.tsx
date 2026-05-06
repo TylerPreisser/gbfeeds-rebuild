@@ -57,6 +57,7 @@ export function BagTagTriptychStatic({
         {stats.map((stat) => (
           <div
             key={stat.label}
+            data-testid="bag-tag"
             className="flex flex-col items-center justify-center gap-2 px-4 py-6"
           >
             {/* Giant value — same clamp as animated version */}
