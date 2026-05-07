@@ -76,7 +76,7 @@ export function NavBar() {
       <div className="max-w-[88rem] mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* ═════════════ DESKTOP (lg+) ═════════════ */}
-        <div className="hidden lg:flex items-center justify-between h-24">
+        <div className="hidden lg:flex items-center justify-between h-20">
 
           {/* Logo (left) */}
           <NextLink

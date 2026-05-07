@@ -126,7 +126,10 @@ export function ProductsIndex({ products }: ProductsIndexProps) {
                     data-cat={product.category}
                     className="h-full"
                   >
-                    <ProductCard product={product} priority={i < 3} />
+                    {/* Eager-load all 16 cards — the grid is the primary content
+                        of /products and the page is short enough that lazy-loading
+                        cards 4-16 produced blank-tile screenshots in the audit. */}
+                    <ProductCard product={product} priority={i < 6} />
                   </div>
                 ))}
               </div>

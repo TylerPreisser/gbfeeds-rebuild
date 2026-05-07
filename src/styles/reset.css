@@ -146,5 +146,12 @@
   */
   html {
     line-height: 1.5;
+    /* Prevent horizontal scrollbars from off-canvas elements (mobile drawer
+       trigger, sticky bars). overflow-x: clip ensures children that extend
+       beyond the viewport via translateX(-100%) don't add to the layout width. */
+    overflow-x: clip;
+  }
+  body {
+    overflow-x: clip;
   }
 }
