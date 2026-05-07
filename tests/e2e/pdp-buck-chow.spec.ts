@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 /**
  * Smoke spec: Buck Chow 40lb PDP (/products/buck-chow-40lb/)
  *
- * Critical path: Product detail page renders → BagTag triptych visible.
+ * Critical path: Product detail page renders → product identity + CTA visible.
  * Ref: 05_architecture.md § C, Test Case 5 (pdp-buck-chow.spec.ts).
  *
  * NOTE: This is a stub-level smoke test. The full Case 5 spec adds:
@@ -24,20 +24,18 @@ test.describe('Buck Chow 40lb PDP smoke', () => {
     expect(h1Count).toBe(1);
   });
 
-  test('/products/buck-chow-40lb/ renders BagTag triptych (3 panels)', async ({
+  test('/products/buck-chow-40lb/ renders expected product content', async ({
     page,
   }) => {
-    // Wait for full hydration so BagTagTriptychLoader's static→animated swap settles.
     await page.goto('/products/buck-chow-40lb/', { waitUntil: 'networkidle' });
 
-    // BagTagTriptych renders 3 panels with data-testid="bag-tag".
-    // Both Static (SSR) and Animated (post-hydration) variants carry the testid.
-    const bagTags = page.locator('[data-testid="bag-tag"]');
-
-    // DOM-presence-only check — Playwright's toBeVisible races framer-motion's
-    // initial="hidden" + whileInView animation in the animated variant. The
-    // panels are always in the DOM regardless of animation state.
-    await expect(bagTags).toHaveCount(3, { timeout: 10_000 });
+    await expect(
+      page.getByRole('heading', {
+        level: 1,
+        name: /Buck Chow High Protein Feed/i,
+      }),
+    ).toBeVisible();
+    await expect(page.getByText('$19.99').first()).toBeVisible();
   });
 
   test('/products/buck-chow-40lb/ has a CTA link (Buy Now or phone fallback)', async ({

@@ -160,7 +160,7 @@ jobs:
 
       - name: Serve out/ and run E2E tests
         run: |
-          npx serve -s out -p 4173 --no-clipboard &
+          npx serve out -p 4173 --no-clipboard &
           SERVE_PID=$!
           # Wait for server to be ready
           npx wait-on http://localhost:4173 --timeout 30000
@@ -202,7 +202,7 @@ jobs:
           path: out/
 
       - name: Serve out/ for Lighthouse
-        run: npx serve -s out -p 4173 --no-clipboard &
+        run: npx serve out -p 4173 --no-clipboard &
 
       - name: Wait for server
         run: npx wait-on http://localhost:4173 --timeout 30000

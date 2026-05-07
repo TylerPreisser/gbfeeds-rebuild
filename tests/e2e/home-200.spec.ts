@@ -21,11 +21,11 @@ test.describe('Home page smoke', () => {
     const h1Count = await page.locator('h1').count();
     expect(h1Count).toBe(1);
 
-    // h1 text must contain the brand-critical string "DEER FEEDS".
+    // h1 text must contain the brand-critical string "GB Feeds".
     // This guards against a catastrophic brand/content regression
     // (e.g., wrong page served, build corruption, wrong data bake).
     const h1Text = await page.locator('h1').textContent();
-    expect(h1Text).toContain('DEER FEEDS');
+    expect(h1Text).toContain('GB Feeds');
   });
 
   test('/ has a canonical link tag pointing to the site origin', async ({ page }) => {

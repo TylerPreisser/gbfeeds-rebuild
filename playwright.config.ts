@@ -5,7 +5,7 @@ import { defineConfig, devices } from '@playwright/test';
  * Tests run against `out/` served by `npx serve` on :4173.
  *
  * CI usage:
- *   npx serve -s out -p 4173 --no-clipboard &
+ *   npx serve out -p 4173 --no-clipboard &
  *   npm run test:e2e
  *
  * Local usage (webServer auto-starts if not running):
@@ -32,7 +32,7 @@ export default defineConfig({
   // Auto-start `serve` in local dev when not already running.
   // In CI, the serve process is started manually before `playwright test`.
   webServer: {
-    command: 'npx serve -s out -p 4173 --no-clipboard',
+    command: 'npx serve out -p 4173 --no-clipboard',
     url: 'http://localhost:4173',
     reuseExistingServer: true,
     timeout: 60_000,
