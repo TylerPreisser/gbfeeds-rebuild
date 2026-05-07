@@ -155,13 +155,30 @@ export function HomePage({ harvests }: HomePageProps) {
               FEATURED PRODUCTS
             </Heading>
 
-            {/* Featured products grid — the three core feed cards only. */}
+            {/* Featured products grid — the three core feed cards only.
+                Mobile: horizontal-scroll snap row (swipeable, no arrows).
+                Desktop (md+): auto-fit grid, 3 columns at ~68rem container.
+                -mx-6 px-6 gives bleed-to-edge with inset start; pb-2 reserves
+                room so the scrollbar doesn't clip card shadows on mobile. */}
             <div
-              className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,20rem),1fr))] gap-5 lg:gap-6 max-w-[68rem] mx-auto"
+              className={[
+                /* ── Mobile: horizontal scroll row ── */
+                'flex gap-4 overflow-x-auto snap-x snap-mandatory -mx-6 px-6 pb-2',
+                /* ── md+: revert to the existing auto-fit grid ── */
+                'md:overflow-visible md:grid md:gap-5 lg:gap-6',
+                'md:[grid-template-columns:repeat(auto-fit,minmax(20rem,1fr))]',
+                'md:max-w-[68rem] md:mx-auto md:px-0 md:pb-0',
+              ].join(' ')}
               aria-label="Featured GB Feeds products"
             >
               {featuredProducts.map((product, i) => (
-                <div key={product.slug} className="h-full">
+                /* Mobile: fixed-width snap target (72vw ≈ ~3 cards with bleed peek,
+                   capped at 20rem so it doesn't over-expand on tablet).
+                   Desktop (md+): normal flow inside grid. */
+                <div
+                  key={product.slug}
+                  className="flex-none basis-[72vw] max-w-[20rem] snap-start md:flex-auto md:basis-auto md:max-w-none md:h-full"
+                >
                   <ProductCard product={product} priority={i < 3} density="compact" />
                 </div>
               ))}
