@@ -6,7 +6,6 @@
 
 import { Container } from '@/components/atomic/Container';
 import { Heading } from '@/components/atomic/Heading';
-import { Text } from '@/components/atomic/Text';
 import { Rule } from '@/components/atomic/Rule';
 import { PaperGrain } from '@/components/decoration/PaperGrain';
 import { testimonials } from '@/data/testimonials';
@@ -40,13 +39,6 @@ export function CustomerReviewsPage() {
             No paid sponsorships, no famous TV personalities — just real
             hunters sharing real success stories.
           </Heading>
-          <Text
-            variant="body-lg"
-            className="text-center max-w-2xl mx-auto text-[var(--color-ink-muted)] leading-[1.5]"
-          >
-            22 verbatim testimonials from the gbfeeds.com customer-review
-            page. First-name attribution only. No edits.
-          </Text>
         </Container>
       </section>
 
