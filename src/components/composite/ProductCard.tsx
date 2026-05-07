@@ -90,7 +90,7 @@ export function ProductCard({
           min-h on the heading keeps 1-line and 2-line titles producing same card height. */}
       <div className={cn(
         'flex flex-1 flex-col border-t border-[var(--color-rule)]',
-        isCompact ? 'gap-1.5 p-3 sm:p-4' : 'gap-2 p-4',
+        isCompact ? 'gap-1.5 p-3 sm:p-4' : 'gap-2 p-3 md:p-4',
       )}>
         <Heading
           as="h3"
@@ -99,7 +99,7 @@ export function ProductCard({
             'line-clamp-3 tracking-[0.01em] flex-1 leading-[1.05]',
             isCompact
               ? 'text-[clamp(0.9375rem,0.88rem+0.25vw,1.125rem)] min-h-[2.25em]'
-              : 'text-[clamp(1.125rem,0.95rem+0.55vw,1.5rem)] min-h-[3em]',
+              : 'text-[clamp(0.875rem,0.8rem+0.4vw,1.5rem)] min-h-[2.5em] md:min-h-[3em]',
           )}
         >
           <a

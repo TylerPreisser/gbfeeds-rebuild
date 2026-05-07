@@ -116,7 +116,7 @@ export function ProductsIndex({ products }: ProductsIndexProps) {
             <div className="lg:col-span-10">
               <div
                 id={PRODUCT_GRID_ID}
-                className="grid gap-5 grid-cols-1 sm:grid-cols-2 xl:grid-cols-4"
+                className="grid grid-cols-2 gap-3 sm:grid-cols-2 sm:gap-5 xl:grid-cols-4"
                 data-active-cat="all"
                 aria-label="Products"
               >
