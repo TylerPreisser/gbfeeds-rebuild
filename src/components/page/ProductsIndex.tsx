@@ -1,7 +1,13 @@
 // src/components/page/ProductsIndex.tsx
 // RSC shell for /products page.
+// Layout matches gbfeeds.com original:
+//   1. Slim banner image at the top (no oversized hero, no centered headline block)
+//   2. Page heading + product count stamp
+//   3. Two-column on lg+: left = vertical filter rail | right = product grid
+//      Mobile: filter rail collapses to a horizontal-scroll chip strip above the grid
+//
 // All 16 product cards render as static HTML — fully crawlable.
-// Only the filter chips are in a Suspense boundary (they call useSearchParams).
+// Only the filter rail's active state is in a Suspense boundary (uses useSearchParams).
 // Boundary: page/ imports composite/ + atomic/ + decoration/ + lib/ + types/.
 
 import { Suspense } from 'react';
@@ -11,10 +17,8 @@ import { Text } from '@/components/atomic/Text';
 import { Container } from '@/components/atomic/Container';
 import { Section } from '@/components/atomic/Section';
 import { Rule } from '@/components/atomic/Rule';
-import { Image } from '@/components/atomic/Image';
 import { PaperGrain } from '@/components/decoration/PaperGrain';
-import { HairlineRules } from '@/components/decoration/HairlineRules';
-import { ProductFilterChips } from '@/components/composite/ProductFilterChips';
+import { ProductFilterRail } from '@/components/composite/ProductFilterRail';
 import { ProductCard } from '@/components/composite/ProductCard';
 
 interface ProductsIndexProps {
@@ -25,124 +29,117 @@ const CATEGORY_LABELS: Record<Category, string> = {
   'deer-feed': 'Deer Feed',
   'deer-feeders': 'Feeders',
   apparel: 'Apparel',
-  tactacam: 'Tactacam',
+  tactacam: 'Tactacam Reveal',
 };
 
 const CATEGORIES: Category[] = ['deer-feed', 'deer-feeders', 'tactacam', 'apparel'];
 
-/** Stable DOM id used to link the chips client island to the static product grid. */
+/** Stable DOM id used to link the filter island to the static product grid. */
 const PRODUCT_GRID_ID = 'product-grid';
 
-/**
- * <ProductsIndex> — RSC shell for the /products page.
- *
- * Architecture:
- *   - All 16 product cards are static RSC HTML (crawlable, no JS required).
- *   - <ProductFilterChips> is a thin client island (useSearchParams) in a
- *     Suspense boundary — Suspense wraps ONLY the chips, not the product grid.
- *   - On hydration, ProductFilterChips reads ?cat= and sets data-active-cat
- *     on the grid div; CSS rules in product-filter.css hide non-matching cards.
- *   - Without JS, all 16 cards are visible (no-JS graceful degradation).
- *   - With JS, category chips filter the visible cards via CSS only (no re-render).
- */
 export function ProductsIndex({ products }: ProductsIndexProps) {
-  const categoryChips = CATEGORIES.map((cat) => ({
+  const categoryItems = CATEGORIES.map((cat) => ({
     value: cat,
     label: CATEGORY_LABELS[cat],
+    count: products.filter((p) => p.category === cat).length,
   }));
 
   return (
     <main id="main-content" className="bg-[var(--color-paper)]">
       <PaperGrain />
 
-      {/* ── PAGE HERO ────────────────────────────────────────────────────── */}
+      {/* ── 1. SLIM PAGE BANNER ──────────────────────────────────────────── */}
       <section
-        className="relative bg-[var(--color-paper-2)] border-b border-[var(--color-rule)] overflow-hidden"
-        aria-label="Products page header"
+        className="relative overflow-hidden bg-[var(--color-ink)]"
+        aria-label="Products page banner"
+        style={{ height: 'clamp(180px, 28vh, 320px)' }}
       >
-        <HairlineRules />
-        <PaperGrain />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/photos/lifestyle/lifestyle-img-3622.webp"
+          alt=""
+          width={1919}
+          height={2560}
+          className="absolute inset-0 w-full h-full object-cover object-center opacity-70"
+          loading="eager"
+        />
+        <div
+          className="absolute inset-0"
+          aria-hidden="true"
+          style={{
+            background:
+              'linear-gradient(to bottom, rgba(15,14,11,0.35) 0%, rgba(15,14,11,0.55) 100%)',
+          }}
+        />
         <Container>
-          <div className="mx-auto flex max-w-5xl flex-col items-center gap-8 py-12 text-center md:py-18">
-            <div className="max-w-3xl">
-              <p className="font-mono text-mono-xs tracking-[0.04em] uppercase text-[var(--color-ink-quiet)] mb-4">
-                MANHATTAN, KS / EST. 2017 / ALL PRODUCTS
-              </p>
-              <Heading as="h1" size="display-lg" className="mb-4">
-                Products
-              </Heading>
-              <Text variant="body-lg" className="mx-auto max-w-2xl text-[var(--color-ink-muted)]">
-                Buck Chow. Corn Candy. Trail cameras. Feeders. Everything we carry
-                is tested right here in Kansas.
-              </Text>
-
-              <div className="mx-auto mt-8 grid max-w-2xl grid-cols-3 gap-px bg-[var(--color-rule)] font-mono text-mono-xs tracking-[0.04em] uppercase text-[var(--color-ink-muted)]">
-                <span className="bg-[var(--color-paper)] px-3 py-3">16 SKUs</span>
-                <span className="bg-[var(--color-paper)] px-3 py-3">20% Protein</span>
-                <span className="bg-[var(--color-paper)] px-3 py-3">Ships US</span>
-              </div>
-            </div>
-
-            <div className="grid w-full max-w-3xl grid-cols-2 gap-4">
-              <figure className="overflow-hidden border border-[var(--color-rule)] bg-[var(--color-paper-3)]">
-                <Image
-                  src="/products/buck-chow-40lb/buck-chow-40lb-hero-1024.webp"
-                  alt="Buck Chow High Protein Feed bag"
-                  width={1024}
-                  height={1247}
-                  className="h-64 w-full object-contain p-6 md:h-80"
-                  priority
-                />
-              </figure>
-              <figure className="overflow-hidden border border-[var(--color-rule)] bg-[var(--color-paper-3)]">
-                <Image
-                  src="/products/corn-candy-7lb/corn-candy-7lb-hero-1024.webp"
-                  alt="Corn Candy Flavored Attractant bag"
-                  width={1024}
-                  height={1612}
-                  className="h-64 w-full object-contain p-6 md:h-80"
-                  priority
-                />
-              </figure>
-            </div>
+          <div className="relative z-10 flex h-full flex-col items-center justify-center text-center pt-16 pb-12">
+            <p className="font-mono text-mono-xs tracking-[0.06em] uppercase text-white/80 mb-3">
+              Manhattan, KS · Est. 2017 · Field-Tested
+            </p>
+            <Heading
+              as="h1"
+              size="display-lg"
+              className="text-white"
+            >
+              All Products
+            </Heading>
           </div>
         </Container>
       </section>
 
       <Rule weight="hair" />
 
-      {/* ── FILTER CHIPS + STATIC PRODUCT GRID ──────────────────────────── */}
-      <Section bg="paper" className="py-10 md:py-16">
+      {/* ── 2. CATALOG ──────────────────────────────────────────────────── */}
+      <Section bg="paper" className="py-12 md:py-16 lg:py-20">
         <Container>
-          {/* Suspense wraps ONLY the chips island (useSearchParams).
-              The static product grid below is outside this boundary. */}
-          <Suspense fallback={<div className="mb-8 h-10" aria-hidden="true" />}>
-            <ProductFilterChips
-              categoryChips={categoryChips}
-              gridId={PRODUCT_GRID_ID}
-            />
-          </Suspense>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
 
-          <Rule weight="hair" className="mb-8" />
-
-          {/* Static product grid — all 16 cards always in HTML.
-              data-active-cat is set to "all" by default; the chips client island
-              updates it via useEffect when ?cat= changes.
-              CSS in product-filter.css hides [data-cat] children that don't match. */}
-          <div
-            id={PRODUCT_GRID_ID}
-            className="grid gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
-            data-active-cat="all"
-            aria-label="Products"
-          >
-            {products.map((product, i) => (
-              <div key={product.slug} data-cat={product.category}>
-                <ProductCard
-                  product={product}
-                  priority={i < 4}
+            {/* LEFT — vertical filter rail (lg+); horizontal scroll chip strip on <lg */}
+            <aside
+              className="lg:col-span-3"
+              aria-label="Filter products by category"
+            >
+              <Suspense
+                fallback={
+                  <div className="h-12 lg:h-80" aria-hidden="true" />
+                }
+              >
+                <ProductFilterRail
+                  items={categoryItems}
+                  totalCount={products.length}
+                  gridId={PRODUCT_GRID_ID}
                 />
+              </Suspense>
+            </aside>
+
+            {/* RIGHT — static product grid (always 16 cards in HTML) */}
+            <div className="lg:col-span-9">
+              <div
+                id={PRODUCT_GRID_ID}
+                className="grid gap-5 grid-cols-1 sm:grid-cols-2 xl:grid-cols-3"
+                data-active-cat="all"
+                aria-label="Products"
+              >
+                {products.map((product, i) => (
+                  <div
+                    key={product.slug}
+                    data-cat={product.category}
+                    className="h-full"
+                  >
+                    <ProductCard product={product} priority={i < 3} />
+                  </div>
+                ))}
               </div>
-            ))}
+
+              {/* Empty-state hint (only shown when filter hides every card) */}
+              <Text
+                variant="body-md"
+                className="mt-12 hidden text-center text-[var(--color-ink-quiet)] empty-state"
+                aria-hidden="true"
+              >
+                No products in this category right now — check back soon.
+              </Text>
+            </div>
           </div>
         </Container>
       </Section>
