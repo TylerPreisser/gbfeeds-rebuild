@@ -49,7 +49,7 @@ export function WhyGBFeedsPage() {
               {[
                 { src: '/photos/gallery/blob-478b3b7.webp', alt: 'Boy with trophy buck and Corn Candy jug' },
                 { src: '/photos/gallery/blob-8085ecb.webp', alt: 'Customer trophy buck collage' },
-                { src: '/photos/lifestyle/lifestyle-img-4172.webp', alt: 'Hunter with harvested whitetail' },
+                { src: '/photos/lifestyle/lifestyle-img-0001.webp', alt: 'Hunter with trophy mule deer at night' },
                 { src: '/photos/lifestyle/lifestyle-img-4433-1.webp', alt: 'Trophy whitetail in Kansas field' },
               ].map((photo) => (
                 <div key={photo.src} className="aspect-square overflow-hidden">
@@ -131,12 +131,12 @@ export function WhyGBFeedsPage() {
         <Container>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
 
-            {/* Left — corn / feed pellet macro photo */}
+            {/* Left — Buck Chow grain blend macro */}
             <div className="overflow-hidden aspect-[4/3]">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/photos/lifestyle/lifestyle-img-4215.webp"
-                alt="Close-up of golden corn feed pellets — GB Feeds quality ingredients"
+                src="/photos/lifestyle/lifestyle-a733367.webp"
+                alt="Close-up of the Buck Chow grain blend — GB Feeds quality ingredients"
                 width={800}
                 height={600}
                 className="w-full h-full object-cover"
@@ -184,12 +184,12 @@ export function WhyGBFeedsPage() {
               </Text>
             </div>
 
-            {/* Right — customer thank-you / trail-cam photo */}
-            <div className="overflow-hidden aspect-[4/3] lg:order-2">
+            {/* Right — handwritten customer thank-you note on a Buck Chow bag */}
+            <div className="overflow-hidden aspect-[4/3] lg:order-2 bg-[var(--color-paper-3)]">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/photos/lifestyle/lifestyle-img-4439.webp"
-                alt="Hunter at a GB Feeds station — the kind of customer relationship we earn one bag at a time"
+                src="/photos/gallery/blob-b7a2223.webp"
+                alt="Handwritten thank-you note from GB Feeds tied to a Buck Chow bag"
                 width={800}
                 height={600}
                 className="w-full h-full object-cover"

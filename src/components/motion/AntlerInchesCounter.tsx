@@ -38,42 +38,32 @@ export function AntlerInchesCounter({
   className,
 }: AntlerInchesCounterProps) {
   const reducedMotion = useReducedMotion();
-  // SSR + first paint: render the FINAL value so crawlers + non-JS users see
-  // the real number AND so the screenshot/initial-paint state isn't a flash of 0.
-  // After mount: if motion is allowed AND we haven't animated yet, drop to 0
-  // then start the IO-driven tween up. The mid-flight transition uses a single
-  // rAF tick so users perceive an "engaging count-up", not a stuttering reset.
-  const [displayValue, setDisplayValue] = useState<number>(total);
+  // Two-state pattern that avoids the "0 flash" problem entirely:
+  //   - hasStartedAnimating: false on SSR + before IO fires + when reduced-motion
+  //   - animatedValue: the rAF-driven 0→total value during animation
+  // While not animating, we render `total` directly. Animation only kicks in
+  // when IO fires (user scrolls into view) — at that moment we flip the flag
+  // and the rAF loop drives animatedValue from 0 up to total.
+  const [hasStartedAnimating, setHasStartedAnimating] = useState(false);
+  const [animatedValue, setAnimatedValue] = useState(0);
   const spanRef = useRef<HTMLSpanElement | null>(null);
   const hasAnimated = useRef(false);
-  const hasMounted = useRef(false);
 
-  // When reducedMotion flips true (e.g. system pref change), jump to final value
-  useEffect(() => {
-    if (reducedMotion) {
-      setDisplayValue(total);
-    }
-  }, [reducedMotion, total]);
-
-  // IO-driven one-shot tween. Drops to 0 immediately on mount (in motion mode)
-  // so the IO can drive the count-up from a clean start once we scroll into view.
+  // IO-driven one-shot tween
   useEffect(() => {
     if (reducedMotion) return;
     const el = spanRef.current;
     if (!el) return;
-
-    // Reset to 0 only once on first client mount (post-SSR) — this is the
-    // moment the user's browser takes over from the server-rendered HTML.
-    if (!hasMounted.current) {
-      hasMounted.current = true;
-      setDisplayValue(0);
-    }
 
     const obs = new IntersectionObserver(
       (entries) => {
         if (entries[0]?.isIntersecting && !hasAnimated.current) {
           hasAnimated.current = true;
           obs.disconnect();
+
+          // Flip the flag so we stop rendering `total` and start rendering
+          // animatedValue (which begins at 0).
+          setHasStartedAnimating(true);
 
           const duration = 2000; // ms
           const startTime = performance.now();
@@ -83,7 +73,7 @@ export function AntlerInchesCounter({
             const t = Math.min(1, elapsed / duration);
             // Cubic ease-out: deceleration feels satisfying for a counter
             const eased = 1 - Math.pow(1 - t, 3);
-            setDisplayValue(Math.round(eased * total));
+            setAnimatedValue(Math.round(eased * total));
             if (t < 1) {
               requestAnimationFrame(tick);
             }
@@ -98,6 +88,10 @@ export function AntlerInchesCounter({
     obs.observe(el);
     return () => obs.disconnect();
   }, [total, reducedMotion]);
+
+  // While idle (not yet scrolled into view), render `total`. Once IO fires,
+  // render the animatedValue that climbs from 0 → total.
+  const displayValue = hasStartedAnimating && !reducedMotion ? animatedValue : total;
 
   return (
     <div

@@ -101,8 +101,8 @@ export function OurStoryPage() {
             <div className="overflow-hidden aspect-[4/3] lg:order-2">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/photos/lifestyle/lifestyle-img-0018.webp"
-                alt="Trail cam still showing a giant whitetail buck in tall grass with timestamp overlay"
+                src="/photos/lifestyle/lifestyle-07eb939d-6b5c-4f14-8c4b-a476a8c5b6b8.webp"
+                alt="Customer with a Kansas whitetail at night"
                 width={800}
                 height={600}
                 className="w-full h-full object-cover"

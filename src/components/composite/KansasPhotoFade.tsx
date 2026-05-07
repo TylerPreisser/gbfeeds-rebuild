@@ -32,7 +32,7 @@ const KANSAS_VIEWBOX = '0 0 800 325';
 const KANSAS_PHOTOS = [
   { src: '/photos/gallery/blob-478b3b7.webp', alt: 'Boy with trophy buck and Corn Candy jug' },
   { src: '/photos/gallery/blob-8085ecb.webp', alt: 'Customer trophy buck collage' },
-  { src: '/photos/lifestyle/lifestyle-img-4172.webp', alt: 'Hunter with harvested whitetail' },
+  { src: '/photos/lifestyle/lifestyle-img-4215.webp', alt: 'Two hunters with mule deer + Buck Chow + Corn Candy' },
   { src: '/photos/lifestyle/lifestyle-img-4433-1.webp', alt: 'Trophy whitetail in Kansas field' },
   { src: '/photos/lifestyle/lifestyle-20231008-234054.webp', alt: 'Greg Brungardt with harvested whitetail' },
   { src: '/photos/lifestyle/lifestyle-img-1091-1.webp', alt: 'Greg with three mounted whitetail bucks' },

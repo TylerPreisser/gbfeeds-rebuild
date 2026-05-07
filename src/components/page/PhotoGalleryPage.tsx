@@ -12,67 +12,58 @@ import { PaperGrain } from '@/components/decoration/PaperGrain';
 import { GalleryLightbox } from '@/components/composite/GalleryLightbox';
 
 // All available gallery photos from public/photos/
-// Lifestyle photos come from _inherited_assets migration (Phase 6B.1)
+// Lifestyle photos for the gallery.
+// EXCLUDED:
+//   - lifestyle-luke.webp + lifestyle-luke-2.webp — both have "CUSTOMER REVIEW!"
+//     overlay text baked into the JPEG (R13 audit P0).
+//   - lifestyle-img-0018.webp — phone/trail-cam screenshot with a date/time HUD
+//     overlay reading "8 70F 08/23/2021 08:00AM CAMERA1" — looks like a bug.
+//   - lifestyle-img-4172.webp — iOS Photos app screenshot with status bar +
+//     "20221103_205923.jpg" filename caption visible at the top.
 const LIFESTYLE_PHOTOS = [
   {
     src: '/photos/lifestyle/lifestyle-img-0001.webp',
-    alt: 'Buck feeding at dusk on a Kansas property',
-  },
-  {
-    src: '/photos/lifestyle/lifestyle-img-0018.webp',
-    alt: 'Trail camera mounted on a tree in dense Kansas timber',
+    alt: 'Hunter with a trophy mule deer harvested at night in a Kansas field',
   },
   {
     src: '/photos/lifestyle/lifestyle-img-1091-1.webp',
-    alt: 'Mature 8-point buck on trail camera photo',
+    alt: 'Greg Brungardt with three mounted whitetail bucks',
   },
   {
     src: '/photos/lifestyle/lifestyle-img-3622.webp',
-    alt: 'Kansas hunting property at sunset with open fields',
-  },
-  {
-    src: '/photos/lifestyle/lifestyle-img-4172.webp',
-    alt: 'Buck Chow bag in the field next to a gravity feeder',
+    alt: 'Spin-feeder cup full of corn and Buck Chow pellets',
   },
   {
     src: '/photos/lifestyle/lifestyle-img-4215.webp',
-    alt: 'Deer tracks near a GB Feeds site in a Kansas pasture',
+    alt: 'Two hunters with a mule deer harvest, Buck Chow and Corn Candy on the field',
   },
   {
     src: '/photos/lifestyle/lifestyle-img-4433-1.webp',
-    alt: 'Multiple deer visiting a GB Feeds site at once',
+    alt: 'Archery hunter with a wide-framed whitetail in a Kansas cornfield',
   },
   {
     src: '/photos/lifestyle/lifestyle-img-4439.webp',
-    alt: 'Big-framed buck on a trail camera, pre-rut Kansas',
+    alt: 'Young hunter posed with his first Kansas whitetail',
   },
   {
     src: '/photos/lifestyle/lifestyle-img-8584.webp',
-    alt: 'Hunter glassing a Kansas tree line from a field edge',
-  },
-  {
-    src: '/photos/lifestyle/lifestyle-luke.webp',
-    alt: 'Luke with a trophy buck harvested on GB Feeds property',
-  },
-  {
-    src: '/photos/lifestyle/lifestyle-luke-2.webp',
-    alt: 'Luke posing with his Kansas trophy buck close-up',
+    alt: 'Bow hunter at a Buck Chow station with deer mid-feed',
   },
   {
     src: '/photos/lifestyle/lifestyle-a733367.webp',
-    alt: 'Harvested whitetail buck laid out in a Kansas field',
+    alt: 'Close-up of Buck Chow grain blend texture',
   },
   {
     src: '/photos/lifestyle/lifestyle-dsc08089-c31e863.webp',
-    alt: 'Sunrise over a Kansas deer hunting property',
+    alt: 'Hand pouring Buck Chow into a feeder at a Kansas property',
   },
   {
     src: '/photos/lifestyle/lifestyle-20231008-234054.webp',
-    alt: 'Night trail camera shot of deer at a GB Feeds site',
+    alt: 'Family portrait with a harvested whitetail at night',
   },
   {
     src: '/photos/lifestyle/lifestyle-07eb939d-6b5c-4f14-8c4b-a476a8c5b6b8.webp',
-    alt: 'Wide-framed mature buck captured on trail camera',
+    alt: 'Couple with a Kansas whitetail harvested at night',
   },
 ];
 
