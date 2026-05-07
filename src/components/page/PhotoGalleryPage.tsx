@@ -5,12 +5,10 @@
 // Boundary: page/ imports composite/ + atomic/ + decoration/.
 
 import { Heading } from '@/components/atomic/Heading';
-import { Text } from '@/components/atomic/Text';
 import { Container } from '@/components/atomic/Container';
 import { Section } from '@/components/atomic/Section';
 import { Rule } from '@/components/atomic/Rule';
 import { PaperGrain } from '@/components/decoration/PaperGrain';
-import { HairlineRules } from '@/components/decoration/HairlineRules';
 import { GalleryLightbox } from '@/components/composite/GalleryLightbox';
 
 // All available gallery photos from public/photos/
@@ -115,25 +113,15 @@ export function PhotoGalleryPage() {
   return (
     <main id="main-content">
 
-      {/* ── PAGE HERO ────────────────────────────────────────────────────── */}
+      {/* ── PAGE TITLE ──────────────────────────────────────────────────── */}
       <section
-        className="relative bg-[var(--color-paper-2)] border-b border-[var(--color-rule)] overflow-hidden"
-        aria-label="Photo gallery page header"
+        className="bg-white py-16 sm:py-20 lg:py-24"
+        aria-label="Photo Gallery page header"
       >
-        <HairlineRules />
-        <PaperGrain />
-        <Container>
-          <div className="py-14 md:py-20">
-            <p className="font-mono text-mono-xs tracking-[0.04em] uppercase text-[var(--color-ink-quiet)] mb-4">
-              KANSAS / MIDWEST / FIELD PHOTOS
-            </p>
-            <Heading as="h1" size="display-lg">
-              Photo Gallery
-            </Heading>
-            <Text variant="body-lg" className="mt-4 max-w-xl text-[var(--color-ink-muted)]">
-              Real hunters. Real properties. Real results.
-            </Text>
-          </div>
+        <Container variant="narrow">
+          <Heading as="h1" size="display-lg" className="text-center tracking-[0.03em]">
+            PHOTO GALLERY
+          </Heading>
         </Container>
       </section>
 

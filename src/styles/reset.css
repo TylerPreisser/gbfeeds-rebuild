@@ -1,143 +1,150 @@
 /* ==========================================================================
    reset.css — Modern CSS reset (Josh Comeau-style)
    GB Feeds rebuild — applied before typography + atmosphere layers.
+   IMPORTANT: Entire file is wrapped in @layer base so that Tailwind utility
+   classes (in @layer utilities) always win over these resets. Without this
+   wrapper, unlayered author styles beat every layered Tailwind utility
+   (CSS Cascade Layers spec §6.4), making every <button> CTA invisible.
    ========================================================================== */
 
-/*
-  1. Use a more-intuitive box-sizing model.
-*/
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
+@layer base {
+  /*
+    1. Use a more-intuitive box-sizing model.
+  */
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
 
-/*
-  2. Remove default margin on everything.
-*/
-* {
-  margin: 0;
-}
+  /*
+    2. Remove default margin on everything.
+  */
+  * {
+    margin: 0;
+  }
 
-/*
-  3. Improve text rendering (font-smoothing) for body.
-  Suppress on retina — only apply on non-retina where it improves legibility.
-*/
-body {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+  /*
+    3. Improve text rendering (font-smoothing) for body.
+    Suppress on retina — only apply on non-retina where it improves legibility.
+  */
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 
-/*
-  4. Improve media defaults.
-*/
-img,
-picture,
-video,
-canvas,
-svg {
-  display: block;
-  max-width: 100%;
-}
+  /*
+    4. Improve media defaults.
+  */
+  img,
+  picture,
+  video,
+  canvas,
+  svg {
+    display: block;
+    max-width: 100%;
+  }
 
-/*
-  5. Inherit fonts for form elements.
-*/
-input,
-button,
-textarea,
-select {
-  font: inherit;
-}
+  /*
+    5. Inherit fonts for form elements.
+  */
+  input,
+  button,
+  textarea,
+  select {
+    font: inherit;
+  }
 
-/*
-  5a. iOS Safari auto-zoom prevention.
-  Safari triggers a layout-disrupting zoom when a focused input's font-size
-  is < 16px. --text-body-sm clamps to ~14.2px on 375px viewports.
-  max(1rem, ...) ensures inputs never render below 16px on any device while
-  preserving the design's text-body-sm at wider viewports where it exceeds 16px.
-*/
-input,
-textarea,
-select {
-  font-size: max(1rem, var(--text-body-sm));
-}
+  /*
+    5a. iOS Safari auto-zoom prevention.
+    Safari triggers a layout-disrupting zoom when a focused input's font-size
+    is < 16px. --text-body-sm clamps to ~14.2px on 375px viewports.
+    max(1rem, ...) ensures inputs never render below 16px on any device while
+    preserving the design's text-body-sm at wider viewports where it exceeds 16px.
+  */
+  input,
+  textarea,
+  select {
+    font-size: max(1rem, var(--text-body-sm));
+  }
 
-/*
-  6. Avoid text overflows.
-*/
-p,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  overflow-wrap: break-word;
-}
+  /*
+    6. Avoid text overflows.
+  */
+  p,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    overflow-wrap: break-word;
+  }
 
-/*
-  7. Improve line wrapping.
-*/
-p {
-  text-wrap: pretty;
-}
+  /*
+    7. Improve line wrapping.
+  */
+  p {
+    text-wrap: pretty;
+  }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  text-wrap: balance;
-}
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    text-wrap: balance;
+  }
 
-/*
-  8. Create a root stacking context for portals.
-*/
-#root,
-#__next {
-  isolation: isolate;
-}
+  /*
+    8. Create a root stacking context for portals.
+  */
+  #root,
+  #__next {
+    isolation: isolate;
+  }
 
-/*
-  9. Remove list styling (lists with class names are decorative).
-*/
-ul[class],
-ol[class] {
-  list-style: none;
-  padding: 0;
-}
+  /*
+    9. Remove list styling (lists with class names are decorative).
+  */
+  ul[class],
+  ol[class] {
+    list-style: none;
+    padding: 0;
+  }
 
-/*
-  10. Button reset — brand buttons use the <Button> atomic component.
-*/
-button {
-  cursor: pointer;
-  background: none;
-  border: none;
-  padding: 0;
-}
+  /*
+    10. Button reset — brand buttons use the <Button> atomic component.
+    Inside @layer base so Tailwind utility classes (bg-*, border-*, etc.) win.
+  */
+  button {
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+  }
 
-/*
-  11. Anchor reset — brand links use the <Link> atomic component.
-     Remove browser default blue + underline on bare <a> tags.
-*/
-a {
-  color: inherit;
-  text-decoration: none;
-}
+  /*
+    11. Anchor reset — brand links use the <Link> atomic component.
+       Remove browser default blue + underline on bare <a> tags.
+  */
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
 
-/*
-  12. Remove default table styles.
-*/
-table {
-  border-collapse: collapse;
-}
+  /*
+    12. Remove default table styles.
+  */
+  table {
+    border-collapse: collapse;
+  }
 
-/*
-  13. Preserve default leading — override in typography.css.
-*/
-html {
-  line-height: 1.5;
+  /*
+    13. Preserve default leading — override in typography.css.
+  */
+  html {
+    line-height: 1.5;
+  }
 }

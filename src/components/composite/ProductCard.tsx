@@ -1,16 +1,15 @@
 // src/components/composite/ProductCard.tsx
 // RSC — no 'use client'. Pure CSS group-hover animations.
 // Used in /products grid, season pages, cross-sell sections.
+// Per ORIGINAL_TRUTH § 3.3: card = image + name + price. No IN STOCK pill. No VIEW button.
+// The whole card is a link to the PDP.
 // Boundary: imports only atomic/ + types/.
 
 import type { Product } from '@/types/product';
 import { Image } from '@/components/atomic/Image';
 import { Heading } from '@/components/atomic/Heading';
 import { PriceTag } from '@/components/atomic/PriceTag';
-import { StockBadge } from '@/components/atomic/StockBadge';
-import { Button } from '@/components/atomic/Button';
 import { Stamp } from '@/components/atomic/Stamp';
-import { deriveStockState } from '@/components/atomic/StockBadge';
 import { cn } from '@/lib/cn';
 
 interface ProductCardProps {
@@ -83,9 +82,9 @@ export function ProductCard({ product, className, priority = false }: ProductCar
         </span>
       </a>
 
-      {/* Card body */}
-      <div className="flex flex-col gap-3 p-4 flex-1 border-t border-[var(--color-rule)]">
-        <Heading as="h3" size="display-sm" className="line-clamp-2 text-[clamp(1.75rem,1.45rem+1vw,2.4rem)]">
+      {/* Card body — name + price only, per ORIGINAL_TRUTH § 3.3 */}
+      <div className="flex flex-col gap-2 p-4 border-t border-[var(--color-rule)]">
+        <Heading as="h3" size="display-sm" className="line-clamp-2 text-[clamp(1.5rem,1.2rem+0.8vw,2rem)]">
           <a
             href={href}
             className="hover:text-[var(--color-accent)] transition-colors duration-200"
@@ -99,20 +98,6 @@ export function ProductCard({ product, className, priority = false }: ProductCar
           priceSale={product.salePriceUsd}
           size="sm"
         />
-
-        <StockBadge stock={deriveStockState(product.available, null)} />
-
-        {/* CTA */}
-        <div className="mt-auto pt-2">
-          <Button
-            as="a"
-            href={href}
-            variant="secondary"
-            className="w-full text-center"
-          >
-            View
-          </Button>
-        </div>
       </div>
     </article>
   );

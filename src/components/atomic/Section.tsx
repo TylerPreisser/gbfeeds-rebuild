@@ -29,8 +29,8 @@ const bgStyles: Record<SectionBg, string> = {
   'paper-3': 'bg-[var(--color-paper-3)]',
 };
 
-// Vertical rhythm: py-24 desktop (6rem), py-16 mobile (4rem) per design brief
-const baseStyles = 'py-16 md:py-24';
+// Vertical rhythm: py-32 large desktop (8rem), py-24 tablet (6rem), py-20 mobile (5rem)
+const baseStyles = 'py-20 sm:py-24 lg:py-32';
 
 // ─── Component ───────────────────────────────────────────────────────────────
 

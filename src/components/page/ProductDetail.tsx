@@ -8,7 +8,6 @@ import Link from 'next/link';
 import type { Product } from '@/types/product';
 import { getCrossSells } from '@/data/cross-sell-map';
 import { getProductBySlug } from '@/data/products';
-import { testimonials } from '@/data/testimonials';
 import { productSchema } from '@/lib/seo';
 import { Button } from '@/components/atomic/Button';
 import { Heading } from '@/components/atomic/Heading';
@@ -27,7 +26,6 @@ import { PaperGrain } from '@/components/decoration/PaperGrain';
 // See BagTagTriptychLoader.tsx for full rationale.
 import { BagTagTriptychLoader } from '@/components/composite/BagTagTriptychLoader';
 import { ProductCard } from '@/components/composite/ProductCard';
-import { TestimonialCard } from '@/components/composite/TestimonialCard';
 import { AddToCartPlaceholder } from '@/components/composite/AddToCartPlaceholder';
 import { StickyAddToCartPlaceholder } from '@/components/composite/StickyAddToCartPlaceholder';
 import { cn } from '@/lib/cn';
@@ -57,13 +55,6 @@ export function ProductDetail({ product }: ProductDetailProps) {
   const crossSellProducts = crossSellSlugs
     .map((slug) => getProductBySlug(slug))
     .filter((p): p is Product => p !== null);
-
-  // Testimonials filtered to this product, or generic fallback
-  const productTestimonials = testimonials.filter(
-    (t) =>
-      t.productMentioned === product.slug ||
-      t.productMentioned === null,
-  ).slice(0, 4);
 
   const stockState = deriveStockState(product.available, null);
   const isPlaceholder = isPlaceholderLink(product.paymentLinkUrl);
@@ -174,8 +165,8 @@ export function ProductDetail({ product }: ProductDetailProps) {
                 {/* Category stamp */}
                 <Stamp value={product.category.replace(/-/g, ' ').toUpperCase()} />
 
-                {/* Product name */}
-                <Heading as="h1" size="display-lg">
+                {/* Product name — display-md keeps 1-2 lines in the right column */}
+                <Heading as="h1" size="display-md">
                   {product.displayName}
                 </Heading>
 
@@ -366,46 +357,6 @@ export function ProductDetail({ product }: ProductDetailProps) {
             </Container>
           </Section>
         )}
-
-        {/* ── 5. TESTIMONIALS ──────────────────────────────────────────────── */}
-        <Section bg="paper-3" aria-label="What hunters are saying">
-          <PaperGrain />
-          <Container variant="narrow">
-            <div className="flex items-center gap-4 mb-10">
-              <Rule weight="hair" className="flex-1" />
-              <Heading as="h2" size="display-sm" className="shrink-0">
-                TRUSTED BY HUNTERS
-              </Heading>
-              <Rule weight="hair" className="flex-1" />
-            </div>
-
-            {productTestimonials.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                {productTestimonials.map((t) => (
-                  <TestimonialCard key={t.id} testimonial={t} />
-                ))}
-              </div>
-            ) : (
-              /* Generic fallback pull quote */
-              <TestimonialCard
-                testimonial={{
-                  id: 'generic-trust',
-                  quote:
-                    'Let me tell you this stuff works! Thanks GB Feeds!',
-                  attribution: 'Aaron',
-                  productMentioned: null,
-                }}
-                variant="pull"
-              />
-            )}
-
-            <div className="mt-8 text-center">
-              <Button as="a" href="/customer-reviews" variant="ghost">
-                MORE CUSTOMER REVIEWS →
-              </Button>
-            </div>
-          </Container>
-        </Section>
 
         {/* ── STICKY ADD-TO-CART BAR (mobile only, lg:hidden) ─────────────── */}
         {/* pb-[env(safe-area-inset-bottom)] clears the home indicator (~34px) on

@@ -54,7 +54,6 @@ export function SignatureMove({
   const { lenis } = useLenis();
   const sectionRef = useRef<HTMLDivElement | null>(null);
   const innerRef = useRef<HTMLDivElement | null>(null);
-  const [scrollProgress, setScrollProgress] = useState<number>(reducedMotion ? 1 : 0);
   const [isMobile, setIsMobile] = useState(false);
 
   // Detect mobile
@@ -101,7 +100,6 @@ export function SignatureMove({
             trigger: section,
             start: 'top 75%',
             toggleActions: 'play none none none',
-            onUpdate: (self) => setScrollProgress(self.progress),
           },
         },
       );
@@ -126,10 +124,9 @@ export function SignatureMove({
         className="flex flex-col items-center gap-8 px-4 sm:px-8"
         style={{ opacity: reducedMotion || isMobile ? 1 : 0 }}
       >
-        {/* Big oxblood counter — the headline number */}
+        {/* Big oxblood counter — self-driven via IntersectionObserver one-shot tween */}
         <AntlerInchesCounter
           total={total}
-          scrollProgress={reducedMotion ? 1 : scrollProgress}
           asOf={asOf}
         />
 

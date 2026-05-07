@@ -88,20 +88,16 @@ export function HomePage({ harvests }: HomePageProps) {
           aria-label="GB Feeds hero image"
           style={{ height: 'clamp(480px, 100svh, 900px)' }}
         >
-          <picture>
-            <source srcSet="/photos/lifestyle/lifestyle-img-3622-640w.avif" type="image/avif" media="(max-width: 640px)" />
-            <source srcSet="/photos/lifestyle/lifestyle-img-3622-640w.webp" type="image/webp" media="(max-width: 640px)" />
-            <source srcSet="/photos/lifestyle/lifestyle-img-3622.webp" type="image/webp" />
-            <img
-              src="/photos/lifestyle/lifestyle-img-3622.webp"
-              alt="Hunter in a wooded Kansas field with Buck Chow deer feed"
-              width={1600}
-              height={900}
-              className="absolute inset-0 w-full h-full object-cover object-center"
-              loading="eager"
-              fetchPriority="high"
-            />
-          </picture>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/photos/lifestyle/lifestyle-img-4172.webp"
+            alt="Hunter holding a Buck Chow 40lb bag in a wooded Kansas field"
+            width={1600}
+            height={900}
+            className="absolute inset-0 w-full h-full object-cover object-center"
+            loading="eager"
+            fetchPriority="high"
+          />
           {/* Subtle bottom fade so next section transitions cleanly */}
           <div
             className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none"

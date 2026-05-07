@@ -21,7 +21,7 @@ export const pillars: Pillar[] = [
     number: '01',
     eyebrow: 'PILLAR 01',
     heading: 'Proven Results',
-    body: 'When we say we help hunters create their once in a lifetime story, we mean it. It\'s the foundation of our company and it\'s who we are. In 2023 and 2024, our customers harvested over 10,000 inches of antler using GB Feeds products right here in Kansas.',
+    body: 'When we say we help hunters create their once in a lifetime story, we mean it. It\'s the foundation of our company and it\'s who we are. In 2023 and 2024, our customers harvested over 7,500 inches of antler using GB Feeds products right here in Kansas.',
   },
   {
     number: '02',

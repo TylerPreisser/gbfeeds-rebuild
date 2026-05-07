@@ -1,12 +1,10 @@
 'use client';
 // src/components/motion/AntlerInchesCounter.tsx
-// 'use client'. The 240px Bebas Neue antler-inches counter.
-// Counts up from 0 to total proportional to scrollProgress (0–1).
-// Reduced-motion: shows total immediately.
-// Does NOT import GSAP — the tween is JavaScript-only (requestAnimationFrame),
-// driven by the scrollProgress prop passed from SignatureMove.tsx.
-// GSAP timeline calls setScrollProgress; this component is display-only.
-// aria-live="polite" + aria-atomic="true" for SR.
+// Self-driven IntersectionObserver one-shot tween.
+// When the element enters the viewport (threshold 0.3), tweens 0→total over 2s.
+// No GSAP dependency. No scrollProgress prop needed.
+// Reduced-motion: renders total immediately, no animation.
+// aria-live="polite" + aria-atomic="true" for screen readers.
 // Boundary: imports only atomic/ + hooks/.
 
 import { useEffect, useRef, useState } from 'react';
@@ -16,10 +14,10 @@ import { cn } from '@/lib/cn';
 interface AntlerInchesCounterProps {
   /** The canonical total antler inches from harvests.json */
   total: number;
-  /** 0–1 scroll progress from SignatureMove GSAP timeline */
-  scrollProgress?: number;
   /** AS OF stamp date (harvests.json last_updated) */
   asOf?: string;
+  /** scrollProgress — kept for API compatibility but no longer used */
+  scrollProgress?: number;
   className?: string;
 }
 
@@ -28,47 +26,75 @@ function formatInches(n: number): string {
 }
 
 /**
- * <AntlerInchesCounter> — the 240px Bebas counter at the heart of the home page.
- * Receives scrollProgress from <SignatureMove> (GSAP drives that).
- * This component only displays + formats — no GSAP import.
- * Reduced-motion: renders total immediately.
+ * <AntlerInchesCounter> — the big Bebas counter at the heart of the home page.
+ * Drives its own count-up animation via IntersectionObserver + rAF.
+ * When the span enters the viewport (threshold 0.3), tweens 0→total over 2s
+ * with cubic ease-out. Fires once then disconnects the observer.
+ * Reduced-motion: shows total immediately with no animation.
  */
 export function AntlerInchesCounter({
   total,
-  scrollProgress,
   asOf,
   className,
 }: AntlerInchesCounterProps) {
   const reducedMotion = useReducedMotion();
   const [displayValue, setDisplayValue] = useState<number>(reducedMotion ? total : 0);
-  const prevProgressRef = useRef<number>(0);
+  const spanRef = useRef<HTMLSpanElement | null>(null);
+  const hasAnimated = useRef(false);
 
-  // When reducedMotion flips to true, jump to final value
+  // When reducedMotion flips true (e.g. system pref change), jump to final value
   useEffect(() => {
     if (reducedMotion) {
       setDisplayValue(total);
     }
   }, [reducedMotion, total]);
 
-  // When scrollProgress updates, interpolate the count
+  // IO-driven one-shot tween
   useEffect(() => {
-    if (reducedMotion || scrollProgress === undefined) return;
+    if (reducedMotion) return;
+    const el = spanRef.current;
+    if (!el) return;
 
-    // Direct mapping: scrollProgress 0→1 = count 0→total
-    const target = Math.round(scrollProgress * total);
-    setDisplayValue(target);
-    prevProgressRef.current = scrollProgress;
-  }, [scrollProgress, total, reducedMotion]);
+    const obs = new IntersectionObserver(
+      (entries) => {
+        if (entries[0]?.isIntersecting && !hasAnimated.current) {
+          hasAnimated.current = true;
+          obs.disconnect();
+
+          const duration = 2000; // ms
+          const startTime = performance.now();
+
+          const tick = (now: number) => {
+            const elapsed = now - startTime;
+            const t = Math.min(1, elapsed / duration);
+            // Cubic ease-out: deceleration feels satisfying for a counter
+            const eased = 1 - Math.pow(1 - t, 3);
+            setDisplayValue(Math.round(eased * total));
+            if (t < 1) {
+              requestAnimationFrame(tick);
+            }
+          };
+
+          requestAnimationFrame(tick);
+        }
+      },
+      { threshold: 0.3 },
+    );
+
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, [total, reducedMotion]);
 
   return (
     <div
       className={cn('flex flex-col items-center gap-4', className)}
       role="img"
-      aria-label={`${formatInches(displayValue)} antler inches harvested using GB Feeds products`}
+      aria-label={`${formatInches(total)} antler inches harvested using GB Feeds products`}
     >
       {/* Giant counter */}
       <div className="flex flex-col items-center gap-0">
         <span
+          ref={spanRef}
           className="font-display uppercase leading-[1.0] text-[var(--color-accent)]"
           style={{ fontSize: 'clamp(8rem, 6.4rem + 8vw, 15rem)', letterSpacing: '0em' }}
           aria-live="polite"

@@ -74,7 +74,7 @@ export function WhyGBFeedsPage() {
               <Text variant="body-md" className="text-[var(--color-ink-muted)] leading-[1.6]">
                 When we say we help hunters create their once in a lifetime story, we mean it.
                 It&apos;s the foundation of our company and it&apos;s who we are. In 2023 and 2024,
-                our customers harvested over 10,000 inches of antler using GB Feeds products right
+                our customers harvested over 7,500 inches of antler using GB Feeds products right
                 here in Kansas.
               </Text>
             </div>
