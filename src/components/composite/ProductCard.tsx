@@ -33,7 +33,7 @@ export function ProductCard({ product, className, priority = false }: ProductCar
   return (
     <article
       className={cn(
-        'group relative flex flex-col',
+        'group relative flex flex-col h-full',
         'bg-[var(--color-paper-3)]',
         'border border-[var(--color-rule)]',
         'hover:border-[var(--color-ink)]',
@@ -82,9 +82,15 @@ export function ProductCard({ product, className, priority = false }: ProductCar
         </span>
       </a>
 
-      {/* Card body — name + price only, per ORIGINAL_TRUTH § 3.3 */}
-      <div className="flex flex-col gap-2 p-4 border-t border-[var(--color-rule)]">
-        <Heading as="h3" size="display-sm" className="line-clamp-2 text-[clamp(1.5rem,1.2rem+0.8vw,2rem)]">
+      {/* Card body — name + price only, per ORIGINAL_TRUTH § 3.3.
+          Body uses flex-1 so cards stretch to equal heights in a grid;
+          min-h on the heading keeps 1-line and 2-line titles producing same card height. */}
+      <div className="flex flex-1 flex-col gap-2 p-4 border-t border-[var(--color-rule)]">
+        <Heading
+          as="h3"
+          size="display-sm"
+          className="line-clamp-2 text-[clamp(1.5rem,1.2rem+0.8vw,2rem)] min-h-[2.4em] flex-1"
+        >
           <a
             href={href}
             className="hover:text-[var(--color-accent)] transition-colors duration-200"
