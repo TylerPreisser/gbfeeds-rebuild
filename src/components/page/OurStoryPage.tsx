@@ -83,7 +83,20 @@ export function OurStoryPage() {
         <Container>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
 
-            {/* Left — paragraph 3 text */}
+            {/* Right — trail-cam still of giant whitetail (first in DOM = image-first on mobile) */}
+            <div className="overflow-hidden aspect-[4/3] order-first lg:order-2">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/photos/lifestyle/lifestyle-07eb939d-6b5c-4f14-8c4b-a476a8c5b6b8.webp"
+                alt="Customer with a Kansas whitetail at night"
+                width={800}
+                height={600}
+                className="w-full h-full object-cover"
+                loading="lazy"
+              />
+            </div>
+
+            {/* Left — text (desktop shows left via lg:order-1; mobile stacks below image) */}
             <div className="text-center lg:text-left lg:order-1">
               <Text variant="body-md" className="text-[var(--color-ink-muted)] leading-[1.6]">
                 Being the biggest feed company has never been the goal, we want to be the BEST feed
@@ -95,19 +108,6 @@ export function OurStoryPage() {
                 <strong>Superior Customer Service</strong>. These pillars guide the company in every
                 decision we make and serve as the foundation for all current and future products.
               </Text>
-            </div>
-
-            {/* Right — trail-cam still of giant whitetail */}
-            <div className="overflow-hidden aspect-[4/3] lg:order-2">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/photos/lifestyle/lifestyle-07eb939d-6b5c-4f14-8c4b-a476a8c5b6b8.webp"
-                alt="Customer with a Kansas whitetail at night"
-                width={800}
-                height={600}
-                className="w-full h-full object-cover"
-                loading="lazy"
-              />
             </div>
           </div>
         </Container>
