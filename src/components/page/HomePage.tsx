@@ -265,50 +265,51 @@ export function HomePage({ harvests }: HomePageProps) {
             ══════════════════════════════════════════════════════════════════ */}
         <section
           id="contact"
-          className="bg-white py-16 sm:py-20 lg:py-24"
+          className="bg-[var(--color-paper-3)] py-16 sm:py-20 lg:py-24"
           aria-label="Contact GB Feeds"
         >
-          <Container>
-            <div className="grid grid-cols-1 lg:grid-cols-[0.85fr_1.15fr] gap-10 lg:gap-16 max-w-5xl mx-auto items-start">
-              <div className="lg:sticky lg:top-28">
-                <p className="font-mono text-mono-xs tracking-[0.14em] uppercase text-[var(--color-accent)] mb-3">
+          <Container variant="narrow">
+            <div className="border-y border-[var(--color-ink)] py-8 sm:py-10 lg:py-12">
+              <div className="grid grid-cols-1 lg:grid-cols-[0.95fr_1.05fr] gap-10 lg:gap-14 items-start">
+                <div>
+                  <p className="font-mono text-mono-xs tracking-[0.14em] uppercase text-[var(--color-accent)] mb-3">
                   Contact Us
-                </p>
-                <Heading as="h2" size="display-md" className="leading-[0.98] tracking-[0.01em] mb-5">
-                  Drop us a line.
-                </Heading>
-                <p className="font-body text-body-md text-[var(--color-ink-muted)] leading-[1.55] max-w-md">
-                  Customer service is our thing, and we love to hear your
-                  success stories. Send us a message with a question, a field
-                  photo, or what you&apos;re trying to improve on your property.
-                </p>
-
-                <div className="mt-8 border-y border-[var(--color-rule)] divide-y divide-[var(--color-rule)] max-w-md">
-                  <p className="py-4 font-display uppercase text-[clamp(1.5rem,1.25rem+0.8vw,2.25rem)] leading-none tracking-[0.02em] text-[var(--color-ink)]">
-                    Better yet, give us a call.
                   </p>
+                  <Heading as="h2" size="display-md" className="leading-[0.98] tracking-[0.01em] mb-5">
+                    Better yet, give us a call.
+                  </Heading>
+                  <p className="font-body text-body-md text-[var(--color-ink-muted)] leading-[1.55] max-w-md">
+                    Customer service is our thing. Call with a product question, send a field
+                    photo, or tell us what you&apos;re trying to improve on your hunting property.
+                  </p>
+
+                  <div className="mt-8 divide-y divide-[var(--color-rule)] border-y border-[var(--color-rule)]">
                   <a
                     href="tel:6206393337"
-                    className="flex items-center justify-between gap-4 py-4 font-display uppercase text-[clamp(1.5rem,1.25rem+0.8vw,2.25rem)] leading-none tracking-[0.02em] text-[var(--color-ink)] hover:text-[var(--color-accent)] transition-colors duration-200"
+                    className="flex items-center justify-between gap-4 py-5 font-display uppercase text-[clamp(1.75rem,1.35rem+1.2vw,2.75rem)] leading-none tracking-[0.02em] text-[var(--color-ink)] hover:text-[var(--color-accent)] transition-colors duration-200"
                     aria-label="Call GB Feeds at (620) 639-3337"
                   >
                     <span>(620) 639-3337</span>
-                    <span aria-hidden="true">Call</span>
+                    <span className="font-mono text-mono-xs tracking-[0.08em]" aria-hidden="true">
+                      Call
+                    </span>
                   </a>
-                  <p className="py-4 font-mono text-mono-xs uppercase tracking-[0.08em] text-[var(--color-ink-quiet)]">
-                    Manhattan, Kansas · Real products · Real field results
+                  <p className="py-4 font-mono text-mono-xs uppercase tracking-[0.08em] text-[var(--color-ink-quiet)] leading-relaxed">
+                    Manhattan, Kansas<br />
+                    Real products. Real field results.
                   </p>
+                  </div>
                 </div>
-              </div>
 
-              <div className="border border-[var(--color-rule)] bg-[var(--color-paper-3)] p-5 sm:p-7 lg:p-8">
-                <Heading as="h3" size="display-sm" className="mb-2">
-                  Drop us a line!
-                </Heading>
-                <p className="font-body text-body-sm text-[var(--color-ink-muted)] mb-6">
-                  Name, email, and a quick note are all we need.
-                </p>
-                <ContactForm />
+                <div className="lg:border-l lg:border-[var(--color-rule)] lg:pl-10">
+                  <Heading as="h3" size="display-sm" className="mb-3">
+                    Send a message
+                  </Heading>
+                  <p className="font-body text-body-sm text-[var(--color-ink-muted)] mb-6 max-w-md">
+                    Name, email, and a quick note are all we need.
+                  </p>
+                  <ContactForm />
+                </div>
               </div>
             </div>
           </Container>

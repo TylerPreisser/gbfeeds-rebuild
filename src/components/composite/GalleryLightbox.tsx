@@ -100,7 +100,7 @@ export function GalleryLightbox({ photos, className }: GalleryLightboxProps) {
                   loading="lazy"
                   className={cn(
                     'w-full h-full block object-cover',
-                    'filter grayscale-[0.85] transition-all duration-700',
+                    'filter grayscale-[0.85] transition-all duration-300',
                     'group-hover:grayscale-0 group-focus:grayscale-0',
                     'group-hover:scale-[1.04] transform origin-center',
                     photo.cropClassName,

@@ -90,7 +90,7 @@ export function SignatureMove({
     >
       <div
         ref={innerRef}
-        className="flex flex-col items-center gap-10 sm:gap-12 px-4 sm:px-8"
+        className="flex flex-col items-center gap-14 sm:gap-16 lg:gap-[4.5rem] px-4 sm:px-8"
       >
         {/* Big oxblood counter — self-driven via IntersectionObserver one-shot tween */}
         <AntlerInchesCounter

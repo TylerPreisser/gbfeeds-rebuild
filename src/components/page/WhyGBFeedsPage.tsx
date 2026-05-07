@@ -93,15 +93,15 @@ export function WhyGBFeedsPage() {
               </Text>
             </div>
 
-            {/* Right — Buck Chow on truck lifestyle photo */}
+            {/* Right — Buck Chow being poured into a feed site */}
             <div className="overflow-hidden aspect-[4/3] lg:order-2">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/photos/lifestyle/lifestyle-img-4439.webp"
-                alt="Bag of Buck Chow on a truck tailgate in the field"
+                src="/photos/lifestyle/lifestyle-dsc08089-c31e863.webp"
+                alt="Buck Chow being poured into a feeder at a Kansas property"
                 width={800}
                 height={600}
-                className="w-full h-full object-cover scale-[1.16]"
+                className="w-full h-full object-cover object-[50%_52%] scale-[1.08]"
                 loading="lazy"
               />
             </div>
@@ -176,11 +176,11 @@ export function WhyGBFeedsPage() {
             <div className="overflow-hidden aspect-[4/3] lg:order-2 bg-[var(--color-paper-3)]">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/photos/gallery/blob-b7a2223.webp"
+                src="/photos/gallery/blob-8085ecb.webp"
                 alt="Handwritten thank-you note from GB Feeds tied to a Buck Chow bag"
                 width={800}
                 height={600}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover object-[50%_45%] scale-[1.2]"
                 loading="lazy"
               />
             </div>

@@ -101,6 +101,15 @@
   }
 }
 
+@keyframes gb-media-shimmer {
+  from {
+    transform: translateX(-140%);
+  }
+  to {
+    transform: translateX(140%);
+  }
+}
+
 .premium-card {
   box-shadow: 0 0 0 rgba(0, 0, 0, 0);
   transition:
@@ -127,12 +136,11 @@
     transparent 100%
   );
   transform: translateX(-140%);
-  transition: transform 650ms cubic-bezier(0.22, 1, 0.36, 1);
   mix-blend-mode: screen;
 }
 
 .premium-card:hover .premium-media::after {
-  transform: translateX(140%);
+  animation: gb-media-shimmer 650ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 @media (prefers-reduced-motion: reduce) {

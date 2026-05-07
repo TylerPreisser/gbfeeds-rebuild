@@ -219,7 +219,7 @@ export function ContactForm() {
           name="message"
           required
           rows={6}
-          placeholder="Drop us a line."
+          placeholder="Tell us what you're working on."
           className="w-full bg-transparent border border-[var(--color-rule)]
             font-body text-body-sm text-[var(--color-ink)] placeholder:text-[var(--color-ink-quiet)]
             px-3 py-2 focus:outline-none focus:border-[var(--color-ink)]
