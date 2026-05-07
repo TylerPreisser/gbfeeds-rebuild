@@ -8,7 +8,6 @@ import { Container } from '@/components/atomic/Container';
 import { Heading } from '@/components/atomic/Heading';
 import { Text } from '@/components/atomic/Text';
 import { Rule } from '@/components/atomic/Rule';
-import { Stamp } from '@/components/atomic/Stamp';
 import { PaperGrain } from '@/components/decoration/PaperGrain';
 import { testimonials } from '@/data/testimonials';
 
@@ -29,7 +28,7 @@ export function CustomerReviewsPage() {
 
       {/* ── PAGE HEADER ─────────────────────────────────────────────────── */}
       <section
-        className="relative py-20 sm:py-24 lg:py-32"
+        className="relative py-14 sm:py-16 lg:py-20"
         aria-label="Customer reviews page header"
       >
         <Container variant="narrow">
@@ -38,8 +37,8 @@ export function CustomerReviewsPage() {
           </p>
           <Heading
             as="h1"
-            size="display-md"
-            className="text-center leading-[1.05] tracking-[0.01em] mb-6"
+            size="display-sm"
+            className="text-center leading-[1.05] tracking-[0.01em] mb-5 max-w-4xl mx-auto text-[clamp(2.35rem,5vw,5.25rem)]"
           >
             No paid sponsorships, no famous TV personalities — just real
             hunters sharing real success stories.
@@ -58,16 +57,16 @@ export function CustomerReviewsPage() {
 
       {/* ── TESTIMONIAL GRID ────────────────────────────────────────────── */}
       <section
-        className="py-20 sm:py-24 lg:py-32"
+        className="py-14 sm:py-16 lg:py-20"
         aria-label="All 22 customer testimonials"
       >
         <Container>
           <div
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-5"
             role="list"
             aria-label="Customer testimonials"
           >
-            {testimonials.map((testimonial, i) => {
+            {testimonials.map((testimonial) => {
               const isFeatured = featuredIds.has(testimonial.id);
               const isLong = testimonial.quote.length > 80;
               return (
@@ -75,7 +74,7 @@ export function CustomerReviewsPage() {
                   key={testimonial.id}
                   role="listitem"
                   className={[
-                    'flex flex-col gap-4 p-6 lg:p-7',
+                    'premium-card flex flex-col gap-3 p-4 lg:p-5',
                     'bg-[var(--color-paper-3)]',
                     'border border-[var(--color-rule)]',
                     'transition-colors duration-200',
@@ -84,24 +83,18 @@ export function CustomerReviewsPage() {
                     isLong && !isFeatured ? 'md:col-span-2 lg:col-span-1' : '',
                   ].join(' ')}
                 >
-                  {/* Index stamp */}
-                  <div className="flex items-center justify-between">
-                    <Stamp
-                      value={`№ ${String(i + 1).padStart(2, '0')}`}
-                    />
-                    {testimonial.productMentioned && (
-                      <span className="font-mono text-mono-xs tracking-[0.06em] uppercase text-[var(--color-accent)]">
-                        {testimonial.productMentioned.replace(/-/g, ' ')}
-                      </span>
-                    )}
-                  </div>
+                  {testimonial.productMentioned && (
+                    <span className="font-mono text-mono-xs tracking-[0.06em] uppercase text-[var(--color-accent)]">
+                      {testimonial.productMentioned.replace(/-/g, ' ')}
+                    </span>
+                  )}
 
                   <blockquote
                     className={[
                       'font-body italic text-[var(--color-ink)] leading-[1.4]',
                       isFeatured
-                        ? 'text-[clamp(1.125rem,1rem+0.6vw,1.5rem)]'
-                        : 'text-[clamp(0.9375rem,0.875rem+0.3vw,1.125rem)]',
+                        ? 'text-[clamp(1rem,0.95rem+0.45vw,1.25rem)]'
+                        : 'text-[clamp(0.9rem,0.85rem+0.25vw,1.0625rem)]',
                     ].join(' ')}
                   >
                     &ldquo;{testimonial.quote}&rdquo;

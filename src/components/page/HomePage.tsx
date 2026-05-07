@@ -9,17 +9,14 @@
 //   5. Our Story teaser (image + founder headline + Learn more)
 //   6. FREQUENTLY ASKED QUESTIONS (4 collapsible accordions)
 //   7. Contact Us (form left, phone right)
-//   8. CONNECT WITH US (4 social icons native brand colors)
-//   9. FEATURED PRODUCTS (second instance — per original truth)
+//   8. Footer (social links + legal)
 // Boundary: page/ may import composite/ + motion/ (via dynamic) + decoration/ + atomic/ + data/ + lib/.
 
 import Link from 'next/link';
-import { pillars } from '@/data/pillars';
 import { faqs } from '@/data/faq';
-import { getAllProducts } from '@/data/products';
+import { getProductBySlug } from '@/data/products';
 import type { HarvestsFile } from '@/types/harvests';
 import { Heading } from '@/components/atomic/Heading';
-import { Text } from '@/components/atomic/Text';
 import { Container } from '@/components/atomic/Container';
 import { Rule } from '@/components/atomic/Rule';
 import { FAQItem } from '@/components/composite/FAQItem';
@@ -45,9 +42,13 @@ interface HomePageProps {
 
 export function HomePage({ harvests }: HomePageProps) {
   const homeFaqs = faqs.slice(0, 4);
-  const allProducts = getAllProducts();
-  // Featured: first 6 products for carousel
-  const featuredProducts = allProducts.slice(0, 6);
+  const featuredProducts = [
+    'buck-chow-40lb',
+    'corn-candy-7lb',
+    'buck-chow-2000lb-pallet',
+  ]
+    .map((slug) => getProductBySlug(slug))
+    .filter((product) => product !== null);
 
   return (
     <>
@@ -75,7 +76,7 @@ export function HomePage({ harvests }: HomePageProps) {
         <section
           className="relative overflow-hidden"
           aria-label="GB Feeds hero image"
-          style={{ height: 'clamp(560px, 92svh, 880px)' }}
+          style={{ height: 'clamp(500px, 82svh, 760px)' }}
         >
           <picture>
             <source
@@ -86,14 +87,13 @@ export function HomePage({ harvests }: HomePageProps) {
               type="image/webp"
               srcSet="/photos/lifestyle/hero-buck-chow-original.webp"
             />
-            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/photos/lifestyle/hero-buck-chow-original.jpg"
               alt="Buck Chow deer-feed bag in a wooded Kansas field"
               width={2200}
               height={1760}
-              className="absolute inset-0 w-full h-full object-cover"
-              style={{ objectPosition: 'center 38%' }}
+              className="gb-hero-drift absolute inset-0 w-full h-full object-cover"
+              style={{ objectPosition: 'center 62%' }}
               loading="eager"
               fetchPriority="high"
             />
@@ -157,14 +157,14 @@ export function HomePage({ harvests }: HomePageProps) {
               FEATURED PRODUCTS
             </Heading>
 
-            {/* Featured products grid — uniform sizing, no horizontal scroll on lg+ */}
+            {/* Featured products grid — the three core feed cards only. */}
             <div
-              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 lg:gap-6"
+              className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,15.5rem),1fr))] gap-4 lg:gap-5 max-w-[58rem] mx-auto"
               aria-label="Featured GB Feeds products"
             >
-              {featuredProducts.slice(0, 4).map((product, i) => (
+              {featuredProducts.map((product, i) => (
                 <div key={product.slug} className="h-full">
-                  <ProductCard product={product} priority={i < 4} />
+                  <ProductCard product={product} priority={i < 3} density="compact" />
                 </div>
               ))}
             </div>
@@ -198,22 +198,9 @@ export function HomePage({ harvests }: HomePageProps) {
             ══════════════════════════════════════════════════════════════════ */}
         <section
           id="customer-reviews"
-          className="signature-pin bg-[var(--color-paper)] pt-16 sm:pt-20 lg:pt-24 pb-12 sm:pb-16 lg:pb-20"
+          className="signature-pin bg-[var(--color-paper)] pt-6 sm:pt-8 lg:pt-10 pb-8 sm:pb-10 lg:pb-12"
           aria-label="Customer reviews — antler inches harvested with GB Feeds"
         >
-          <Container>
-            <p className="font-mono text-mono-xs tracking-[0.12em] uppercase text-[var(--color-ink-quiet)] text-center mb-2">
-              From hunters across Kansas
-            </p>
-            <Heading
-              as="h2"
-              size="display-md"
-              className="text-center mb-3 tracking-[0.02em]"
-            >
-              CUSTOMER REVIEWS
-            </Heading>
-          </Container>
-
           <SignatureMoveLoader
             total={harvests.total_inches}
             asOf={harvests.updated_at}
@@ -221,11 +208,11 @@ export function HomePage({ harvests }: HomePageProps) {
           />
 
           <Container>
-            <div className="mt-12 text-center">
+            <div className="-mt-2 sm:-mt-3 text-center">
               <Link
                 href="/customer-reviews"
-                className="inline-flex items-center justify-center px-8 py-3
-                  font-display uppercase tracking-[0.04em]
+                className="inline-flex min-h-12 items-center justify-center px-8 py-4
+                  font-display uppercase leading-none tracking-[0.04em]
                   bg-[var(--color-ink)] border border-[var(--color-ink)]
                   text-[var(--color-paper)]
                   hover:bg-[var(--color-gray-900)]
@@ -274,137 +261,52 @@ export function HomePage({ harvests }: HomePageProps) {
         <Rule weight="hair" />
 
         {/* ══════════════════════════════════════════════════════════════════
-            7. CONTACT US — form left, phone right
-            Per ORIGINAL_TRUTH.md § 2.4 verbatim
+            7. CONTACT US
             ══════════════════════════════════════════════════════════════════ */}
         <section
           id="contact"
-          className="bg-white py-20 sm:py-24 lg:py-32"
+          className="bg-white py-16 sm:py-20 lg:py-24"
           aria-label="Contact GB Feeds"
         >
           <Container>
-            <Heading
-              as="h2"
-              size="display-sm"
-              className="text-center mb-10 tracking-[0.04em]"
-            >
-              Contact Us
-            </Heading>
-
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 max-w-4xl mx-auto">
-
-              {/* LEFT: form */}
-              <div>
-                <Heading as="h3" size="display-sm" className="mb-6">
-                  Drop us a line!
+            <div className="grid grid-cols-1 lg:grid-cols-[0.85fr_1.15fr] gap-10 lg:gap-16 max-w-5xl mx-auto items-start">
+              <div className="lg:sticky lg:top-28">
+                <p className="font-mono text-mono-xs tracking-[0.14em] uppercase text-[var(--color-accent)] mb-3">
+                  Talk with GB Feeds
+                </p>
+                <Heading as="h2" size="display-md" className="leading-[0.98] tracking-[0.01em] mb-5">
+                  Let&apos;s talk through your setup.
                 </Heading>
+                <p className="font-body text-body-md text-[var(--color-ink-muted)] leading-[1.55] max-w-md">
+                  Tell us what you&apos;re feeding, how often you&apos;re filling,
+                  and what kind of deer activity you&apos;re trying to build.
+                  We&apos;ll help you make the next bag or feeder count.
+                </p>
+
+                <div className="mt-8 border-y border-[var(--color-rule)] divide-y divide-[var(--color-rule)] max-w-md">
+                  <a
+                    href="tel:6206393337"
+                    className="flex items-center justify-between gap-4 py-4 font-display uppercase text-[clamp(1.5rem,1.25rem+0.8vw,2.25rem)] leading-none tracking-[0.02em] text-[var(--color-ink)] hover:text-[var(--color-accent)] transition-colors duration-200"
+                    aria-label="Call GB Feeds at (620) 639-3337"
+                  >
+                    <span>(620) 639-3337</span>
+                    <span aria-hidden="true">Call</span>
+                  </a>
+                  <p className="py-4 font-mono text-mono-xs uppercase tracking-[0.08em] text-[var(--color-ink-quiet)]">
+                    Manhattan, Kansas · Real products · Real field results
+                  </p>
+                </div>
+              </div>
+
+              <div className="border border-[var(--color-rule)] bg-[var(--color-paper-3)] p-5 sm:p-7 lg:p-8">
+                <Heading as="h3" size="display-sm" className="mb-2">
+                  Send a message
+                </Heading>
+                <p className="font-body text-body-sm text-[var(--color-ink-muted)] mb-6">
+                  Property size, feeder type, season, and goal are the details that help.
+                </p>
                 <ContactForm />
               </div>
-
-              {/* RIGHT: phone */}
-              <div className="flex flex-col justify-center">
-                <Heading as="h3" size="display-sm" className="mb-4">
-                  Better yet, give us a call!
-                </Heading>
-                <a
-                  href="tel:6206393337"
-                  className="font-display uppercase tracking-[0.02em] text-display-sm
-                    text-[var(--color-ink)] hover:text-[var(--color-accent)]
-                    transition-colors duration-200 whitespace-nowrap"
-                  aria-label="Call GB Feeds at (620) 639-3337"
-                >
-                  (620) 639-3337
-                </a>
-              </div>
-            </div>
-          </Container>
-        </section>
-
-        <Rule weight="hair" />
-
-        {/* ══════════════════════════════════════════════════════════════════
-            8. CONNECT WITH US — 4 social icons, native brand colors
-            Per ORIGINAL_TRUTH.md § 2.5
-            ══════════════════════════════════════════════════════════════════ */}
-        <section
-          id="connect"
-          className="bg-white py-20 sm:py-24"
-          aria-label="Connect with GB Feeds on social media"
-        >
-          <Container>
-            <Heading
-              as="h2"
-              size="display-sm"
-              className="text-center mb-8 tracking-[0.04em]"
-            >
-              CONNECT WITH US
-            </Heading>
-
-            <div className="flex justify-center items-center gap-8 flex-wrap">
-
-              {/* Facebook — #1877F2 */}
-              <a
-                href="https://www.facebook.com/107773225146812"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="GB Feeds on Facebook"
-                className="flex items-center justify-center w-12 h-12 transition-opacity duration-200 hover:opacity-75"
-              >
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="#1877F2" aria-hidden="true">
-                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                </svg>
-              </a>
-
-              {/* Instagram — gradient */}
-              <a
-                href="https://www.instagram.com/gb_feeds"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="GB Feeds on Instagram"
-                className="flex items-center justify-center w-12 h-12 transition-opacity duration-200 hover:opacity-75"
-              >
-                <svg width="32" height="32" viewBox="0 0 24 24" aria-hidden="true">
-                  <defs>
-                    <radialGradient id="ig-grad" cx="30%" cy="107%" r="150%">
-                      <stop offset="0%" stopColor="#fdf497"/>
-                      <stop offset="5%" stopColor="#fdf497"/>
-                      <stop offset="45%" stopColor="#fd5949"/>
-                      <stop offset="60%" stopColor="#d6249f"/>
-                      <stop offset="90%" stopColor="#285AEB"/>
-                    </radialGradient>
-                  </defs>
-                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5" fill="url(#ig-grad)"/>
-                  <circle cx="12" cy="12" r="4.5" fill="none" stroke="white" strokeWidth="1.5"/>
-                  <circle cx="17.5" cy="6.5" r="1" fill="white"/>
-                </svg>
-              </a>
-
-              {/* TikTok — #000000 */}
-              <a
-                href="https://www.tiktok.com/@gb_feeds"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="GB Feeds on TikTok"
-                className="flex items-center justify-center w-12 h-12 transition-opacity duration-200 hover:opacity-75"
-              >
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="#000000" aria-hidden="true">
-                  <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V9.54a8.16 8.16 0 004.77 1.52V7.62a4.85 4.85 0 01-1-.93z"/>
-                </svg>
-              </a>
-
-              {/* YouTube — #FF0000 */}
-              <a
-                href="https://www.youtube.com/@gbfeeds7593"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="GB Feeds on YouTube"
-                className="flex items-center justify-center w-12 h-12 transition-opacity duration-200 hover:opacity-75"
-              >
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="#FF0000" aria-hidden="true">
-                  <path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-                </svg>
-              </a>
-
             </div>
           </Container>
         </section>

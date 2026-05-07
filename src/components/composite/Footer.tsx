@@ -7,6 +7,7 @@
 // Per ORIGINAL_TRUTH.md § 2.5 — no multi-column sitemap, no newsletter, no seasons.
 
 import NextLink from 'next/link';
+import { SocialLinks } from './SocialLinks';
 
 /**
  * <Footer> — minimal footer matching the original gbfeeds.com.
@@ -18,9 +19,15 @@ export function Footer() {
       className="bg-white border-t border-[var(--color-rule)] py-10 px-4"
       aria-label="Site footer"
     >
-      <div className="max-w-4xl mx-auto text-center flex flex-col items-center gap-4">
+      <div className="max-w-4xl mx-auto text-center flex flex-col items-center gap-5">
+        <div>
+          <p className="font-display uppercase text-[clamp(1.75rem,1.5rem+1vw,2.75rem)] leading-none tracking-[0.02em] text-[var(--color-ink)]">
+            Connect with us
+          </p>
+          <SocialLinks className="mt-4 flex justify-center items-center gap-5 flex-wrap" />
+        </div>
 
-        {/* Three legal links — underlined, centered, per original */}
+        {/* Legal links */}
         <nav aria-label="Legal navigation" className="flex flex-wrap justify-center gap-x-6 gap-y-2">
           <NextLink
             href="/terms"
@@ -35,14 +42,6 @@ export function Footer() {
               hover:text-[var(--color-ink)] transition-colors duration-200"
           >
             Privacy Policy
-          </NextLink>
-          {/* Second terms link — duplicate per live site (GoDaddy CMS artifact) */}
-          <NextLink
-            href="/terms"
-            className="font-body text-body-sm text-[var(--color-ink-muted)] underline
-              hover:text-[var(--color-ink)] transition-colors duration-200"
-          >
-            Terms and Conditions
           </NextLink>
         </nav>
 

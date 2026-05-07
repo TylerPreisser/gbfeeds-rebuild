@@ -9,7 +9,7 @@ import { cn } from '@/lib/cn';
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
-type PriceTagSize = 'sm' | 'lg';
+type PriceTagSize = 'xs' | 'sm' | 'lg';
 
 interface PriceTagProps {
   /** Regular price as string (e.g., "19.99") */
@@ -24,6 +24,12 @@ interface PriceTagProps {
 // ─── Styles ──────────────────────────────────────────────────────────────────
 
 const sizeConfig: Record<PriceTagSize, { price: string; msrp: string }> = {
+  xs: {
+    price:
+      'font-display tracking-[0.01em] text-[clamp(1rem,0.95rem+0.25vw,1.25rem)] text-[var(--color-ink)] leading-none',
+    msrp:
+      'font-display tracking-[0.01em] text-[clamp(0.75rem,0.7rem+0.15vw,0.875rem)] text-[var(--color-ink-quiet)] line-through leading-none',
+  },
   sm: {
     price:
       'font-display tracking-[0.01em] text-[clamp(1.25rem,1.05rem+0.6vw,1.625rem)] text-[var(--color-ink)] leading-none',

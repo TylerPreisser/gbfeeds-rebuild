@@ -218,8 +218,8 @@ export function ContactForm() {
           id="contact-message"
           name="message"
           required
-          rows={5}
-          placeholder="What can Greg help you with?"
+          rows={6}
+          placeholder="Property size, feeder type, current feed, season, and what you want to improve."
           className="w-full bg-transparent border border-[var(--color-rule)]
             font-body text-body-sm text-[var(--color-ink)] placeholder:text-[var(--color-ink-quiet)]
             px-3 py-2 focus:outline-none focus:border-[var(--color-ink)]

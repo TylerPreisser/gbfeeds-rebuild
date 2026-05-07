@@ -78,35 +78,22 @@ export function NavBar() {
         {/* ═════════════ DESKTOP (lg+) ═════════════ */}
         <div className="hidden lg:flex items-center justify-between h-20">
 
-          {/* Logo (left) — buck mark + wordmark */}
+          {/* Logo (left) */}
           <NextLink
             href="/"
             prefetch={false}
             aria-label="GB Feeds — Home"
-            className="flex items-center gap-3 group"
+            className="flex items-center"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/brand/buck-icon.png"
-              alt=""
-              width={228}
-              height={368}
-              className="h-10 w-auto"
+              src="/brand/deer-mark.png"
+              alt="GB Feeds"
+              width={1024}
+              height={1024}
+              className="h-14 w-14 object-cover"
               loading="eager"
             />
-            <span className="flex flex-col leading-none">
-              <span
-                className="font-display uppercase text-[var(--color-ink)] tracking-[0.04em] text-[1.375rem]
-                  group-hover:text-[var(--color-accent)] transition-colors duration-200"
-              >
-                GB Feeds
-              </span>
-              <span
-                className="font-mono text-[0.6875rem] tracking-[0.18em] uppercase text-[var(--color-ink-quiet)] mt-1"
-              >
-                Grow. Bigger. Bucks.
-              </span>
-            </span>
           </NextLink>
 
           {/* Inline nav (right) */}
@@ -139,13 +126,12 @@ export function NavBar() {
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/brand/logo-1024.png"
-                alt="GB Feeds — Grow. Bigger. Bucks."
-                width={220}
-                height={80}
-                className="h-12 sm:h-14 w-auto"
+                src="/brand/deer-mark.png"
+                alt="GB Feeds"
+                width={1024}
+                height={1024}
+                className="h-12 w-12 sm:h-14 sm:w-14 object-cover"
                 loading="eager"
-                style={{ mixBlendMode: 'multiply' }}
               />
             </NextLink>
           </div>

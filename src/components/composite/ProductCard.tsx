@@ -17,6 +17,7 @@ interface ProductCardProps {
   className?: string;
   /** Priority loading for above-the-fold cards (first 3 on /products) */
   priority?: boolean;
+  density?: 'default' | 'compact';
 }
 
 /**
@@ -25,15 +26,21 @@ interface ProductCardProps {
  * SKU stamp in lower-left fades in on hover.
  * All hover effects are pure CSS — no JS.
  */
-export function ProductCard({ product, className, priority = false }: ProductCardProps) {
+export function ProductCard({
+  product,
+  className,
+  priority = false,
+  density = 'default',
+}: ProductCardProps) {
   const href = `/products/${product.slug}`;
   const imageAlt = product.images[0]?.alt ?? product.displayName;
   const imageSrc = product.primaryImage;
+  const isCompact = density === 'compact';
 
   return (
     <article
       className={cn(
-        'group relative flex flex-col h-full',
+        'premium-card group relative flex flex-col h-full',
         'bg-[var(--color-paper-3)]',
         'border border-[var(--color-rule)]',
         'hover:border-[var(--color-ink)]',
@@ -45,7 +52,10 @@ export function ProductCard({ product, className, priority = false }: ProductCar
       {/* Image container with overflow-hidden for scale clip */}
       <a
         href={href}
-        className="block overflow-hidden aspect-[4/5] relative bg-[var(--color-paper)]"
+        className={cn(
+          'premium-media block overflow-hidden relative bg-[var(--color-paper)]',
+          isCompact ? 'aspect-[4/3]' : 'aspect-[4/5]',
+        )}
         tabIndex={-1}
         aria-hidden="true"
       >
@@ -85,11 +95,19 @@ export function ProductCard({ product, className, priority = false }: ProductCar
       {/* Card body — name + price only, per ORIGINAL_TRUTH § 3.3.
           Body uses flex-1 so cards stretch to equal heights in a grid;
           min-h on the heading keeps 1-line and 2-line titles producing same card height. */}
-      <div className="flex flex-1 flex-col gap-2 p-4 border-t border-[var(--color-rule)]">
+      <div className={cn(
+        'flex flex-1 flex-col border-t border-[var(--color-rule)]',
+        isCompact ? 'gap-1.5 p-3 sm:p-4' : 'gap-2 p-4',
+      )}>
         <Heading
           as="h3"
           size="display-sm"
-          className="line-clamp-3 text-[clamp(1.125rem,0.95rem+0.55vw,1.5rem)] tracking-[0.01em] min-h-[3em] flex-1 leading-[1.05]"
+          className={cn(
+            'line-clamp-3 tracking-[0.01em] flex-1 leading-[1.05]',
+            isCompact
+              ? 'text-[clamp(0.9375rem,0.88rem+0.25vw,1.125rem)] min-h-[2.25em]'
+              : 'text-[clamp(1.125rem,0.95rem+0.55vw,1.5rem)] min-h-[3em]',
+          )}
         >
           <a
             href={href}
@@ -102,7 +120,7 @@ export function ProductCard({ product, className, priority = false }: ProductCar
         <PriceTag
           priceRegular={product.priceUsd}
           priceSale={product.salePriceUsd}
-          size="sm"
+          size={isCompact ? 'xs' : 'sm'}
         />
       </div>
     </article>

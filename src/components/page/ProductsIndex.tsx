@@ -79,7 +79,7 @@ export function ProductsIndex({ products }: ProductsIndexProps) {
             <Heading
               as="h1"
               size="display-lg"
-              className="text-white"
+              className="text-white leading-[0.9] text-[clamp(4.75rem,14vw,13rem)]"
             >
               All Products
             </Heading>

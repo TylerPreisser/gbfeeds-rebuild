@@ -16,6 +16,8 @@ interface AntlerInchesCounterProps {
   total: number;
   /** AS OF stamp date (harvests.json last_updated) */
   asOf?: string;
+  /** Hide the small unit/date text when the counter is used in a tighter layout. */
+  showMeta?: boolean;
   /** scrollProgress — kept for API compatibility but no longer used */
   scrollProgress?: number;
   className?: string;
@@ -35,6 +37,7 @@ function formatInches(n: number): string {
 export function AntlerInchesCounter({
   total,
   asOf,
+  showMeta = true,
   className,
 }: AntlerInchesCounterProps) {
   const reducedMotion = useReducedMotion();
@@ -104,7 +107,7 @@ export function AntlerInchesCounter({
         <span
           ref={spanRef}
           className="font-display uppercase leading-[1.0] text-[var(--color-accent)]"
-          style={{ fontSize: 'clamp(8rem, 6.4rem + 8vw, 15rem)', letterSpacing: '0em' }}
+          style={{ fontSize: 'clamp(6.5rem, 5.5rem + 5.8vw, 11rem)', letterSpacing: '0em' }}
           aria-live="polite"
           aria-atomic="true"
           aria-label={`${formatInches(displayValue)} antler inches`}
@@ -113,15 +116,17 @@ export function AntlerInchesCounter({
         </span>
 
         {/* INCHES unit */}
-        <span
-          className="font-mono text-mono-xs tracking-[0.04em] uppercase text-[var(--color-ink-quiet)]"
-        >
-          Antler Inches Harvested
-        </span>
+        {showMeta && (
+          <span
+            className="font-mono text-mono-xs tracking-[0.04em] uppercase text-[var(--color-ink-quiet)]"
+          >
+            Antler Inches Harvested
+          </span>
+        )}
       </div>
 
       {/* AS OF stamp */}
-      {asOf && (
+      {showMeta && asOf && (
         <span
           className="font-mono text-mono-xs tracking-[0.04em] uppercase text-[var(--color-ink-quiet)]
             border border-[var(--color-rule)] px-2 py-0.5"

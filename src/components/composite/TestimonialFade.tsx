@@ -67,7 +67,7 @@ export function TestimonialFade({ className }: TestimonialFadeProps) {
         width: '100%',
         maxWidth: '48rem',
         margin: '0 auto',
-        height: 'clamp(160px, 22vh, 220px)',
+        height: 'clamp(140px, 16vh, 172px)',
       }}
       aria-live="polite"
       aria-atomic="true"

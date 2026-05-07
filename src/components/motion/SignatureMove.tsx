@@ -5,20 +5,18 @@
 // Any other file importing GSAP will fail the lint gate.
 //
 // The Kansas-fade signature: oxblood 7,500 counter above + Kansas state
-// with customer photos crossfading INSIDE the state silhouette below.
+// with customer quotes fading over the state silhouette below.
 //
 // Desktop: slight parallax via ScrollTrigger.
 // Mobile: static, no pin.
-// Reduced-motion: static, single photo.
+// Reduced-motion: static, single quote.
 // Boundary: imports motion/ + composite/ + hooks/.
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { AntlerInchesCounter } from './AntlerInchesCounter';
 import { KansasPhotoFade } from '@/components/composite/KansasPhotoFade';
-import { TestimonialFade } from '@/components/composite/TestimonialFade';
-import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { useLenis } from '@/hooks/useLenis';
 import type { Harvest } from '@/types/harvests';
 import { cn } from '@/lib/cn';
@@ -39,11 +37,11 @@ interface SignatureMoveProps {
  * Layout (vertically centered, bone-paper background):
  *   [Big oxblood 7,500 counter — Bebas Neue, clamp(8rem,12vw,14rem)]
  *   [ANTLER INCHES HARVESTED WITH GB FEEDS — mono stamp]
- *   [Kansas state silhouette — customer photos fade inside outline]
+ *   [Kansas state silhouette — customer quotes fade over outline]
  *
  * Desktop: GSAP ScrollTrigger fade-in on scroll. No pin (keeps natural flow).
  * Mobile: static fallback.
- * Reduced-motion: no cycling, single photo shown.
+ * Reduced-motion: no cycling, single quote shown.
  */
 export function SignatureMove({
   total,
@@ -51,19 +49,9 @@ export function SignatureMove({
   pins: _pins, // eslint-disable-line @typescript-eslint/no-unused-vars
   className,
 }: SignatureMoveProps) {
-  const reducedMotion = useReducedMotion();
   const { lenis } = useLenis();
   const sectionRef = useRef<HTMLDivElement | null>(null);
   const innerRef = useRef<HTMLDivElement | null>(null);
-  const [isMobile, setIsMobile] = useState(false);
-
-  // Detect mobile
-  useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth < 768);
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
 
   // Lenis + ScrollTrigger sync
   useEffect(() => {
@@ -95,36 +83,26 @@ export function SignatureMove({
       id="counter"
       className={cn(
         'relative w-full bg-[var(--color-paper)] overflow-hidden',
-        'py-20 sm:py-24 lg:py-32',
+        'py-8 sm:py-10 lg:py-12',
         className,
       )}
       aria-label="Antler inches harvested — GB Feeds Kansas signature"
     >
       <div
         ref={innerRef}
-        className="flex flex-col items-center gap-8 px-4 sm:px-8"
+        className="flex flex-col items-center gap-6 sm:gap-8 px-4 sm:px-8"
       >
         {/* Big oxblood counter — self-driven via IntersectionObserver one-shot tween */}
         <AntlerInchesCounter
           total={total}
           asOf={asOf}
+          showMeta={false}
         />
 
-        {/* Kansas state with crossfading customer photos inside */}
-        <div className="w-full max-w-3xl mx-auto">
+        {/* Kansas state with crossfading customer quotes over it */}
+        <div className="w-full max-w-4xl mx-auto mt-2 sm:mt-3">
           <KansasPhotoFade />
         </div>
-
-        {/* Crossfading customer testimonials — synced cadence with Kansas photo cycle */}
-        <TestimonialFade className="mt-2 sm:mt-4" />
-
-        {/* Mono subtext below */}
-        <p
-          className="font-mono text-mono-xs tracking-[0.06em] uppercase text-[var(--color-ink-quiet)] text-center"
-          aria-label="Over 7,500 antler inches harvested by Kansas hunters using GB Feeds"
-        >
-          Antler inches harvested by GB Feeds customers · Kansas-made since 2017
-        </p>
       </div>
     </section>
   );

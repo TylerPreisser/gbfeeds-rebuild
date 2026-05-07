@@ -1,0 +1,63 @@
+name: Deploy to GitHub Pages
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.11'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build static export
+        run: npm run build
+        env:
+          NEXT_PUBLIC_SITE_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}
+          NEXT_PUBLIC_GA_ID: ''
+          NEXT_PUBLIC_TURNSTILE_SITE_KEY: ''
+          NEXT_PUBLIC_FORM_ENDPOINT: ''
+          NEXT_PUBLIC_TRUSTEDSITE_ID: ''
+          NEXT_PUBLIC_FEATURE_FIELD_CLUB: ''
+
+      - name: Preserve Next static assets on GitHub Pages
+        run: touch out/.nojekyll
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: out
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

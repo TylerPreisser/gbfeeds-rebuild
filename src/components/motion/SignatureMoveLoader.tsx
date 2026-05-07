@@ -12,12 +12,11 @@ const SignatureMove = dynamic(
   () => import('@/components/motion/SignatureMove').then((m) => m.SignatureMove),
   {
     ssr: false,
-    // Loading state: match the section's min-height to prevent CLS
+    // Loading state: match the compact signature section to prevent CLS
     loading: () => (
-      // 58svh matches the hydrated static proof moment and prevents CLS.
       <div
         className="w-full bg-[var(--color-paper)]"
-        style={{ minHeight: '58svh' }}
+        style={{ minHeight: '38svh' }}
         aria-hidden="true"
       />
     ),
