@@ -76,30 +76,21 @@ const LIFESTYLE_PHOTOS = [
   },
 ];
 
+// blob-16f87b2 / blob-93bef42 / blob-de1da36 omitted — those tiles have
+// "CUSTOMER REVIEW!" / quote overlays baked into the JPEG and read as cluttered
+// placeholder graphics in the rebuild's design context (Tyler R11 audit).
 const GALLERY_PHOTOS = [
   {
-    src: '/photos/gallery/blob-16f87b2.webp',
-    alt: 'GB Feeds branded lifestyle photo — field scene',
-  },
-  {
     src: '/photos/gallery/blob-478b3b7.webp',
-    alt: 'GB Feeds branded lifestyle photo — hunting property',
+    alt: 'Boy with trophy buck and Corn Candy jug',
   },
   {
     src: '/photos/gallery/blob-8085ecb.webp',
-    alt: 'GB Feeds branded lifestyle photo — Kansas landscape',
-  },
-  {
-    src: '/photos/gallery/blob-93bef42.webp',
-    alt: 'GB Feeds branded lifestyle photo — deer in field',
+    alt: 'Customer trophy buck collage — four harvest scenes',
   },
   {
     src: '/photos/gallery/blob-b7a2223.webp',
-    alt: 'GB Feeds branded lifestyle photo — trail cam setup',
-  },
-  {
-    src: '/photos/gallery/blob-de1da36.webp',
-    alt: 'GB Feeds branded lifestyle photo — autumn Kansas',
+    alt: 'Handwritten thank-you note tied to a Buck Chow bag',
   },
 ];
 

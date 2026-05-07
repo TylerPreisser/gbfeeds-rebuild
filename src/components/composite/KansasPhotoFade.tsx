@@ -23,16 +23,21 @@ const KANSAS_PATH =
   'M 1 1 345.3 1.09 722.23 1.28 740.66 14.5 762.92 13.22 768.68 30.12 744.11 51.25 772.9 84.97 799 91.67 795.93 322.26 396.74 322.35 2.15 322.9 1 1 Z';
 const KANSAS_VIEWBOX = '0 0 800 325';
 
-// Customer photos for the Kansas fade — pull from gallery (harvest/buck shots)
+// Customer photos for the Kansas fade.
+// blob-16f87b2 / blob-93bef42 / blob-de1da36 ALL had baked-in "CUSTOMER REVIEW!" /
+// quote overlay text from the original gbfeeds.com social-asset library — Tyler
+// flagged these as cluttered placeholder graphics. Replaced with clean lifestyle
+// photos (real customer harvests) so the Kansas fade reads as a single photographic
+// reel, not a slideshow of marketing tiles.
 const KANSAS_PHOTOS = [
-  { src: '/photos/gallery/blob-16f87b2.webp', alt: 'Customer harvest photo — KB Feeds' },
-  { src: '/photos/gallery/blob-478b3b7.webp', alt: 'Buck at GB Feeds station' },
-  { src: '/photos/gallery/blob-8085ecb.webp', alt: 'Hunter with harvested deer' },
-  { src: '/photos/gallery/blob-93bef42.webp', alt: 'Trail cam deer photo' },
-  { src: '/photos/gallery/blob-b7a2223.webp', alt: 'Customer with trophy buck' },
-  { src: '/photos/gallery/blob-de1da36.webp', alt: 'Big buck at GB Feeds' },
+  { src: '/photos/gallery/blob-478b3b7.webp', alt: 'Boy with trophy buck and Corn Candy jug' },
+  { src: '/photos/gallery/blob-8085ecb.webp', alt: 'Customer trophy buck collage' },
   { src: '/photos/lifestyle/lifestyle-img-4172.webp', alt: 'Hunter with harvested whitetail' },
-  { src: '/photos/lifestyle/lifestyle-20231008-234054.webp', alt: 'Greg with harvested whitetail' },
+  { src: '/photos/lifestyle/lifestyle-img-4433-1.webp', alt: 'Trophy whitetail in Kansas field' },
+  { src: '/photos/lifestyle/lifestyle-20231008-234054.webp', alt: 'Greg Brungardt with harvested whitetail' },
+  { src: '/photos/lifestyle/lifestyle-img-1091-1.webp', alt: 'Greg with three mounted whitetail bucks' },
+  { src: '/photos/lifestyle/lifestyle-img-4439.webp', alt: 'Hunter at a GB Feeds station' },
+  { src: '/photos/lifestyle/lifestyle-img-8584.webp', alt: 'Customer harvest in Kansas timber' },
 ];
 
 const HOLD_MS = 3500; // how long each photo shows

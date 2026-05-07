@@ -47,10 +47,10 @@ export function WhyGBFeedsPage() {
               aria-label="Customer harvest photo collage"
             >
               {[
-                { src: '/photos/gallery/blob-16f87b2.webp', alt: 'Kid in orange hat with antlers — GB Feeds customer' },
-                { src: '/photos/gallery/blob-478b3b7.webp', alt: 'Man with giant trophy buck' },
-                { src: '/photos/gallery/blob-8085ecb.webp', alt: 'Teenager with antlers' },
-                { src: '/photos/gallery/blob-93bef42.webp', alt: 'Mature buck up close at feeder' },
+                { src: '/photos/gallery/blob-478b3b7.webp', alt: 'Boy with trophy buck and Corn Candy jug' },
+                { src: '/photos/gallery/blob-8085ecb.webp', alt: 'Customer trophy buck collage' },
+                { src: '/photos/lifestyle/lifestyle-img-4172.webp', alt: 'Hunter with harvested whitetail' },
+                { src: '/photos/lifestyle/lifestyle-img-4433-1.webp', alt: 'Trophy whitetail in Kansas field' },
               ].map((photo) => (
                 <div key={photo.src} className="aspect-square overflow-hidden">
                   {/* eslint-disable-next-line @next/next/no-img-element */}

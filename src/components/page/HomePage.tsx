@@ -34,23 +34,12 @@ interface HomePageProps {
   harvests: HarvestsFile;
 }
 
-// ─── Customer photos available for the gallery strip ─────────────────────────
-const CUSTOMER_GALLERY_PHOTOS = [
-  { src: '/photos/gallery/blob-16f87b2.webp', alt: 'Customer harvest photo' },
-  { src: '/photos/gallery/blob-478b3b7.webp', alt: 'Customer buck at feeder' },
-  { src: '/photos/gallery/blob-8085ecb.webp', alt: 'Hunter with harvested deer' },
-  { src: '/photos/gallery/blob-93bef42.webp', alt: 'Trail cam deer photo' },
-  { src: '/photos/gallery/blob-b7a2223.webp', alt: 'Customer with trophy buck' },
-  { src: '/photos/gallery/blob-de1da36.webp', alt: 'Big buck at GB Feeds station' },
-];
-
-// Photos for the "Proven Results" collage in GB Feeds Difference section
-const COLLAGE_PHOTOS = [
-  { src: '/photos/lifestyle/lifestyle-img-4172.webp', alt: 'Hunter with harvested whitetail' },
-  { src: '/photos/lifestyle/lifestyle-img-4433-1.webp', alt: 'Trophy buck in Kansas field' },
-  { src: '/photos/lifestyle/lifestyle-luke-2.webp', alt: 'Young hunter with first deer' },
-  { src: '/photos/lifestyle/lifestyle-luke.webp', alt: 'Successful season harvest' },
-];
+// CUSTOMER_GALLERY_PHOTOS + COLLAGE_PHOTOS were removed — they referenced
+// blob-16f87b2 / blob-93bef42 / blob-de1da36 which carry baked-in
+// "CUSTOMER REVIEW!" / quote overlay text. The home no longer renders a
+// standalone customer photo strip (consolidated into the Kansas signature)
+// or a GB Feeds Difference collage (lives at /why-gb-feeds), so neither
+// array is needed here anymore.
 
 // ─── Component ───────────────────────────────────────────────────────────────
 
@@ -104,7 +93,7 @@ export function HomePage({ harvests }: HomePageProps) {
               width={2200}
               height={1760}
               className="absolute inset-0 w-full h-full object-cover"
-              style={{ objectPosition: 'center 70%' }}
+              style={{ objectPosition: 'center 38%' }}
               loading="eager"
               fetchPriority="high"
             />
@@ -116,7 +105,7 @@ export function HomePage({ harvests }: HomePageProps) {
             aria-hidden="true"
             style={{
               background:
-                'linear-gradient(180deg, rgba(15,14,11,0.42) 0%, rgba(15,14,11,0.18) 38%, rgba(15,14,11,0.18) 62%, rgba(15,14,11,0.55) 100%)',
+                'linear-gradient(180deg, rgba(15,14,11,0.62) 0%, rgba(15,14,11,0.38) 22%, rgba(15,14,11,0.22) 50%, rgba(15,14,11,0.38) 78%, rgba(15,14,11,0.62) 100%)',
             }}
           />
 
@@ -168,19 +157,14 @@ export function HomePage({ harvests }: HomePageProps) {
               FEATURED PRODUCTS
             </Heading>
 
-            {/* Horizontal scroll container */}
+            {/* Featured products grid — uniform sizing, no horizontal scroll on lg+ */}
             <div
-              className="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory
-                scrollbar-hide -mx-4 px-4 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8"
-              style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-              aria-label="Featured products carousel"
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 lg:gap-6"
+              aria-label="Featured GB Feeds products"
             >
-              {featuredProducts.map((product, i) => (
-                <div
-                  key={product.slug}
-                  className="snap-start shrink-0 w-[280px] sm:w-[320px]"
-                >
-                  <ProductCard product={product} priority={i < 2} />
+              {featuredProducts.slice(0, 4).map((product, i) => (
+                <div key={product.slug} className="h-full">
+                  <ProductCard product={product} priority={i < 4} />
                 </div>
               ))}
             </div>

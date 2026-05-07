@@ -38,9 +38,15 @@ export function AntlerInchesCounter({
   className,
 }: AntlerInchesCounterProps) {
   const reducedMotion = useReducedMotion();
-  const [displayValue, setDisplayValue] = useState<number>(reducedMotion ? total : 0);
+  // SSR + first paint: render the FINAL value so crawlers + non-JS users see
+  // the real number AND so the screenshot/initial-paint state isn't a flash of 0.
+  // After mount: if motion is allowed AND we haven't animated yet, drop to 0
+  // then start the IO-driven tween up. The mid-flight transition uses a single
+  // rAF tick so users perceive an "engaging count-up", not a stuttering reset.
+  const [displayValue, setDisplayValue] = useState<number>(total);
   const spanRef = useRef<HTMLSpanElement | null>(null);
   const hasAnimated = useRef(false);
+  const hasMounted = useRef(false);
 
   // When reducedMotion flips true (e.g. system pref change), jump to final value
   useEffect(() => {
@@ -49,11 +55,19 @@ export function AntlerInchesCounter({
     }
   }, [reducedMotion, total]);
 
-  // IO-driven one-shot tween
+  // IO-driven one-shot tween. Drops to 0 immediately on mount (in motion mode)
+  // so the IO can drive the count-up from a clean start once we scroll into view.
   useEffect(() => {
     if (reducedMotion) return;
     const el = spanRef.current;
     if (!el) return;
+
+    // Reset to 0 only once on first client mount (post-SSR) — this is the
+    // moment the user's browser takes over from the server-rendered HTML.
+    if (!hasMounted.current) {
+      hasMounted.current = true;
+      setDisplayValue(0);
+    }
 
     const obs = new IntersectionObserver(
       (entries) => {

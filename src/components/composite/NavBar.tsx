@@ -78,22 +78,35 @@ export function NavBar() {
         {/* ═════════════ DESKTOP (lg+) ═════════════ */}
         <div className="hidden lg:flex items-center justify-between h-20">
 
-          {/* Logo (left) */}
+          {/* Logo (left) — buck mark + wordmark */}
           <NextLink
             href="/"
             prefetch={false}
             aria-label="GB Feeds — Home"
-            className="flex items-center"
+            className="flex items-center gap-3 group"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/brand/buck-icon.png"
-              alt="GB Feeds — black buck mark"
+              alt=""
               width={228}
               height={368}
               className="h-10 w-auto"
               loading="eager"
             />
+            <span className="flex flex-col leading-none">
+              <span
+                className="font-display uppercase text-[var(--color-ink)] tracking-[0.04em] text-[1.375rem]
+                  group-hover:text-[var(--color-accent)] transition-colors duration-200"
+              >
+                GB Feeds
+              </span>
+              <span
+                className="font-mono text-[0.6875rem] tracking-[0.18em] uppercase text-[var(--color-ink-quiet)] mt-1"
+              >
+                Grow. Bigger. Bucks.
+              </span>
+            </span>
           </NextLink>
 
           {/* Inline nav (right) */}
