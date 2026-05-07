@@ -89,7 +89,7 @@ export function ProductCard({ product, className, priority = false }: ProductCar
         <Heading
           as="h3"
           size="display-sm"
-          className="line-clamp-2 text-[clamp(1.5rem,1.2rem+0.8vw,2rem)] min-h-[2.4em] flex-1"
+          className="line-clamp-3 text-[clamp(1.125rem,0.95rem+0.55vw,1.5rem)] tracking-[0.01em] min-h-[3em] flex-1 leading-[1.05]"
         >
           <a
             href={href}

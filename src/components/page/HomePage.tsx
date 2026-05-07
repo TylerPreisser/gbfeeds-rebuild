@@ -344,7 +344,9 @@ export function HomePage({ harvests }: HomePageProps) {
 
               {/* Facebook — #1877F2 */}
               <a
-                href="#"
+                href="https://www.facebook.com/107773225146812"
+                target="_blank"
+                rel="noopener noreferrer"
                 aria-label="GB Feeds on Facebook"
                 className="flex items-center justify-center w-12 h-12 transition-opacity duration-200 hover:opacity-75"
               >
@@ -355,7 +357,9 @@ export function HomePage({ harvests }: HomePageProps) {
 
               {/* Instagram — gradient */}
               <a
-                href="#"
+                href="https://www.instagram.com/gb_feeds"
+                target="_blank"
+                rel="noopener noreferrer"
                 aria-label="GB Feeds on Instagram"
                 className="flex items-center justify-center w-12 h-12 transition-opacity duration-200 hover:opacity-75"
               >
@@ -377,7 +381,9 @@ export function HomePage({ harvests }: HomePageProps) {
 
               {/* TikTok — #000000 */}
               <a
-                href="#"
+                href="https://www.tiktok.com/@gb_feeds"
+                target="_blank"
+                rel="noopener noreferrer"
                 aria-label="GB Feeds on TikTok"
                 className="flex items-center justify-center w-12 h-12 transition-opacity duration-200 hover:opacity-75"
               >
@@ -388,7 +394,9 @@ export function HomePage({ harvests }: HomePageProps) {
 
               {/* YouTube — #FF0000 */}
               <a
-                href="#"
+                href="https://www.youtube.com/@gbfeeds7593"
+                target="_blank"
+                rel="noopener noreferrer"
                 aria-label="GB Feeds on YouTube"
                 className="flex items-center justify-center w-12 h-12 transition-opacity duration-200 hover:opacity-75"
               >
