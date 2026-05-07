@@ -86,7 +86,7 @@ export function HomePage({ harvests }: HomePageProps) {
         <section
           className="relative overflow-hidden"
           aria-label="GB Feeds hero image"
-          style={{ height: 'clamp(480px, 100svh, 900px)' }}
+          style={{ height: 'clamp(560px, 92svh, 880px)' }}
         >
           <picture>
             <source
@@ -100,20 +100,52 @@ export function HomePage({ harvests }: HomePageProps) {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/photos/lifestyle/hero-buck-chow-original.jpg"
-              alt="Buck Chow 40lb deer-feed bag posed in a wooded Kansas field — the original gbfeeds.com hero photograph"
+              alt="Buck Chow deer-feed bag in a wooded Kansas field"
               width={2200}
               height={1760}
-              className="absolute inset-0 w-full h-full object-cover object-center"
+              className="absolute inset-0 w-full h-full object-cover"
+              style={{ objectPosition: 'center 70%' }}
               loading="eager"
               fetchPriority="high"
             />
           </picture>
-          {/* Subtle bottom fade so next section transitions cleanly */}
+
+          {/* Dark overlay so hero text stays legible across the photograph */}
           <div
-            className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none"
-            style={{ background: 'linear-gradient(to bottom, transparent, rgba(255,255,255,0.6))' }}
+            className="absolute inset-0 pointer-events-none"
             aria-hidden="true"
+            style={{
+              background:
+                'linear-gradient(180deg, rgba(15,14,11,0.42) 0%, rgba(15,14,11,0.18) 38%, rgba(15,14,11,0.18) 62%, rgba(15,14,11,0.55) 100%)',
+            }}
           />
+
+          {/* Centered hero text — "GB FEEDS / GROW BIGGER BUCKS" */}
+          <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6 z-10">
+            <p className="font-mono text-mono-xs sm:text-body-sm tracking-[0.18em] uppercase text-white/85 mb-5">
+              Manhattan, KS · Est. 2017 · Field-Tested
+            </p>
+            <h1
+              className="font-display uppercase text-white leading-[0.92] tracking-[0.01em]"
+              style={{
+                fontSize: 'clamp(3.25rem, 10vw, 9.5rem)',
+                textShadow: '0 4px 28px rgba(0,0,0,0.55)',
+                letterSpacing: '0.005em',
+              }}
+            >
+              GB Feeds
+            </h1>
+            <p
+              className="font-display uppercase text-white/95 mt-2 leading-[1.0]"
+              style={{
+                fontSize: 'clamp(1.5rem, 4.4vw, 4rem)',
+                letterSpacing: '0.04em',
+                textShadow: '0 2px 18px rgba(0,0,0,0.55)',
+              }}
+            >
+              Grow. Bigger. Bucks.
+            </p>
+          </div>
         </section>
 
         <Rule weight="hair" />
@@ -173,82 +205,53 @@ export function HomePage({ harvests }: HomePageProps) {
         <Rule weight="hair" />
 
         {/* ══════════════════════════════════════════════════════════════════
-            3. CUSTOMER REVIEWS — horizontal photo gallery strip
-            Per ORIGINAL_TRUTH.md § 2.1 item 3
-            Below gallery: antler counter + Kansas map (SignatureMoveLoader)
+            3. CUSTOMER REVIEWS — consolidated into the Kansas signature.
+            The standalone photo strip + duplicate "more reviews" CTA were
+            removed — Tyler's note: "the customer review section IS the
+            Kansas signature, there shouldn't be a separate one." The
+            SignatureMove now carries the heading + photo cycle (clipped
+            inside Kansas) + text crossfade + CTA below.
             ══════════════════════════════════════════════════════════════════ */}
         <section
           id="customer-reviews"
-          className="bg-white py-20 sm:py-24 lg:py-32"
-          aria-label="Customer reviews photo gallery"
+          className="signature-pin bg-[var(--color-paper)] pt-16 sm:pt-20 lg:pt-24 pb-12 sm:pb-16 lg:pb-20"
+          aria-label="Customer reviews — antler inches harvested with GB Feeds"
         >
           <Container>
+            <p className="font-mono text-mono-xs tracking-[0.12em] uppercase text-[var(--color-ink-quiet)] text-center mb-2">
+              From hunters across Kansas
+            </p>
             <Heading
               as="h2"
-              size="display-sm"
-              className="text-center mb-10 tracking-[0.04em]"
+              size="display-md"
+              className="text-center mb-3 tracking-[0.02em]"
             >
               CUSTOMER REVIEWS
             </Heading>
           </Container>
 
-          {/* Full-bleed horizontal photo strip — explicit height to prevent collapse */}
-          <div
-            className="flex gap-3 overflow-x-auto pb-4 snap-x snap-mandatory
-              -mx-4 px-4 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8"
-            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-            aria-label="Customer harvest photos"
-          >
-            {CUSTOMER_GALLERY_PHOTOS.map((photo) => (
-              <div
-                key={photo.src}
-                className="snap-start shrink-0"
-                style={{ width: '320px', height: '320px', flexShrink: 0 }}
-              >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={photo.src}
-                  alt={photo.alt}
-                  width={400}
-                  height={400}
-                  className="object-cover"
-                  style={{ width: '320px', height: '320px', display: 'block' }}
-                  loading="lazy"
-                />
-              </div>
-            ))}
-          </div>
-
-          {/* MORE CUSTOMER REVIEWS CTA — per original */}
-          <Container>
-            <div className="mt-8 text-center">
-              <Link
-                href="/customer-reviews"
-                className="inline-flex items-center justify-center px-8 py-3
-                  font-display uppercase tracking-[0.04em]
-                  bg-[var(--color-ink)] border border-[var(--color-ink)]
-                  hover:bg-[var(--color-gray-900)]
-                  transition-colors duration-200
-                  focus-visible:outline-2 focus-visible:outline-[var(--color-ink)]"
-                style={{ color: '#ffffff' }}
-              >
-                MORE CUSTOMER REVIEWS
-              </Link>
-            </div>
-          </Container>
-        </section>
-
-        {/* Antler counter + Kansas map signature */}
-        <section
-          className="signature-pin bg-[var(--color-paper)]"
-          style={{ minHeight: '58svh' }}
-          aria-label="Antler inches harvested — GB Feeds"
-        >
           <SignatureMoveLoader
             total={harvests.total_inches}
             asOf={harvests.updated_at}
             pins={harvests.pins}
           />
+
+          <Container>
+            <div className="mt-12 text-center">
+              <Link
+                href="/customer-reviews"
+                className="inline-flex items-center justify-center px-8 py-3
+                  font-display uppercase tracking-[0.04em]
+                  bg-[var(--color-ink)] border border-[var(--color-ink)]
+                  text-[var(--color-paper)]
+                  hover:bg-[var(--color-gray-900)]
+                  transition-colors duration-200
+                  focus-visible:outline-2 focus-visible:outline-[var(--color-ink)]"
+              >
+                READ ALL CUSTOMER REVIEWS
+              </Link>
+            </div>
+          </Container>
         </section>
 
         <Rule weight="hair" />

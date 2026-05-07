@@ -87,11 +87,11 @@ export function NavBar() {
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/brand/logo-transparent.png"
-              alt="GB Feeds — Grow. Bigger. Bucks."
-              width={1006}
-              height={522}
-              className="h-12 w-auto"
+              src="/brand/buck-icon.png"
+              alt="GB Feeds — black buck mark"
+              width={228}
+              height={368}
+              className="h-10 w-auto"
               loading="eager"
             />
           </NextLink>

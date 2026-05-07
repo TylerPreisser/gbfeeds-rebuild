@@ -32,7 +32,7 @@ export function FAQItem({ faq, defaultOpen = false, className }: FAQItemProps) {
           and permanently announces the item as collapsed even when open. */}
       <summary
         className="flex items-center justify-between cursor-pointer list-none
-          font-display uppercase tracking-[0.02em] text-display-sm text-[var(--color-ink)]
+          font-display uppercase tracking-[0.04em] text-[clamp(1rem,0.95rem+0.4vw,1.375rem)] text-[var(--color-ink)]
           hover:text-[var(--color-accent)] transition-colors duration-200
           [&::-webkit-details-marker]:hidden focus-visible:outline-2 focus-visible:outline-[var(--color-accent)]"
       >
@@ -62,7 +62,7 @@ export function FAQItem({ faq, defaultOpen = false, className }: FAQItemProps) {
       {/* Answer — DM Serif Display */}
       <div className="pt-3 pb-1">
         <p
-          className="font-body text-body-md text-[var(--color-ink-muted)] leading-[1.4]
+          className="font-body text-[clamp(0.9375rem,0.875rem+0.2vw,1.0625rem)] text-[var(--color-ink-muted)] leading-[1.55]
             max-w-2xl"
         >
           {faq.answer}

@@ -98,12 +98,12 @@ export function NavMobileDrawer() {
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/brand/logo-transparent.png"
-              alt="GB Feeds — Grow. Bigger. Bucks."
-              width={1006}
-              height={522}
-              className="h-10 w-auto"
-              style={{ filter: 'invert(1) brightness(2)' }}
+              src="/brand/buck-icon.png"
+              alt="GB Feeds — black buck mark"
+              width={228}
+              height={368}
+              className="h-9 w-auto"
+              style={{ filter: 'invert(1)' }}
             />
           </NextLink>
           <button
