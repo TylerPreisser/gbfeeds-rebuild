@@ -268,14 +268,20 @@ export function HomePage({ harvests }: HomePageProps) {
           className="bg-[var(--color-paper-3)] py-16 sm:py-20 lg:py-24"
           aria-label="Contact GB Feeds"
         >
-          <Container variant="narrow">
-            <div className="border-y border-[var(--color-ink)] py-8 sm:py-10 lg:py-12">
-              <div className="grid grid-cols-1 lg:grid-cols-[0.95fr_1.05fr] gap-10 lg:gap-14 items-start">
-                <div>
-                  <p className="font-mono text-mono-xs tracking-[0.14em] uppercase text-[var(--color-accent)] mb-3">
+          <Container>
+            <div className="border-y border-[var(--color-ink)] py-10 sm:py-12 lg:py-14 max-w-6xl mx-auto">
+              <div className="text-center mb-10 sm:mb-12">
+                <p className="font-mono text-mono-xs tracking-[0.14em] uppercase text-[var(--color-accent)] mb-3">
+                  Questions, orders, field photos
+                </p>
+                <Heading as="h2" size="display-lg" className="tracking-[0.03em]">
                   Contact Us
-                  </p>
-                  <Heading as="h2" size="display-md" className="leading-[0.98] tracking-[0.01em] mb-5">
+                </Heading>
+              </div>
+
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-start px-0 sm:px-4 lg:px-8">
+                <div>
+                  <Heading as="h3" size="display-sm" className="leading-[1] tracking-[0.02em] mb-5">
                     Better yet, give us a call.
                   </Heading>
                   <p className="font-body text-body-md text-[var(--color-ink-muted)] leading-[1.55] max-w-md">
@@ -301,7 +307,7 @@ export function HomePage({ harvests }: HomePageProps) {
                   </div>
                 </div>
 
-                <div className="lg:border-l lg:border-[var(--color-rule)] lg:pl-10">
+                <div className="lg:border-l lg:border-[var(--color-rule)] lg:pl-14">
                   <Heading as="h3" size="display-sm" className="mb-3">
                     Send a message
                   </Heading>
