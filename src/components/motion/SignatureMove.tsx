@@ -4,17 +4,19 @@
 // ESLint boundaries rule: GSAP/ScrollTrigger must ONLY appear in this file.
 // Any other file importing GSAP will fail the lint gate.
 //
-// Composes: <AntlerInchesCounter> + <KansasMap> + trail-cam cross-fade.
-// Pin via ScrollTrigger: compact scroll buffer.
-// Mobile (< 768px): static fallback, no pin. iOS Safari: detected, bailout.
-// Reduced-motion: static final state from first paint.
+// The Kansas-fade signature: oxblood 7,500 counter above + Kansas state
+// with customer photos crossfading INSIDE the state silhouette below.
+//
+// Desktop: slight parallax via ScrollTrigger.
+// Mobile: static, no pin.
+// Reduced-motion: static, single photo.
 // Boundary: imports motion/ + composite/ + hooks/.
 
 import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { AntlerInchesCounter } from './AntlerInchesCounter';
-import { KansasMap } from '@/components/composite/KansasMap';
+import { KansasPhotoFade } from '@/components/composite/KansasPhotoFade';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { useLenis } from '@/hooks/useLenis';
 import type { Harvest } from '@/types/harvests';
@@ -23,61 +25,43 @@ import { cn } from '@/lib/cn';
 // Register GSAP plugin — ONLY done here
 gsap.registerPlugin(ScrollTrigger);
 
-const ENABLE_PINNED_COUNTER = false;
-
 interface SignatureMoveProps {
   total: number;
   asOf: string;
   pins: Harvest[];
-  /** Path to the trail-cam plate (cross-fades grayscale → color) */
-  trailCamSrc?: string;
   className?: string;
 }
 
 /**
- * <SignatureMove> — the home-page scroll-pinned signature moment.
+ * <SignatureMove> — home-page Kansas-fade signature moment.
  *
- * Desktop: a compact pinned proof moment.
- *   - Counter ticks 0 → total_inches
- *   - Trail-cam image cross-fades grayscale(1) → grayscale(0)
- *   - Kansas map pins drop sequentially
+ * Layout (vertically centered, bone-paper background):
+ *   [Big oxblood 7,500 counter — Bebas Neue, clamp(8rem,12vw,14rem)]
+ *   [ANTLER INCHES HARVESTED WITH GB FEEDS — mono stamp]
+ *   [Kansas state silhouette — customer photos fade inside outline]
  *
- * Mobile (< 768px): static fallback with IntersectionObserver pin drops.
- * iOS Safari: detected via CSS.supports('-webkit-touch-callout', 'none') — bailout.
- * Reduced-motion: all elements at final state from first paint.
- *
- * Lenis sync: when Lenis is active, we register a scroll listener that calls
- * ScrollTrigger.update() on each scroll event (required for Lenis + ScrollTrigger).
- * We also hand the gsap.ticker off to Lenis raf to avoid double RAF.
+ * Desktop: GSAP ScrollTrigger fade-in on scroll. No pin (keeps natural flow).
+ * Mobile: static fallback.
+ * Reduced-motion: no cycling, single photo shown.
  */
 export function SignatureMove({
   total,
   asOf,
-  pins,
-  trailCamSrc = '/photos/lifestyle/lifestyle-img-3622-640w.webp',
+  pins: _pins, // eslint-disable-line @typescript-eslint/no-unused-vars
   className,
 }: SignatureMoveProps) {
   const reducedMotion = useReducedMotion();
   const { lenis } = useLenis();
   const sectionRef = useRef<HTMLDivElement | null>(null);
-  const imageRef = useRef<HTMLImageElement | null>(null);
+  const innerRef = useRef<HTMLDivElement | null>(null);
   const [scrollProgress, setScrollProgress] = useState<number>(reducedMotion ? 1 : 0);
   const [isMobile, setIsMobile] = useState(false);
-  const [isIOSSafari, setIsIOSSafari] = useState(false);
 
-  // Detect mobile + iOS Safari (CSS.supports detection)
+  // Detect mobile
   useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
     handleResize();
     window.addEventListener('resize', handleResize);
-
-    // iOS Safari detection: CSS.supports('-webkit-touch-callout', 'none')
-    if (typeof CSS !== 'undefined' && CSS.supports('-webkit-touch-callout', 'none')) {
-      setIsIOSSafari(true);
-    }
-
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
@@ -85,14 +69,11 @@ export function SignatureMove({
   useEffect(() => {
     if (!lenis) return;
 
-    // Hand GSAP ticker to Lenis raf — prevents double RAF loop
     function onLenisTick(time: number) {
       lenis?.raf(time * 1000);
     }
     gsap.ticker.add(onLenisTick);
     gsap.ticker.lagSmoothing(0);
-
-    // Keep ScrollTrigger in sync with Lenis scroll position
     lenis.on('scroll', ScrollTrigger.update);
 
     return () => {
@@ -101,44 +82,33 @@ export function SignatureMove({
     };
   }, [lenis]);
 
-  // Mount GSAP ScrollTrigger pin + timeline
+  // Fade-in the section content as it enters the viewport
   useEffect(() => {
     const section = sectionRef.current;
-    const image = imageRef.current;
-    if (!section || !ENABLE_PINNED_COUNTER || reducedMotion || isMobile || isIOSSafari) return;
+    const inner = innerRef.current;
+    if (!section || !inner || reducedMotion || isMobile) return;
 
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: section,
-          pin: true,
-          scrub: 1,
-          start: 'top top',
-          end: '+=1200',
-          onUpdate: (self) => {
-            setScrollProgress(self.progress);
+      gsap.fromTo(
+        inner,
+        { opacity: 0, y: 40 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: section,
+            start: 'top 75%',
+            toggleActions: 'play none none none',
+            onUpdate: (self) => setScrollProgress(self.progress),
           },
         },
-      });
-
-      // Trail-cam cross-fade: grayscale(1) → grayscale(0)
-      if (image) {
-        tl.fromTo(
-          image,
-          { filter: 'grayscale(1) brightness(0.8)' },
-          { filter: 'grayscale(0) brightness(1)', ease: 'none' },
-          0,
-        );
-      }
+      );
     }, section);
 
-    return () => {
-      ctx.revert();
-    };
-  }, [reducedMotion, isMobile, isIOSSafari]);
-
-  // Static fallback: show final state for reduced-motion, mobile, iOS Safari
-  const showStatic = !ENABLE_PINNED_COUNTER || reducedMotion || isMobile || isIOSSafari;
+    return () => ctx.revert();
+  }, [reducedMotion, isMobile]);
 
   return (
     <section
@@ -146,67 +116,35 @@ export function SignatureMove({
       id="counter"
       className={cn(
         'relative w-full bg-[var(--color-paper)] overflow-hidden',
-        // svh accounts for iOS Safari chrome without letting this proof moment
-        // consume several blank screens of page flow.
-        showStatic ? 'min-h-[58svh]' : 'min-h-[82svh]',
+        'py-20 sm:py-24 lg:py-32',
         className,
       )}
-      aria-label="Antler inches harvested — GB Feeds counter"
+      aria-label="Antler inches harvested — GB Feeds Kansas signature"
     >
-      {/* Trail-cam background plate — <picture> with AVIF/WebP sources.
-          imageRef attaches to the inner <img> so GSAP can animate the filter
-          directly on the element that receives the CSS property. */}
-      <picture className="absolute inset-0 w-full h-full">
-        {/* AVIF variant — same path with .avif extension */}
-        <source
-          srcSet={trailCamSrc.replace(/\.webp$/, '.avif')}
-          type="image/avif"
-        />
-        {/* WebP fallback */}
-        <source srcSet={trailCamSrc} type="image/webp" />
-        <img
-          ref={imageRef}
-          src={trailCamSrc}
-          alt="Kansas trail cam photograph"
-          className="w-full h-full object-cover"
-          style={{
-            // Static: full color. Animated: starts grayscale (GSAP overrides).
-            filter: showStatic ? 'grayscale(0) brightness(1)' : 'grayscale(1) brightness(0.8)',
-            opacity: 0.25,
-          }}
-          loading="lazy"
-        />
-      </picture>
-
-      {/* Overlay for readability */}
-      <div className="absolute inset-0 bg-[var(--color-paper)] opacity-70" aria-hidden="true" />
-
-      {/* Content */}
-      <div className="relative z-10 flex flex-col items-center justify-center gap-6 min-h-[inherit] px-6 py-12">
-
-        {/* Counter */}
+      <div
+        ref={innerRef}
+        className="flex flex-col items-center gap-8 px-4 sm:px-8"
+        style={{ opacity: reducedMotion || isMobile ? 1 : 0 }}
+      >
+        {/* Big oxblood counter — the headline number */}
         <AntlerInchesCounter
           total={total}
-          scrollProgress={showStatic ? 1 : scrollProgress}
+          scrollProgress={reducedMotion ? 1 : scrollProgress}
           asOf={asOf}
         />
 
-        {/* Kansas map */}
-        <div className="w-full max-w-2xl">
-          <KansasMap
-            pins={pins}
-            scrollProgress={showStatic ? undefined : scrollProgress}
-          />
+        {/* Kansas state with crossfading customer photos inside */}
+        <div className="w-full max-w-3xl mx-auto">
+          <KansasPhotoFade />
         </div>
 
-        {/* Mobile static stats */}
-        {showStatic && pins.length === 0 && (
-          <div className="flex gap-8 font-mono text-mono-xs tracking-[0.04em] uppercase text-[var(--color-ink-quiet)]">
-            <span>{total.toLocaleString('en-US')} Inches</span>
-            <span>Kansas-Made</span>
-            <span>Since 2017</span>
-          </div>
-        )}
+        {/* Mono subtext below */}
+        <p
+          className="font-mono text-mono-xs tracking-[0.06em] uppercase text-[var(--color-ink-quiet)] text-center"
+          aria-label="Over 7,500 antler inches harvested by Kansas hunters using GB Feeds"
+        >
+          Antler inches harvested by GB Feeds customers · Kansas-made since 2017
+        </p>
       </div>
     </section>
   );

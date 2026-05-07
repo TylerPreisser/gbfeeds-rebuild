@@ -1,146 +1,204 @@
 // src/components/page/WhyGBFeedsPage.tsx
 // RSC — no 'use client'.
-// Verbatim copy from CONTENT_INVENTORY.md § /why-gb-feeds.
-// Replaces "10,000 inches" with <LiveCount />.
-// Boundary: page/ imports composite/ + atomic/ + decoration/ + data/.
+// Four alternating image+text rows per ORIGINAL_TRUTH.md § 5.1.
+// Verbatim copy from § 5.2. No invented CTA. No stamps. No ghost numerals.
+// Boundary: page/ imports atomic/ + data/.
 
-import Link from 'next/link';
 import { Heading } from '@/components/atomic/Heading';
 import { Text } from '@/components/atomic/Text';
 import { Container } from '@/components/atomic/Container';
-import { Section } from '@/components/atomic/Section';
 import { Rule } from '@/components/atomic/Rule';
-import { Marker } from '@/components/atomic/Marker';
-import { PaperGrain } from '@/components/decoration/PaperGrain';
-import { HairlineRules } from '@/components/decoration/HairlineRules';
-import { LiveCount } from '@/components/composite/LiveCount';
-import { pillars } from '@/data/pillars';
 
 /**
- * <WhyGBFeedsPage> — expanded four-pillar explanation.
- * "10,000 inches" inline occurrences replaced with <LiveCount />.
- * Each pillar has a Marker left-margin stamp.
+ * <WhyGBFeedsPage> — four alternating image+text pillar rows.
+ * Per ORIGINAL_TRUTH.md § 5.1 and § 5.2.
+ * Image alternates left/right: row 1 left, row 2 right, row 3 left, row 4 right.
+ * No CTA section. No stamps. White background.
  */
 export function WhyGBFeedsPage() {
   return (
     <main id="main-content">
 
-      {/* ── PAGE HERO ────────────────────────────────────────────────────── */}
+      {/* ── PAGE TITLE ────────────────────────────────────────────────────── */}
       <section
-        className="relative bg-[var(--color-paper-2)] border-b border-[var(--color-rule)] overflow-hidden"
+        className="bg-white py-16 sm:py-20 lg:py-24"
         aria-label="Why GB Feeds page header"
       >
-        <HairlineRules />
-        <PaperGrain />
+        <Container variant="narrow">
+          <Heading as="h1" size="display-lg" className="text-center tracking-[0.03em]">
+            WHY GB FEEDS
+          </Heading>
+        </Container>
+      </section>
+
+      <Rule weight="hair" />
+
+      {/* ── ROW 1: Proven Results — Image LEFT, text RIGHT ─────────────── */}
+      <section
+        className="bg-white py-16 sm:py-20 lg:py-24"
+        aria-label="Proven Results"
+      >
         <Container>
-          <div className="py-14 md:py-20">
-            <p className="font-mono text-mono-xs tracking-[0.04em] uppercase text-[var(--color-ink-quiet)] mb-4">
-              RILEY COUNTY, KS / GB FEEDS DIFFERENCE
-            </p>
-            <Heading as="h1" size="display-lg">
-              Why GB Feeds
-            </Heading>
-            <Text variant="body-lg" className="mt-4 max-w-2xl text-[var(--color-ink-muted)]">
-              Four pillars. No shortcuts. Tested in Kansas.
-            </Text>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+
+            {/* Left — 2×2 collage of customer harvest photos */}
+            <div
+              className="grid grid-cols-2 gap-2 min-h-[320px] lg:min-h-[400px]"
+              aria-label="Customer harvest photo collage"
+            >
+              {[
+                { src: '/photos/gallery/blob-16f87b2.webp', alt: 'Kid in orange hat with antlers — GB Feeds customer' },
+                { src: '/photos/gallery/blob-478b3b7.webp', alt: 'Man with giant trophy buck' },
+                { src: '/photos/gallery/blob-8085ecb.webp', alt: 'Teenager with antlers' },
+                { src: '/photos/gallery/blob-93bef42.webp', alt: 'Mature buck up close at feeder' },
+              ].map((photo) => (
+                <div key={photo.src} className="aspect-square overflow-hidden">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={photo.src}
+                    alt={photo.alt}
+                    width={400}
+                    height={400}
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                  />
+                </div>
+              ))}
+            </div>
+
+            {/* Right — Proven Results text */}
+            <div className="text-center lg:text-left">
+              <Heading as="h2" size="display-md" className="mb-6">
+                Proven Results
+              </Heading>
+              <Text variant="body-md" className="text-[var(--color-ink-muted)] leading-[1.6]">
+                When we say we help hunters create their once in a lifetime story, we mean it.
+                It&apos;s the foundation of our company and it&apos;s who we are. In 2023 and 2024,
+                our customers harvested over 10,000 inches of antler using GB Feeds products right
+                here in Kansas.
+              </Text>
+            </div>
           </div>
         </Container>
       </section>
 
-      {/* ── FOUR PILLARS ─────────────────────────────────────────────────── */}
-      <Section bg="paper">
-        <PaperGrain />
+      <Rule weight="hair" />
+
+      {/* ── ROW 2: Quality Products — Image RIGHT, text LEFT ───────────── */}
+      <section
+        className="bg-white py-16 sm:py-20 lg:py-24"
+        aria-label="Quality Products"
+      >
         <Container>
-          <div className="flex flex-col gap-16">
-            {pillars.map((pillar) => {
-              // Only pillar 01 (Proven Results) references the inch count
-              const isProvenResults = pillar.number === '01';
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
 
-              return (
-                <article
-                  key={pillar.number}
-                  className="flex gap-8 lg:gap-16"
-                  aria-label={`Pillar ${pillar.number}: ${pillar.heading}`}
-                >
-                  {/* Left margin stamp */}
-                  <div className="hidden md:block shrink-0">
-                    <Marker
-                      county="Manhattan, KS"
-                      extra={[{ value: `PILLAR ${pillar.number}` }]}
-                      aria-label={`Pillar ${pillar.number} field notes`}
-                    />
-                  </div>
+            {/* Left — text (on mobile goes first; on desktop shows left) */}
+            <div className="text-center lg:text-left lg:order-1">
+              <Heading as="h2" size="display-md" className="mb-6">
+                Quality Products
+              </Heading>
+              <Text variant="body-md" className="text-[var(--color-ink-muted)] leading-[1.6]">
+                Every component that goes into a Bag of Buck Chow or a Bag of Corn Candy has a
+                &ldquo;reason to be&rdquo;. It&apos;s simple, if it doesn&apos;t increase the nutrition, attraction,
+                antler growth or herd health, it doesn&apos;t make the cut. Innovation and quality are
+                all we know and cutting corners will never be an option.
+              </Text>
+            </div>
 
-                  {/* Pillar content */}
-                  <div className="flex-1 max-w-2xl">
-                    {/* Mobile eyebrow stamp */}
-                    <p className="md:hidden font-mono text-mono-xs tracking-[0.04em] uppercase text-[var(--color-ink-quiet)] mb-3">
-                      Pillar {pillar.number}
-                    </p>
-
-                    <Heading as="h2" size="display-md" className="mb-5">
-                      {pillar.heading}
-                    </Heading>
-
-                    {isProvenResults ? (
-                      // Pillar 01 body: replace the static "10,000 inches" with <LiveCount />
-                      <Text variant="body-md" className="leading-[1.5] text-[var(--color-ink-muted)]">
-                        When we say we help hunters create their once in a lifetime story, we mean it. It&apos;s the foundation of our company and it&apos;s who we are. In 2023 and 2024, our customers harvested over{' '}
-                        <LiveCount suffix="inches" variant="inline" />{' '}
-                        of antler using GB Feeds products right here in Kansas.
-                      </Text>
-                    ) : (
-                      <Text variant="body-md" className="leading-[1.5] text-[var(--color-ink-muted)]">
-                        {pillar.body}
-                      </Text>
-                    )}
-                  </div>
-
-                  {/* Mobile: pillar number as giant display element */}
-                  <div className="hidden lg:flex items-start shrink-0">
-                    <span
-                      className="font-display text-[8rem] leading-none text-[var(--color-gray-100)] select-none"
-                      aria-hidden="true"
-                    >
-                      {pillar.number}
-                    </span>
-                  </div>
-                </article>
-              );
-            })}
+            {/* Right — Buck Chow on truck lifestyle photo */}
+            <div className="overflow-hidden aspect-[4/3] lg:order-2">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/photos/lifestyle/lifestyle-img-4439.webp"
+                alt="Bag of Buck Chow on a truck tailgate in the field"
+                width={800}
+                height={600}
+                className="w-full h-full object-cover"
+                loading="lazy"
+              />
+            </div>
           </div>
         </Container>
-      </Section>
+      </section>
 
-      {/* ── CTA BAND ─────────────────────────────────────────────────────── */}
-      <Section bg="paper-2">
-        <PaperGrain />
-        <Container variant="narrow">
-          <Rule weight="strong" className="mb-8" />
-          <div className="text-center">
-            <Heading as="h2" size="display-md" className="mb-4">
-              Ready to put it to work?
-            </Heading>
-            <Text variant="body-md" className="text-[var(--color-ink-muted)] mb-8">
-              Over{' '}
-              <LiveCount suffix="inches" variant="inline" />{' '}
-              harvested by hunters who made the switch.
-            </Text>
-            <Link
-              href="/products"
-              className="inline-flex items-center justify-center px-8 py-3
-                font-display uppercase tracking-[0.02em] text-body-md
-                bg-[var(--color-ink)] text-[var(--color-paper)]
-                border border-[var(--color-ink)]
-                hover:bg-[var(--color-gray-900)] transition-colors duration-200
-                focus-visible:outline-2 focus-visible:outline-[var(--color-accent)]"
-            >
-              Shop All Products
-            </Link>
+      <Rule weight="hair" />
+
+      {/* ── ROW 3: Unmatched Value — Image LEFT, text RIGHT ────────────── */}
+      <section
+        className="bg-white py-16 sm:py-20 lg:py-24"
+        aria-label="Unmatched Value"
+      >
+        <Container>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+
+            {/* Left — corn / feed pellet macro photo */}
+            <div className="overflow-hidden aspect-[4/3]">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/photos/lifestyle/lifestyle-img-4215.webp"
+                alt="Close-up of golden corn feed pellets — GB Feeds quality ingredients"
+                width={800}
+                height={600}
+                className="w-full h-full object-cover"
+                loading="lazy"
+              />
+            </div>
+
+            {/* Right — Unmatched Value text */}
+            <div className="text-center lg:text-left">
+              <Heading as="h2" size="display-md" className="mb-6">
+                Unmatched Value
+              </Heading>
+              <Text variant="body-md" className="text-[var(--color-ink-muted)] leading-[1.6]">
+                We offer our products directly to you, which eliminates the retail markup and
+                allows us to increase the quality of the components that go into every bag of
+                Buck Chow or bag of Corn Candy. This means better components, higher protein
+                contents, increased nutritional values and more pounds of product for your money.
+              </Text>
+            </div>
           </div>
-          <Rule weight="strong" className="mt-8" />
         </Container>
-      </Section>
+      </section>
+
+      <Rule weight="hair" />
+
+      {/* ── ROW 4: Superior Customer Service — Image RIGHT, text LEFT ──── */}
+      <section
+        className="bg-white py-16 sm:py-20 lg:py-24"
+        aria-label="Superior Customer Service"
+      >
+        <Container>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+
+            {/* Left — text */}
+            <div className="text-center lg:text-left lg:order-1">
+              <Heading as="h2" size="display-md" className="mb-6">
+                Superior Customer Service
+              </Heading>
+              <Text variant="body-md" className="text-[var(--color-ink-muted)] leading-[1.6]">
+                Customer service is our thing. If you&apos;re not totally satisfied with your
+                purchase, just pick up the phone or send us a message on social media and
+                we&apos;ll make it right. We also love your feedback, love your trail camera and
+                harvest photos, and are just a phone call away if you need advice on how to put
+                our products to work for you on your hunting property.
+              </Text>
+            </div>
+
+            {/* Right — customer thank-you / trail-cam photo */}
+            <div className="overflow-hidden aspect-[4/3] lg:order-2">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/photos/gallery/blob-b7a2223.webp"
+                alt="Handwritten customer note attached to a bag of GB Feeds Buck Chow"
+                width={800}
+                height={600}
+                className="w-full h-full object-cover"
+                loading="lazy"
+              />
+            </div>
+          </div>
+        </Container>
+      </section>
 
     </main>
   );

@@ -118,7 +118,7 @@ export function HomePage({ harvests }: HomePageProps) {
             ══════════════════════════════════════════════════════════════════ */}
         <section
           id="featured-products"
-          className="bg-white py-16 sm:py-20 lg:py-24"
+          className="bg-white py-20 sm:py-24 lg:py-32"
           aria-label="Featured GB Feeds products"
         >
           <Container>
@@ -152,10 +152,11 @@ export function HomePage({ harvests }: HomePageProps) {
                 href="/products"
                 className="inline-flex items-center justify-center px-8 py-3
                   font-display uppercase tracking-[0.04em]
-                  bg-[var(--color-ink)] text-white border border-[var(--color-ink)]
-                  hover:bg-white hover:text-[var(--color-ink)]
+                  bg-[var(--color-ink)] border border-[var(--color-ink)]
+                  hover:bg-[var(--color-gray-900)]
                   transition-colors duration-200
                   focus-visible:outline-2 focus-visible:outline-[var(--color-ink)]"
+                style={{ color: '#ffffff' }}
               >
                 SHOP ALL PRODUCTS
               </Link>
@@ -172,7 +173,7 @@ export function HomePage({ harvests }: HomePageProps) {
             ══════════════════════════════════════════════════════════════════ */}
         <section
           id="customer-reviews"
-          className="bg-white py-16 sm:py-20 lg:py-24"
+          className="bg-white py-20 sm:py-24 lg:py-32"
           aria-label="Customer reviews photo gallery"
         >
           <Container>
@@ -185,7 +186,7 @@ export function HomePage({ harvests }: HomePageProps) {
             </Heading>
           </Container>
 
-          {/* Full-bleed horizontal photo strip */}
+          {/* Full-bleed horizontal photo strip — explicit height to prevent collapse */}
           <div
             className="flex gap-3 overflow-x-auto pb-4 snap-x snap-mandatory
               -mx-4 px-4 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8"
@@ -195,8 +196,8 @@ export function HomePage({ harvests }: HomePageProps) {
             {CUSTOMER_GALLERY_PHOTOS.map((photo) => (
               <div
                 key={photo.src}
-                className="snap-start shrink-0 w-[280px] sm:w-[340px] lg:w-[400px]
-                  aspect-square overflow-hidden"
+                className="snap-start shrink-0"
+                style={{ width: '320px', height: '320px', flexShrink: 0 }}
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
@@ -204,7 +205,8 @@ export function HomePage({ harvests }: HomePageProps) {
                   alt={photo.alt}
                   width={400}
                   height={400}
-                  className="w-full h-full object-cover"
+                  className="object-cover"
+                  style={{ width: '320px', height: '320px', display: 'block' }}
                   loading="lazy"
                 />
               </div>
@@ -218,10 +220,11 @@ export function HomePage({ harvests }: HomePageProps) {
                 href="/customer-reviews"
                 className="inline-flex items-center justify-center px-8 py-3
                   font-display uppercase tracking-[0.04em]
-                  bg-[var(--color-ink)] text-white border border-[var(--color-ink)]
-                  hover:bg-white hover:text-[var(--color-ink)]
+                  bg-[var(--color-ink)] border border-[var(--color-ink)]
+                  hover:bg-[var(--color-gray-900)]
                   transition-colors duration-200
                   focus-visible:outline-2 focus-visible:outline-[var(--color-ink)]"
+                style={{ color: '#ffffff' }}
               >
                 MORE CUSTOMER REVIEWS
               </Link>
@@ -251,7 +254,7 @@ export function HomePage({ harvests }: HomePageProps) {
             ══════════════════════════════════════════════════════════════════ */}
         <section
           id="gb-feeds-difference"
-          className="bg-white py-16 sm:py-20 lg:py-24"
+          className="bg-white py-20 sm:py-24 lg:py-32"
           aria-label="The GB Feeds Difference"
         >
           <Container>
@@ -265,17 +268,26 @@ export function HomePage({ harvests }: HomePageProps) {
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
 
-              {/* LEFT — 2×2 photo collage */}
-              <div className="grid grid-cols-2 gap-2" aria-label="Customer harvest photo collage">
+              {/* LEFT — 2×2 photo collage — explicit pixel dimensions prevent collapse */}
+              <div
+                className="grid grid-cols-2 gap-2"
+                aria-label="Customer harvest photo collage"
+                style={{ minHeight: '360px' }}
+              >
                 {COLLAGE_PHOTOS.map((photo) => (
-                  <div key={photo.src} className="aspect-square overflow-hidden">
+                  <div
+                    key={photo.src}
+                    className="overflow-hidden"
+                    style={{ height: '175px' }}
+                  >
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={photo.src}
                       alt={photo.alt}
                       width={400}
                       height={400}
-                      className="w-full h-full object-cover"
+                      className="object-cover"
+                      style={{ width: '100%', height: '175px', display: 'block' }}
                       loading="lazy"
                     />
                   </div>
@@ -283,7 +295,7 @@ export function HomePage({ harvests }: HomePageProps) {
               </div>
 
               {/* RIGHT — 4 pillars */}
-              <div className="flex flex-col gap-8">
+              <div className="flex flex-col gap-12 lg:gap-16">
                 {pillars.map((pillar, index) => (
                   <div key={pillar.number} className="flex flex-col gap-2">
                     <Heading as="h3" size="display-sm" className="tracking-[0.02em]">
@@ -320,7 +332,7 @@ export function HomePage({ harvests }: HomePageProps) {
             ══════════════════════════════════════════════════════════════════ */}
         <section
           id="our-story"
-          className="bg-white py-16 sm:py-20 lg:py-24"
+          className="bg-white py-20 sm:py-24 lg:py-32"
           aria-label="Our Story teaser"
         >
           <Container>
@@ -352,10 +364,11 @@ export function HomePage({ harvests }: HomePageProps) {
                   href="/our-story"
                   className="inline-flex items-center justify-center lg:justify-start px-8 py-3
                     font-display uppercase tracking-[0.04em]
-                    bg-[var(--color-ink)] text-white border border-[var(--color-ink)]
-                    hover:bg-white hover:text-[var(--color-ink)]
+                    bg-[var(--color-ink)] border border-[var(--color-ink)]
+                    hover:bg-[var(--color-gray-900)]
                     transition-colors duration-200
                     focus-visible:outline-2 focus-visible:outline-[var(--color-ink)]"
+                  style={{ color: '#ffffff' }}
                 >
                   LEARN MORE
                 </Link>
@@ -372,7 +385,7 @@ export function HomePage({ harvests }: HomePageProps) {
             ══════════════════════════════════════════════════════════════════ */}
         <section
           id="faq"
-          className="bg-white py-16 sm:py-20 lg:py-24"
+          className="bg-white py-20 sm:py-24 lg:py-32"
           aria-label="Frequently asked questions"
         >
           <Container variant="narrow">
@@ -400,7 +413,7 @@ export function HomePage({ harvests }: HomePageProps) {
             ══════════════════════════════════════════════════════════════════ */}
         <section
           id="contact"
-          className="bg-white py-16 sm:py-20 lg:py-24"
+          className="bg-white py-20 sm:py-24 lg:py-32"
           aria-label="Contact GB Feeds"
         >
           <Container>
@@ -429,9 +442,9 @@ export function HomePage({ harvests }: HomePageProps) {
                 </Heading>
                 <a
                   href="tel:6206393337"
-                  className="font-display uppercase tracking-[0.02em] text-display-md
+                  className="font-display uppercase tracking-[0.02em] text-display-sm
                     text-[var(--color-ink)] hover:text-[var(--color-accent)]
-                    transition-colors duration-200"
+                    transition-colors duration-200 whitespace-nowrap"
                   aria-label="Call GB Feeds at (620) 639-3337"
                 >
                   (620) 639-3337
@@ -449,7 +462,7 @@ export function HomePage({ harvests }: HomePageProps) {
             ══════════════════════════════════════════════════════════════════ */}
         <section
           id="connect"
-          className="bg-white py-16 sm:py-20"
+          className="bg-white py-20 sm:py-24"
           aria-label="Connect with GB Feeds on social media"
         >
           <Container>

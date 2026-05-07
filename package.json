@@ -9,7 +9,7 @@
     "dev": "next dev",
     "build": "tsx scripts/verify-env.ts && tsx scripts/validate-harvests.ts && tsx scripts/validate-products.ts && tsx scripts/validate-images.ts && tsx scripts/validate-client-data-boundary.ts && next build",
     "build:analyze": "cross-env ANALYZE=true npm run build",
-    "start": "serve out -p 4173",
+    "start": "npx http-server out -p 4173 --gzip -e html -c-1 2>/dev/null || serve out -p 4173",
     "lint": "eslint .",
     "type-check": "tsc --noEmit",
     "test:unit": "vitest run",

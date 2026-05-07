@@ -28,6 +28,8 @@ import { PaperGrain } from '@/components/decoration/PaperGrain';
 import { BagTagTriptychLoader } from '@/components/composite/BagTagTriptychLoader';
 import { ProductCard } from '@/components/composite/ProductCard';
 import { TestimonialCard } from '@/components/composite/TestimonialCard';
+import { AddToCartPlaceholder } from '@/components/composite/AddToCartPlaceholder';
+import { StickyAddToCartPlaceholder } from '@/components/composite/StickyAddToCartPlaceholder';
 import { cn } from '@/lib/cn';
 
 // ─── Payment Link helper ──────────────────────────────────────────────────────
@@ -40,7 +42,6 @@ function isPlaceholderLink(url: string): boolean {
   return url.startsWith('about:blank#TODO-');
 }
 
-const PHONE_FALLBACK_COPY = 'CALL (620) 639-3337 TO ORDER';
 const PHONE_FALLBACK_HREF = 'tel:+16206393337';
 
 // ─── Props ────────────────────────────────────────────────────────────────────
@@ -195,42 +196,74 @@ export function ProductDetail({ product }: ProductDetailProps) {
 
                 <Rule weight="hair" />
 
-                {/* Add-to-cart CTA (desktop) — 6E.5 placeholder pattern */}
+                {/* Commerce buttons — per ORIGINAL_TRUTH § 7B */}
                 <div className="flex flex-col gap-3">
-                  {isPlaceholder ? (
-                    <Button
-                      as="a"
-                      href={PHONE_FALLBACK_HREF}
-                      variant="disabled"
-                      className="w-full justify-center lg:w-auto"
-                      aria-label="Call to order this product"
-                    >
-                      {PHONE_FALLBACK_COPY}
-                    </Button>
-                  ) : (
-                    <Button
-                      as="a"
-                      href={product.paymentLinkUrl}
-                      variant="primary"
-                      className="w-full justify-center lg:w-auto"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={`Add ${product.displayName} to cart — opens Stripe checkout`}
-                    >
-                      ADD TO CART
-                    </Button>
-                  )}
 
-                  {/* Phone fallback note */}
-                  <p className="font-mono text-mono-xs tracking-[0.04em] uppercase text-[var(--color-ink-quiet)]">
-                    Questions?{' '}
-                    <a
-                      href={PHONE_FALLBACK_HREF}
-                      className="hover:text-[var(--color-accent)] transition-colors duration-200"
+                  {/* Quantity stepper — static, visual-only (RSC-safe, no JS state) */}
+                  <div className="flex items-center gap-3">
+                    <label
+                      htmlFor={`qty-${product.slug}`}
+                      className="font-mono text-mono-xs tracking-[0.04em] uppercase text-[var(--color-ink-quiet)]"
                     >
-                      CALL (620) 639-3337
-                    </a>
-                  </p>
+                      Quantity
+                    </label>
+                    <input
+                      id={`qty-${product.slug}`}
+                      type="number"
+                      name="quantity"
+                      min={1}
+                      max={99}
+                      defaultValue={1}
+                      className="w-16 text-center border border-[var(--color-rule)]
+                        bg-transparent font-body text-body-sm text-[var(--color-ink)]
+                        py-1.5 px-2 focus:outline-none focus:border-[var(--color-ink)]"
+                      aria-label="Product quantity"
+                    />
+                  </div>
+
+                  {/* ADD TO CART + G Pay — placeholder-aware client components */}
+                  {isPlaceholder ? (
+                    <AddToCartPlaceholder productName={product.displayName} />
+                  ) : (
+                    <>
+                      <Button
+                        as="a"
+                        href={product.paymentLinkUrl}
+                        variant="primary"
+                        className="w-full justify-center"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`Add ${product.displayName} to cart — opens Stripe checkout`}
+                      >
+                        ADD TO CART
+                      </Button>
+
+                      {/* G Pay visual — disabled until real Stripe Checkout */}
+                      <button
+                        type="button"
+                        disabled
+                        aria-label="Buy with Google Pay — coming soon"
+                        className="w-full inline-flex items-center justify-center gap-2 px-5 py-3
+                          bg-[var(--color-ink)] border border-[var(--color-ink)]
+                          opacity-60 cursor-not-allowed
+                          font-body text-body-sm leading-none"
+                        style={{ color: '#ffffff' }}
+                      >
+                        Buy with G Pay
+                      </button>
+
+                      {/* Phone fallback */}
+                      <p className="font-mono text-mono-xs tracking-[0.04em] uppercase text-[var(--color-ink-quiet)] text-center">
+                        Questions?{' '}
+                        <a
+                          href={PHONE_FALLBACK_HREF}
+                          className="hover:text-[var(--color-accent)] transition-colors duration-200"
+                        >
+                          (620) 639-3337
+                        </a>
+                      </p>
+                    </>
+                  )}
                 </div>
 
                 {/* SKU + weight stamps */}
@@ -305,15 +338,15 @@ export function ProductDetail({ product }: ProductDetailProps) {
           </Container>
         </Section>
 
-        {/* ── 4. CROSS-SELL ROW — "Build a feed program with this" ────────── */}
+        {/* ── 4. CROSS-SELL ROW — "You May Also Like" per ORIGINAL_TRUTH § 7B ── */}
         {crossSellProducts.length > 0 && (
-          <Section bg="paper-2" aria-label="Build a feed program with this product">
+          <Section bg="paper-2" aria-label="You may also like">
             <PaperGrain />
             <Container>
               <div className="flex items-center gap-4 mb-10">
                 <Rule weight="hair" className="flex-1" />
                 <Heading as="h2" size="display-sm" className="shrink-0">
-                  BUILD A FEED PROGRAM WITH THIS
+                  YOU MAY ALSO LIKE
                 </Heading>
                 <Rule weight="hair" className="flex-1" />
               </div>
@@ -396,18 +429,7 @@ export function ProductDetail({ product }: ProductDetailProps) {
           </div>
 
           {isPlaceholder ? (
-            <a
-              href={PHONE_FALLBACK_HREF}
-              className={cn(
-                'inline-flex items-center justify-center px-4 py-2 shrink-0',
-                'font-display uppercase tracking-[0.02em] text-body-sm',
-                'bg-[var(--color-ink-quiet)] text-[var(--color-paper)]',
-                'border border-[var(--color-rule)]',
-              )}
-              aria-label="Call to order"
-            >
-              CALL TO ORDER
-            </a>
+            <StickyAddToCartPlaceholder productName={product.displayName} />
           ) : (
             <Button
               as="a"

@@ -1,172 +1,176 @@
 // src/components/page/OurStoryPage.tsx
 // RSC — no 'use client'.
-// Greg's founder narrative. Verbatim from CONTENT_INVENTORY.md § /our-story.
-// Signature motion: the signed note slides up on scroll — pure CSS transform/opacity
-// via the .story-note-enter class applied on .in-view (IntersectionObserver handled
-// by CSS @starting-style, falls back to static for no-JS / reduced-motion).
-// Boundary: page/ imports composite/ + atomic/ + decoration/.
+// Greg's founder narrative. Verbatim from ORIGINAL_TRUTH.md § 4.2.
+// Three alternating image+text rows per ORIGINAL_TRUTH.md § 4.1.
+// No invented stamps. No hero image above the title. White background.
+// Boundary: page/ imports atomic/.
 
 import { Heading } from '@/components/atomic/Heading';
 import { Text } from '@/components/atomic/Text';
 import { Container } from '@/components/atomic/Container';
-import { Section } from '@/components/atomic/Section';
 import { Rule } from '@/components/atomic/Rule';
-import { Marker } from '@/components/atomic/Marker';
-import { Stamp } from '@/components/atomic/Stamp';
-import { PaperGrain } from '@/components/decoration/PaperGrain';
-import { HairlineRules } from '@/components/decoration/HairlineRules';
 
 /**
- * <OurStoryPage> — Greg's founder narrative.
- * inch-wide left Marker with date/county/wind stamps.
- * Pull-quote for the signature line about being the best, not the biggest.
- * Greg-signature.svg in oxblood at the bottom.
+ * <OurStoryPage> — Greg's founder narrative in three alternating image+text rows.
+ * Per ORIGINAL_TRUTH.md § 4.1 and § 4.2.
+ * Row 1: Image LEFT — Greg with mounted bucks | Text RIGHT — paragraphs 1+2
+ * Row 2: Image RIGHT — trail-cam buck | Text LEFT — paragraph 3
+ * Row 3: Image LEFT — Greg with harvested buck | Text RIGHT — paragraphs 4+5 + signature
  */
 export function OurStoryPage() {
   return (
     <main id="main-content">
 
-      {/* ── HERO HEADER ────────────────────────────────────────────────── */}
+      {/* ── PAGE TITLE ──────────────────────────────────────────────────── */}
       <section
-        className="relative bg-[var(--color-paper-2)] border-b border-[var(--color-rule)] overflow-hidden"
-        aria-label="Our story page header"
+        className="bg-white py-16 sm:py-20 lg:py-24"
+        aria-label="Our Story page header"
       >
-        <HairlineRules />
-        <PaperGrain />
+        <Container variant="narrow">
+          <Heading as="h1" size="display-lg" className="text-center tracking-[0.03em]">
+            OUR STORY
+          </Heading>
+        </Container>
+      </section>
+
+      <Rule weight="hair" />
+
+      {/* ── ROW 1: Greg + mounted bucks (Image LEFT) ── paragraphs 1+2 ── */}
+      <section
+        className="bg-white py-16 sm:py-20 lg:py-24"
+        aria-label="Our Story — Founder introduction"
+      >
         <Container>
-          <div className="py-14 md:py-20">
-            <p className="font-mono text-mono-xs tracking-[0.04em] uppercase text-[var(--color-ink-quiet)] mb-4">
-              RILEY COUNTY, KS / EST. 2017 / FOUNDER&apos;S NOTE
-            </p>
-            <Heading as="h1" size="display-lg">
-              Our Story
-            </Heading>
-            <Text variant="body-lg" className="mt-4 max-w-xl text-[var(--color-ink-muted)] font-body italic">
-              A deer feed company founded for hunters, by hunters
-            </Text>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+
+            {/* Left — Greg standing with three mounted bucks */}
+            <div className="overflow-hidden aspect-[4/3]">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/photos/lifestyle/lifestyle-img-1091-1.webp"
+                alt="Greg Brungardt standing in front of a wood shed with three mounted whitetail bucks"
+                width={800}
+                height={600}
+                className="w-full h-full object-cover"
+                loading="eager"
+              />
+            </div>
+
+            {/* Right — paragraphs 1 + 2 verbatim */}
+            <div className="text-center lg:text-left">
+              <Text variant="body-md" className="text-[var(--color-ink-muted)] leading-[1.6] mb-6">
+                Have you ever bought a deer feed product and been disappointed when it didn&apos;t work?
+                Me too...
+              </Text>
+              <Text variant="body-md" className="text-[var(--color-ink-muted)] leading-[1.6]">
+                In 2017, I began to envision a deer feed company unlike any other. A company with
+                product tested right here in the Midwest with a proven track record of success.
+                Five years later and after dozens of product testing sites, hundreds of component
+                trials and nearly a million trail cam pictures, GB FEEDS WAS BORN!
+              </Text>
+            </div>
           </div>
         </Container>
       </section>
 
-      {/* ── FOUNDER NARRATIVE ──────────────────────────────────────────── */}
-      <Section bg="paper">
-        <PaperGrain />
-        <Container>
-          <div className="flex gap-8 lg:gap-16">
+      <Rule weight="hair" />
 
-            {/* Left-margin logbook stamp column */}
-            <div className="hidden md:block shrink-0">
-              <Marker
-                date="2017-01-01"
-                county="Riley Co."
-                wind="W 12"
-                extra={[{ value: 'Kansas' }]}
-                aria-label="Founder story field notes"
+      {/* ── ROW 2: Trail-cam buck (Image RIGHT) ── paragraph 3 ──────────── */}
+      <section
+        className="bg-white py-16 sm:py-20 lg:py-24"
+        aria-label="Our Story — Four pillars"
+      >
+        <Container>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+
+            {/* Left — paragraph 3 text */}
+            <div className="text-center lg:text-left lg:order-1">
+              <Text variant="body-md" className="text-[var(--color-ink-muted)] leading-[1.6]">
+                Being the biggest feed company has never been the goal, we want to be the BEST feed
+                company. Our direct to consumer model is based on four pillars,{' '}
+                <strong>Proven Results</strong>,{' '}
+                <strong>Quality Products</strong>,{' '}
+                <strong>Unmatched Value</strong>{' '}
+                and{' '}
+                <strong>Superior Customer Service</strong>. These pillars guide the company in every
+                decision we make and serve as the foundation for all current and future products.
+              </Text>
+            </div>
+
+            {/* Right — trail-cam still of giant whitetail */}
+            <div className="overflow-hidden aspect-[4/3] lg:order-2">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/photos/lifestyle/lifestyle-img-0018.webp"
+                alt="Trail cam still showing a giant whitetail buck in tall grass with timestamp overlay"
+                width={800}
+                height={600}
+                className="w-full h-full object-cover"
+                loading="lazy"
+              />
+            </div>
+          </div>
+        </Container>
+      </section>
+
+      <Rule weight="hair" />
+
+      {/* ── ROW 3: Greg + harvested buck (Image LEFT) ── paragraphs 4+5+sig */}
+      <section
+        className="bg-white py-16 sm:py-20 lg:py-24"
+        aria-label="Our Story — Welcome"
+      >
+        <Container>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+
+            {/* Left — Greg crouched in corn-stubble field with harvested buck */}
+            <div className="overflow-hidden aspect-[4/3]">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/photos/lifestyle/lifestyle-20231008-234054.webp"
+                alt="Greg crouched in a corn-stubble field with a giant harvested whitetail buck"
+                width={800}
+                height={600}
+                className="w-full h-full object-cover"
+                loading="lazy"
               />
             </div>
 
-            {/* Founder narrative body */}
-            <article
-              className="flex-1 max-w-2xl"
-              aria-label="Greg's founder narrative"
-            >
-              {/* Lifestyle hero image */}
-              <div className="mb-8 relative">
-                <img
-                  src="/photos/lifestyle/lifestyle-img-3622.webp"
-                  alt="Greg Brungardt scouting a Kansas hunting property at dusk"
-                  width={800}
-                  height={533}
-                  className="w-full aspect-[3/2] object-cover border border-[var(--color-rule)]"
-                  loading="lazy"
-                />
-                <p className="mt-2 font-mono text-mono-xs tracking-[0.04em] uppercase text-[var(--color-ink-quiet)]">
-                  Riley County, Kansas — pre-season scouting
-                </p>
-              </div>
-
-              {/* Opening paragraph */}
-              <Text variant="body-md" className="leading-[1.5] text-[var(--color-ink-muted)] mb-6">
-                Have you ever bought a deer feed product and been disappointed when it didn&apos;t work? Me too...
+            {/* Right — paragraphs 4 + 5 + Greg signature */}
+            <div className="text-center lg:text-left">
+              <Text variant="body-md" className="text-[var(--color-ink-muted)] leading-[1.6] mb-6">
+                If you&apos;re in the market for quality deer feed products, proven to help you develop
+                and harvest bigger bucks, at a value you can afford, I would like to be the first to
+                welcome you to the GB Feeds family.
               </Text>
-
-              <Text variant="body-md" className="leading-[1.5] text-[var(--color-ink-muted)] mb-6">
-                In 2017, I began to envision a deer feed company unlike any other. A company with product tested right here in the Midwest with a proven track record of success. Five years later and after dozens of product testing sites, hundreds of component trials and nearly a million trail cam pictures, GB FEEDS WAS BORN!
-              </Text>
-
-              {/* Pull-quote — signature line */}
-              <blockquote
-                className="my-8 pl-5 border-l-2 border-[var(--color-accent)]"
-                aria-label="Greg's mission statement"
-              >
-                <p className="font-body italic text-body-lg text-[var(--color-ink)] leading-[1.3]">
-                  Being the biggest feed company has never been the goal, we want to be the <em>BEST</em> feed company.
-                </p>
-              </blockquote>
-
-              <Text variant="body-md" className="leading-[1.5] text-[var(--color-ink-muted)] mb-6">
-                Our direct to consumer model is based on four pillars:
-              </Text>
-
-              {/* Four pillars list */}
-              <ul className="mb-6 flex flex-col gap-2" aria-label="GB Feeds four pillars">
-                {[
-                  'Proven Results',
-                  'Quality Products',
-                  'Unmatched Value',
-                  'Superior Customer Service',
-                ].map((pillar) => (
-                  <li key={pillar} className="flex items-center gap-3">
-                    <span
-                      className="shrink-0 w-4 h-px bg-[var(--color-accent)]"
-                      aria-hidden="true"
-                    />
-                    <span className="font-display uppercase tracking-[0.02em] text-display-sm text-[var(--color-ink)]">
-                      {pillar}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-
-              <Text variant="body-md" className="leading-[1.5] text-[var(--color-ink-muted)] mb-6">
-                These pillars guide the company in every decision we make and serve as the foundation for all current and future products.
-              </Text>
-
-              <Text variant="body-md" className="leading-[1.5] text-[var(--color-ink-muted)] mb-8">
-                If you&apos;re in the market for quality deer feed products, proven to help you develop and harvest bigger bucks, at a value you can afford, I would like to be the first to welcome you to the GB Feeds family.
-              </Text>
-
-              <Text variant="body-md" className="leading-[1.5] text-[var(--color-ink-muted)] mb-8">
+              <Text variant="body-md" className="text-[var(--color-ink-muted)] leading-[1.6] mb-8">
                 We&apos;re glad you&apos;re here!
               </Text>
 
               <Rule weight="hair" className="mb-6" />
 
-              {/* Signature */}
+              {/* Greg signature */}
               <div
-                className="flex flex-col gap-2"
+                className="flex flex-col gap-2 items-center lg:items-start"
                 aria-label="Signed by Greg Brungardt"
               >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src="/brand/greg-signature.svg"
                   alt="Greg Brungardt's signature"
                   width={180}
                   height={60}
                   className="h-12 w-auto"
-                  style={{ color: 'var(--color-accent)' } as React.CSSProperties}
+                  loading="lazy"
                 />
-                <div className="flex items-center gap-3">
-                  <span className="font-mono text-mono-xs tracking-[0.04em] uppercase text-[var(--color-ink-quiet)]">
-                    Greg Brungardt
-                  </span>
-                  <Stamp value="FOUNDER" />
-                  <Stamp variant="county" value="Manhattan, KS" />
-                </div>
+                <span className="font-mono text-mono-xs tracking-[0.04em] uppercase text-[var(--color-ink-quiet)]">
+                  -Greg
+                </span>
               </div>
-            </article>
+            </div>
           </div>
         </Container>
-      </Section>
+      </section>
 
     </main>
   );

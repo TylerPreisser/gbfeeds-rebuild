@@ -74,12 +74,13 @@ export function NavBar() {
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/brand/logo.svg"
-                alt="GB Feeds"
-                width={160}
-                height={72}
+                src="/brand/logo-1024.png"
+                alt="GB Feeds — Grow. Bigger. Bucks."
+                width={220}
+                height={80}
                 className="h-14 sm:h-16 lg:h-20 w-auto"
                 loading="eager"
+                style={{ imageRendering: 'auto' }}
               />
             </NextLink>
           </div>
