@@ -81,32 +81,12 @@ export function SignatureMove({
     };
   }, [lenis]);
 
-  // Fade-in the section content as it enters the viewport
-  useEffect(() => {
-    const section = sectionRef.current;
-    const inner = innerRef.current;
-    if (!section || !inner || reducedMotion || isMobile) return;
-
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        inner,
-        { opacity: 0, y: 40 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: section,
-            start: 'top 75%',
-            toggleActions: 'play none none none',
-          },
-        },
-      );
-    }, section);
-
-    return () => ctx.revert();
-  }, [reducedMotion, isMobile]);
+  // NOTE: The opacity fade-in was removed. The counter's own IntersectionObserver
+  // (in AntlerInchesCounter.tsx) drives the entrance animation (0→total tween).
+  // Keeping the GSAP ScrollTrigger opacity-0 wrapper caused the IO to never fire
+  // under Lenis-managed scroll (Lenis translate3d moves the body, not the viewport,
+  // so IO entry events never triggered while the element was opacity:0).
+  // Removing the opacity wrapper lets the counter IO fire reliably.
 
   return (
     <section
@@ -122,7 +102,6 @@ export function SignatureMove({
       <div
         ref={innerRef}
         className="flex flex-col items-center gap-8 px-4 sm:px-8"
-        style={{ opacity: reducedMotion || isMobile ? 1 : 0 }}
       >
         {/* Big oxblood counter — self-driven via IntersectionObserver one-shot tween */}
         <AntlerInchesCounter
