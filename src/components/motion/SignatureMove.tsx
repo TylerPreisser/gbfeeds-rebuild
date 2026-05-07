@@ -17,6 +17,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { AntlerInchesCounter } from './AntlerInchesCounter';
 import { KansasPhotoFade } from '@/components/composite/KansasPhotoFade';
+import { TestimonialFade } from '@/components/composite/TestimonialFade';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { useLenis } from '@/hooks/useLenis';
 import type { Harvest } from '@/types/harvests';
@@ -113,6 +114,9 @@ export function SignatureMove({
         <div className="w-full max-w-3xl mx-auto">
           <KansasPhotoFade />
         </div>
+
+        {/* Crossfading customer testimonials — synced cadence with Kansas photo cycle */}
+        <TestimonialFade className="mt-2 sm:mt-4" />
 
         {/* Mono subtext below */}
         <p

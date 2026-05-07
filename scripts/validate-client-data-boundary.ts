@@ -28,6 +28,11 @@ const APPROVED_EXCEPTIONS = new Set([
   // step progression). Product and bundle data is needed client-side for step
   // matching. Phase 8 will move data fetching to the RSC shell (WizardDynamic).
   'components/page/WizardClient.tsx',
+  // TestimonialFade crossfades testimonial text inside the home Kansas signature.
+  // Reads testimonials.ts directly because the cycling state (useState +
+  // setInterval) is purely client-side and the data is small (~22 short quotes,
+  // ~3 KB serialized). Refactoring to receive an array prop adds zero value.
+  'components/composite/TestimonialFade.tsx',
 ]);
 
 // ─── File walker ─────────────────────────────────────────────────────────────

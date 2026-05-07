@@ -1,70 +1,122 @@
 // src/components/composite/NavBar.tsx
-// RSC outer shell. Drawer is a 'use client' child (NavMobileDrawer).
-// Three-column: hamburger (left) | logo centered | icons (right)
-// Matches ORIGINAL_TRUTH.md § 1 exactly: hamburger on BOTH desktop AND mobile.
-// No inline nav links on desktop — all links are inside the drawer.
+// Sticky header with bone-paper background.
+// Desktop (lg:): inline horizontal nav (Home / Products / Why / Story / Reviews / Gallery)
+// Mobile (lg:hidden): hamburger trigger that opens NavMobileDrawer
+// The cart icon was removed — it pointlessly redirected to /products and confused users.
+// The search and account icons were dropped too — neither has a backing service in the rebuild.
+// Logo lives top-center on desktop, top-left on mobile.
 
 import NextLink from 'next/link';
 import { NavMobileDrawer } from './NavMobileDrawer';
 
+const NAV_LINKS = [
+  { href: '/', label: 'Home' },
+  { href: '/products/', label: 'Products' },
+  { href: '/why-gb-feeds/', label: 'Why GB Feeds' },
+  { href: '/our-story/', label: 'Our Story' },
+  { href: '/customer-reviews/', label: 'Reviews' },
+  { href: '/photo-gallery/', label: 'Gallery' },
+] as const;
+
 /**
- * <NavBar> — hamburger-only header, identical on desktop and mobile.
- * Header layout: [Hamburger] [Logo centered] [Search, Cart, Account]
- * Sticky. Background transitions from transparent → bone-paper on scroll
- * via CSS animation-timeline (progressive enhancement).
+ * <NavBar> — bone-paper sticky header.
+ *
+ * Desktop (≥ lg / 1024px):
+ *   [ Logo (left) ] ......... [ Inline nav links (right) ]
+ *
+ * Mobile / tablet (< lg):
+ *   [ Hamburger (left) ]  [ Logo (centered) ]  [ spacer (right) ]
+ *
+ * The header is sticky on scroll with safe-area-inset padding for notched
+ * iPhones. Nav links use display font (Bebas Neue) all-caps tracked tight.
  */
 export function NavBar() {
   return (
     <header
-      className="sticky top-0 z-50 w-full bg-[var(--color-ink)] border-b border-[var(--color-rule)]
+      className="sticky top-0 z-50 w-full
+        bg-[var(--color-paper)]
+        border-b border-[var(--color-rule)]
         pt-[env(safe-area-inset-top)]"
     >
       <style>{`
-        /* Scroll-driven background opacity — progressive enhancement */
-        @supports (animation-timeline: scroll()) {
-          .navbar-inner {
-            animation: navBg linear both;
-            animation-timeline: scroll(root block);
-            animation-range: 0px 60px;
-          }
-          @keyframes navBg {
-            from { --nav-bg-opacity: 0.92; }
-            to   { --nav-bg-opacity: 1; }
-          }
+        /* Nav link hover treatment — subtle underline animates 0→100% in 220ms */
+        .nav-link {
+          position: relative;
+          padding: 0.5rem 0.75rem;
+          color: var(--color-ink);
+          font-family: var(--font-display);
+          font-size: 0.875rem;
+          letter-spacing: 0.04em;
+          text-transform: uppercase;
+          line-height: 1;
+          transition: color 200ms ease;
         }
-
-        /* Icon hover */
-        .nav-icon-btn {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          min-width: 44px;
-          min-height: 44px;
-          color: #ffffff;
-          transition: opacity 200ms ease;
+        .nav-link::after {
+          content: '';
+          position: absolute;
+          left: 0.75rem;
+          right: 0.75rem;
+          bottom: 0.25rem;
+          height: 1px;
+          background: var(--color-accent);
+          transform: scaleX(0);
+          transform-origin: left center;
+          transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
         }
-        .nav-icon-btn:hover {
-          opacity: 0.7;
+        .nav-link:hover::after,
+        .nav-link:focus-visible::after {
+          transform: scaleX(1);
         }
-        .nav-icon-btn:focus-visible {
-          outline: 2px solid #ffffff;
-          outline-offset: 2px;
+        .nav-link:focus-visible {
+          outline: 2px solid var(--color-accent);
+          outline-offset: 4px;
         }
       `}</style>
 
-      <div className="navbar-inner max-w-[88rem] mx-auto px-4 sm:px-6 lg:px-8">
-        {/*
-          Three-column grid:
-          - col 1 (auto): hamburger button
-          - col 2 (1fr): logo, centered
-          - col 3 (auto): icons cluster
-        */}
-        <div className="grid grid-cols-[auto_1fr_auto] items-center h-16 sm:h-20 lg:h-24">
+      <div className="max-w-[88rem] mx-auto px-4 sm:px-6 lg:px-8">
 
-          {/* LEFT — Hamburger, triggers drawer on all viewports */}
+        {/* ═════════════ DESKTOP (lg+) ═════════════ */}
+        <div className="hidden lg:flex items-center justify-between h-24">
+
+          {/* Logo (left) */}
+          <NextLink
+            href="/"
+            prefetch={false}
+            aria-label="GB Feeds — Home"
+            className="flex items-center"
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/brand/logo-transparent.png"
+              alt="GB Feeds — Grow. Bigger. Bucks."
+              width={1006}
+              height={522}
+              className="h-12 w-auto"
+              loading="eager"
+            />
+          </NextLink>
+
+          {/* Inline nav (right) */}
+          <nav aria-label="Primary navigation">
+            <ul className="flex items-center gap-1 xl:gap-2">
+              {NAV_LINKS.map((link) => (
+                <li key={link.href}>
+                  <NextLink href={link.href} prefetch={false} className="nav-link">
+                    {link.label}
+                  </NextLink>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </div>
+
+        {/* ═════════════ MOBILE / TABLET (< lg) ═════════════ */}
+        <div className="lg:hidden grid grid-cols-[auto_1fr_auto] items-center h-16 sm:h-20">
+
+          {/* Hamburger (left) — drawer self-contains <button> + <dialog> */}
           <NavMobileDrawer />
 
-          {/* CENTER — GB Feeds logo, centered via justify-self */}
+          {/* Logo (centered) */}
           <div className="flex justify-center">
             <NextLink
               href="/"
@@ -78,89 +130,15 @@ export function NavBar() {
                 alt="GB Feeds — Grow. Bigger. Bucks."
                 width={220}
                 height={80}
-                className="h-14 sm:h-16 lg:h-20 w-auto"
+                className="h-12 sm:h-14 w-auto"
                 loading="eager"
-                style={{ imageRendering: 'auto' }}
+                style={{ mixBlendMode: 'multiply' }}
               />
             </NextLink>
           </div>
 
-          {/* RIGHT — Search, Cart, Account icons */}
-          <div className="flex items-center gap-1 sm:gap-2">
-
-            {/* Search icon — visual placeholder (no search backend) */}
-            <button
-              type="button"
-              className="nav-icon-btn"
-              aria-label="Search (coming soon)"
-              style={{ cursor: 'not-allowed' }}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden="true"
-              >
-                <circle cx="11" cy="11" r="8" />
-                <path d="m21 21-4.35-4.35" />
-              </svg>
-            </button>
-
-            {/* Cart icon — links to /products (no cart backend yet) */}
-            <NextLink
-              href="/products"
-              className="nav-icon-btn"
-              aria-label="Shop products"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden="true"
-              >
-                <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
-                <line x1="3" y1="6" x2="21" y2="6" />
-                <path d="M16 10a4 4 0 0 1-8 0" />
-              </svg>
-            </NextLink>
-
-            {/* Account icon — visual placeholder */}
-            <button
-              type="button"
-              className="nav-icon-btn"
-              aria-label="Account (coming soon)"
-              style={{ cursor: 'not-allowed' }}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden="true"
-              >
-                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-                <circle cx="12" cy="7" r="4" />
-              </svg>
-            </button>
-
-          </div>
+          {/* Spacer (right) — keeps logo true-centered against hamburger width */}
+          <div className="w-11" aria-hidden="true" />
         </div>
       </div>
     </header>

@@ -88,16 +88,26 @@ export function HomePage({ harvests }: HomePageProps) {
           aria-label="GB Feeds hero image"
           style={{ height: 'clamp(480px, 100svh, 900px)' }}
         >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/photos/lifestyle/lifestyle-img-4172.webp"
-            alt="Hunter holding a Buck Chow 40lb bag in a wooded Kansas field"
-            width={1600}
-            height={900}
-            className="absolute inset-0 w-full h-full object-cover object-center"
-            loading="eager"
-            fetchPriority="high"
-          />
+          <picture>
+            <source
+              type="image/avif"
+              srcSet="/photos/lifestyle/hero-buck-chow-original.avif"
+            />
+            <source
+              type="image/webp"
+              srcSet="/photos/lifestyle/hero-buck-chow-original.webp"
+            />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/photos/lifestyle/hero-buck-chow-original.jpg"
+              alt="Buck Chow 40lb deer-feed bag posed in a wooded Kansas field — the original gbfeeds.com hero photograph"
+              width={2200}
+              height={1760}
+              className="absolute inset-0 w-full h-full object-cover object-center"
+              loading="eager"
+              fetchPriority="high"
+            />
+          </picture>
           {/* Subtle bottom fade so next section transitions cleanly */}
           <div
             className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none"
@@ -243,137 +253,10 @@ export function HomePage({ harvests }: HomePageProps) {
 
         <Rule weight="hair" />
 
-        {/* ══════════════════════════════════════════════════════════════════
-            4. THE GB FEEDS DIFFERENCE — two-column per original
-            Per ORIGINAL_TRUTH.md § 2.1 item 4 + § 2.2
-            LEFT: photo collage | RIGHT: 4 pillars with copy
-            ══════════════════════════════════════════════════════════════════ */}
-        <section
-          id="gb-feeds-difference"
-          className="bg-white py-20 sm:py-24 lg:py-32"
-          aria-label="The GB Feeds Difference"
-        >
-          <Container>
-            <Heading
-              as="h2"
-              size="display-sm"
-              className="text-center mb-12 tracking-[0.04em]"
-            >
-              THE GB FEEDS DIFFERENCE
-            </Heading>
+        {/* GB FEEDS DIFFERENCE + OUR STORY teasers were removed from the home —
+            both have their own dedicated routes (/why-gb-feeds, /our-story).
+            Duplicating their content on the home was redundant per Tyler. */}
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
-
-              {/* LEFT — 2×2 photo collage — explicit pixel dimensions prevent collapse */}
-              <div
-                className="grid grid-cols-2 gap-2"
-                aria-label="Customer harvest photo collage"
-                style={{ minHeight: '360px' }}
-              >
-                {COLLAGE_PHOTOS.map((photo) => (
-                  <div
-                    key={photo.src}
-                    className="overflow-hidden"
-                    style={{ height: '175px' }}
-                  >
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={photo.src}
-                      alt={photo.alt}
-                      width={400}
-                      height={400}
-                      className="object-cover"
-                      style={{ width: '100%', height: '175px', display: 'block' }}
-                      loading="lazy"
-                    />
-                  </div>
-                ))}
-              </div>
-
-              {/* RIGHT — 4 pillars */}
-              <div className="flex flex-col gap-12 lg:gap-16">
-                {pillars.map((pillar, index) => (
-                  <div key={pillar.number} className="flex flex-col gap-2">
-                    <Heading as="h3" size="display-sm" className="tracking-[0.02em]">
-                      {pillar.heading}
-                    </Heading>
-                    <Text variant="body-md" className="text-[var(--color-ink-muted)] leading-[1.5]">
-                      {pillar.body}
-                    </Text>
-                    {/* "Proven Results" gets the Learn more CTA per original */}
-                    {index === 0 && (
-                      <Link
-                        href="/why-gb-feeds"
-                        className="inline-flex items-center
-                          font-display uppercase tracking-[0.04em] text-body-sm
-                          text-[var(--color-ink)] underline hover:no-underline
-                          transition-all duration-200 mt-1"
-                      >
-                        LEARN MORE
-                      </Link>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </div>
-          </Container>
-        </section>
-
-        <Rule weight="hair" />
-
-        {/* ══════════════════════════════════════════════════════════════════
-            5. OUR STORY TEASER
-            Per ORIGINAL_TRUTH.md § 2.1 item 5
-            Image + headline "A deer feed company founded for hunters, by hunters"
-            ══════════════════════════════════════════════════════════════════ */}
-        <section
-          id="our-story"
-          className="bg-white py-20 sm:py-24 lg:py-32"
-          aria-label="Our Story teaser"
-        >
-          <Container>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-
-              {/* Greg portrait image */}
-              <div className="overflow-hidden aspect-[4/3] lg:aspect-[3/2]">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/photos/lifestyle/lifestyle-img-1091-1.webp"
-                  alt="Greg Brungardt with three mounted whitetail bucks"
-                  width={800}
-                  height={600}
-                  className="w-full h-full object-cover"
-                  loading="lazy"
-                />
-              </div>
-
-              {/* Text block */}
-              <div className="text-center lg:text-left">
-                <Heading as="h2" size="display-md" className="mb-4">
-                  A deer feed company founded for hunters, by hunters
-                </Heading>
-                <Text variant="body-md" className="text-[var(--color-ink-muted)] leading-[1.5] mb-6">
-                  In 2017, Greg Brungardt began to envision a deer feed company unlike any other —
-                  tested right here in the Midwest with a proven track record of success.
-                </Text>
-                <Link
-                  href="/our-story"
-                  className="inline-flex items-center justify-center lg:justify-start px-8 py-3
-                    font-display uppercase tracking-[0.04em]
-                    bg-[var(--color-ink)] border border-[var(--color-ink)]
-                    hover:bg-[var(--color-gray-900)]
-                    transition-colors duration-200
-                    focus-visible:outline-2 focus-visible:outline-[var(--color-ink)]"
-                  style={{ color: '#ffffff' }}
-                >
-                  LEARN MORE
-                </Link>
-              </div>
-            </div>
-          </Container>
-        </section>
-
-        <Rule weight="hair" />
 
         {/* ══════════════════════════════════════════════════════════════════
             6. FREQUENTLY ASKED QUESTIONS — 4 accordion rows
@@ -538,36 +421,9 @@ export function HomePage({ harvests }: HomePageProps) {
             Per ORIGINAL_TRUTH.md § 2.1 item 9:
             "yes, the home renders FEATURED PRODUCTS a SECOND TIME below the social row"
             ══════════════════════════════════════════════════════════════════ */}
-        <section
-          className="bg-white py-16 sm:py-20 lg:py-24"
-          aria-label="Featured products — second display"
-        >
-          <Container>
-            <Heading
-              as="h2"
-              size="display-sm"
-              className="text-center mb-10 tracking-[0.04em]"
-            >
-              FEATURED PRODUCTS
-            </Heading>
-
-            <div
-              className="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory
-                -mx-4 px-4 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8"
-              style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-              aria-label="Featured products carousel"
-            >
-              {featuredProducts.map((product) => (
-                <div
-                  key={`second-${product.slug}`}
-                  className="snap-start shrink-0 w-[280px] sm:w-[320px]"
-                >
-                  <ProductCard product={product} priority={false} />
-                </div>
-              ))}
-            </div>
-          </Container>
-        </section>
+        {/* The original site renders FEATURED PRODUCTS a second time at the
+            bottom of home — but that's a redundant duplication that confused
+            users (Tyler called it "stupid"). Removed. */}
 
       </main>
     </>

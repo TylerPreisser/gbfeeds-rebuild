@@ -39,12 +39,12 @@ export function NavMobileDrawer() {
 
   return (
     <>
-      {/* Hamburger button — ALL viewports */}
+      {/* Hamburger button — visible only on mobile/tablet (lg:hidden) */}
       <button
         className="flex flex-col justify-center items-center gap-[5px]
           min-w-[44px] min-h-[44px] px-[10px]
-          text-white hover:opacity-70 transition-opacity duration-200
-          focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2"
+          text-[var(--color-ink)] hover:opacity-70 transition-opacity duration-200
+          focus-visible:outline-2 focus-visible:outline-[var(--color-accent)] focus-visible:outline-offset-2"
         aria-label={open ? 'Close navigation menu' : 'Open navigation menu'}
         aria-expanded={open}
         aria-controls="nav-drawer"
