@@ -80,7 +80,20 @@ export function WhyGBFeedsPage() {
         <Container>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
 
-            {/* Left — text (on mobile goes first; on desktop shows left) */}
+            {/* Right — Buck Chow being poured into a feed site (first in DOM = image-first on mobile) */}
+            <div className="overflow-hidden aspect-[4/3] order-first lg:order-2">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/photos/lifestyle/lifestyle-dsc08089-c31e863.webp"
+                alt="Buck Chow being poured into a feeder at a Kansas property"
+                width={800}
+                height={600}
+                className="w-full h-full object-cover object-[50%_52%] scale-[1.08]"
+                loading="lazy"
+              />
+            </div>
+
+            {/* Left — text (desktop shows left via lg:order-1; mobile stacks below image) */}
             <div className="text-center lg:text-left lg:order-1">
               <Heading as="h2" size="display-md" className="mb-6">
                 Quality Products
@@ -91,19 +104,6 @@ export function WhyGBFeedsPage() {
                 antler growth or herd health, it doesn&apos;t make the cut. Innovation and quality are
                 all we know and cutting corners will never be an option.
               </Text>
-            </div>
-
-            {/* Right — Buck Chow being poured into a feed site */}
-            <div className="overflow-hidden aspect-[4/3] lg:order-2">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/photos/lifestyle/lifestyle-dsc08089-c31e863.webp"
-                alt="Buck Chow being poured into a feeder at a Kansas property"
-                width={800}
-                height={600}
-                className="w-full h-full object-cover object-[50%_52%] scale-[1.08]"
-                loading="lazy"
-              />
             </div>
           </div>
         </Container>
@@ -158,7 +158,20 @@ export function WhyGBFeedsPage() {
         <Container>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
 
-            {/* Left — text */}
+            {/* Right — handwritten customer thank-you note on a Buck Chow bag (first in DOM = image-first on mobile) */}
+            <div className="overflow-hidden aspect-[4/3] order-first lg:order-2 bg-[var(--color-paper-3)]">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/photos/gallery/blob-8085ecb.webp"
+                alt="Handwritten thank-you note from GB Feeds tied to a Buck Chow bag"
+                width={800}
+                height={600}
+                className="w-full h-full object-cover object-[50%_45%] scale-[1.2]"
+                loading="lazy"
+              />
+            </div>
+
+            {/* Left — text (desktop shows left via lg:order-1; mobile stacks below image) */}
             <div className="text-center lg:text-left lg:order-1">
               <Heading as="h2" size="display-md" className="mb-6">
                 Superior Customer Service
@@ -170,19 +183,6 @@ export function WhyGBFeedsPage() {
                 harvest photos, and are just a phone call away if you need advice on how to put
                 our products to work for you on your hunting property.
               </Text>
-            </div>
-
-            {/* Right — handwritten customer thank-you note on a Buck Chow bag */}
-            <div className="overflow-hidden aspect-[4/3] lg:order-2 bg-[var(--color-paper-3)]">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/photos/gallery/blob-8085ecb.webp"
-                alt="Handwritten thank-you note from GB Feeds tied to a Buck Chow bag"
-                width={800}
-                height={600}
-                className="w-full h-full object-cover object-[50%_45%] scale-[1.2]"
-                loading="lazy"
-              />
             </div>
           </div>
         </Container>
