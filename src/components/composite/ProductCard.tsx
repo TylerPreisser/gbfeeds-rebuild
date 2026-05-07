@@ -35,8 +35,9 @@ export function ProductCard({
 }: ProductCardProps) {
   const href = withBasePath(`/products/${product.slug}/`);
   const imageAlt = product.images[0]?.alt ?? product.displayName;
-  const imageSrc = product.primaryImage;
+  const imageSrc = withBasePath(product.primaryImage);
   const isCompact = density === 'compact';
+  const cardTitle = getCardTitle(product);
 
   return (
     <article
@@ -114,7 +115,7 @@ export function ProductCard({
             href={href}
             className="hover:text-[var(--color-accent)] transition-colors duration-200"
           >
-            {product.displayName}
+            {cardTitle}
           </a>
         </Heading>
 
@@ -126,4 +127,20 @@ export function ProductCard({
       </div>
     </article>
   );
+}
+
+function getCardTitle(product: Product): string {
+  const shortNames: Record<string, string> = {
+    'buck-chow-40lb': 'Buck Chow 40LB',
+    'corn-candy-7lb': 'Corn Candy 7LB',
+    'buck-chow-2000lb-pallet': 'Buck Chow 2,000LB Pallet',
+    'tactacam-reveal-bundle': 'Tactacam Reveal Bundle',
+    'lithium-battery': 'Lithium Battery Cartridge',
+    'tws-2000lb-gravity-feeder': 'TWS 2,000LB Gravity Feeder',
+    'tws-600lb-gravity-feeder': 'TWS 600LB Gravity Feeder',
+    'tws-600lb-lucky-buck-spin': 'TWS 600LB Spin Feeder',
+    'tws-2000lb-spin-feeder': 'TWS 2,000LB Spin Feeder',
+  };
+
+  return shortNames[product.slug] ?? product.displayName;
 }

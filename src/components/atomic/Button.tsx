@@ -50,9 +50,9 @@ const baseStyles = [
   'inline-flex items-center justify-center gap-2',
   'rounded-none',
   // Padding: 12px × 35px (design brief spec)
-  'px-5 py-2.5 min-h-11',
+  'px-6 py-3.5 min-h-12',
   // Typography — Bebas Neue uppercase
-  'font-display uppercase tracking-[0.02em] text-body-sm leading-none',
+  'font-display uppercase tracking-[0.035em] text-[clamp(1.05rem,0.98rem+0.24vw,1.25rem)] leading-none',
   // Transition for bg/color
   'transition-colors duration-200',
   // Underline animation layer (CSS-only, 220ms easeOutQuint)

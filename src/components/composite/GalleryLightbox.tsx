@@ -20,7 +20,7 @@ interface GalleryLightboxProps {
 
 /**
  * <GalleryLightbox> — masonry grid of photos with click-to-enlarge.
- * Photos fade from grayscale to color on first viewport entry (CSS-only via animation).
+ * Photos stay black-and-white in the grid; click opens the full-size lightbox.
  * Lightbox: full-screen overlay, keyboard navigable, focus-trapped.
  */
 export function GalleryLightbox({ photos, className }: GalleryLightboxProps) {
@@ -99,18 +99,12 @@ export function GalleryLightbox({ photos, className }: GalleryLightboxProps) {
                   loading="lazy"
                   className={cn(
                     'w-full h-auto block',
-                    // Grayscale on load; color on hover + group-hover
-                    'filter grayscale-[0.85] transition-all duration-700',
-                    'group-hover:grayscale-0 group-focus:grayscale-0',
+                    'filter grayscale transition-transform duration-500',
                     // Scale on hover
                     'group-hover:scale-[1.02] transform origin-center transition-transform duration-500',
                   )}
                 />
               </div>
-              {/* Caption */}
-              <p className="mt-1 font-mono text-mono-xs tracking-[0.04em] uppercase text-[var(--color-ink-quiet)] text-left leading-tight">
-                {photo.alt}
-              </p>
             </button>
           </div>
         ))}
@@ -167,9 +161,7 @@ export function GalleryLightbox({ photos, className }: GalleryLightboxProps) {
                 ← Prev
               </button>
 
-              <p className="font-mono text-mono-xs tracking-[0.04em] uppercase text-[var(--color-gray-500)] text-center flex-1">
-                {activePhoto.alt}
-              </p>
+              <span className="flex-1" aria-hidden="true" />
               <span className="font-mono text-mono-xs text-[var(--color-gray-500)] shrink-0">
                 {activeIndex !== null ? activeIndex + 1 : 0} / {photos.length}
               </span>

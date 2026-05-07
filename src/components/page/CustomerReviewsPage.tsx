@@ -19,9 +19,6 @@ import { testimonials } from '@/data/testimonials';
  * mono attribution stamp. Featured (long) quotes get accent treatment.
  */
 export function CustomerReviewsPage() {
-  // Identify a few featured quotes to give larger visual weight.
-  const featuredIds = new Set(['jerry-1', 'andy-1', 'dylan-1']);
-
   return (
     <main id="main-content" className="bg-[var(--color-paper)]">
       <PaperGrain />
@@ -62,25 +59,21 @@ export function CustomerReviewsPage() {
       >
         <Container>
           <div
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-5"
+            className="columns-1 md:columns-2 lg:columns-3 gap-4 lg:gap-5 [column-fill:balance]"
             role="list"
             aria-label="Customer testimonials"
           >
             {testimonials.map((testimonial) => {
-              const isFeatured = featuredIds.has(testimonial.id);
-              const isLong = testimonial.quote.length > 80;
               return (
                 <figure
                   key={testimonial.id}
                   role="listitem"
                   className={[
-                    'premium-card flex flex-col gap-3 p-4 lg:p-5',
+                    'premium-card mb-4 lg:mb-5 break-inside-avoid flex flex-col gap-3 p-4 lg:p-5',
                     'bg-[var(--color-paper-3)]',
                     'border border-[var(--color-rule)]',
                     'transition-colors duration-200',
                     'hover:border-[var(--color-ink)]',
-                    isFeatured ? 'lg:col-span-2' : '',
-                    isLong && !isFeatured ? 'md:col-span-2 lg:col-span-1' : '',
                   ].join(' ')}
                 >
                   {testimonial.productMentioned && (
@@ -92,9 +85,7 @@ export function CustomerReviewsPage() {
                   <blockquote
                     className={[
                       'font-body italic text-[var(--color-ink)] leading-[1.4]',
-                      isFeatured
-                        ? 'text-[clamp(1rem,0.95rem+0.45vw,1.25rem)]'
-                        : 'text-[clamp(0.9rem,0.85rem+0.25vw,1.0625rem)]',
+                      'text-[clamp(0.9rem,0.85rem+0.25vw,1.0625rem)]',
                     ].join(' ')}
                   >
                     &ldquo;{testimonial.quote}&rdquo;

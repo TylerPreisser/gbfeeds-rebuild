@@ -41,29 +41,17 @@ export function WhyGBFeedsPage() {
         <Container>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
 
-            {/* Left — 2×2 collage of customer harvest photos */}
-            <div
-              className="grid grid-cols-2 gap-2 min-h-[320px] lg:min-h-[400px]"
-              aria-label="Customer harvest photo collage"
-            >
-              {[
-                { src: '/photos/gallery/blob-478b3b7.webp', alt: 'Boy with trophy buck and Corn Candy jug' },
-                { src: '/photos/gallery/blob-8085ecb.webp', alt: 'Customer trophy buck collage' },
-                { src: '/photos/lifestyle/lifestyle-img-0001.webp', alt: 'Hunter with trophy mule deer at night' },
-                { src: '/photos/lifestyle/lifestyle-img-4433-1.webp', alt: 'Trophy whitetail in Kansas field' },
-              ].map((photo) => (
-                <div key={photo.src} className="aspect-square overflow-hidden">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={photo.src}
-                    alt={photo.alt}
-                    width={400}
-                    height={400}
-                    className="w-full h-full object-cover"
-                    loading="lazy"
-                  />
-                </div>
-              ))}
+            {/* Left — original customer harvest collage image */}
+            <div className="overflow-hidden aspect-[4/3] bg-[var(--color-paper-3)]">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/photos/gallery/blob-478b3b7.webp"
+                alt="Customer trophy buck collage"
+                width={960}
+                height={720}
+                className="w-full h-full object-cover"
+                loading="lazy"
+              />
             </div>
 
             {/* Right — Proven Results text */}

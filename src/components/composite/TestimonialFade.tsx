@@ -1,11 +1,10 @@
 'use client';
 // src/components/composite/TestimonialFade.tsx
-// Crossfading text-testimonial overlay paired with the Kansas photo fade.
-// Reads from testimonials.ts (22 verbatim entries from CONTENT_INVENTORY).
-// Cycles through 6-8 strong quotes, each on screen for ~3.5s with a 1s crossfade.
-// Reduced-motion: shows testimonial[0] statically, no rotation.
+// Directional testimonial overlay for the Kansas signature.
+// Keeps the outgoing and incoming quotes mounted at the same time so the new
+// quote pushes the old one out instead of snapping the old text away.
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { testimonials } from '@/data/testimonials';
 
@@ -27,6 +26,7 @@ const FEATURED_TESTIMONIALS = FEATURED_IDS
   .filter((t): t is (typeof testimonials)[number] => t !== undefined);
 
 const HOLD_MS = 3500;
+const TRANSITION_MS = 1250;
 
 interface TestimonialFadeProps {
   className?: string;
@@ -48,14 +48,32 @@ interface TestimonialFadeProps {
 export function TestimonialFade({ className, variant = 'default' }: TestimonialFadeProps) {
   const reducedMotion = useReducedMotion();
   const [activeIndex, setActiveIndex] = useState(0);
+  const [previousIndex, setPreviousIndex] = useState<number | null>(null);
+  const [animationKey, setAnimationKey] = useState(0);
+  const timeoutRef = useRef<number | null>(null);
 
   useEffect(() => {
     if (reducedMotion) return;
     const id = setInterval(() => {
-      setActiveIndex((prev) => (prev + 1) % FEATURED_TESTIMONIALS.length);
+      setActiveIndex((prev) => {
+        setPreviousIndex(prev);
+        setAnimationKey((key) => key + 1);
+        return (prev + 1) % FEATURED_TESTIMONIALS.length;
+      });
     }, HOLD_MS);
     return () => clearInterval(id);
   }, [reducedMotion]);
+
+  useEffect(() => {
+    if (previousIndex === null) return;
+    if (timeoutRef.current) window.clearTimeout(timeoutRef.current);
+    timeoutRef.current = window.setTimeout(() => {
+      setPreviousIndex(null);
+    }, TRANSITION_MS);
+    return () => {
+      if (timeoutRef.current) window.clearTimeout(timeoutRef.current);
+    };
+  }, [previousIndex, animationKey]);
 
   if (FEATURED_TESTIMONIALS.length === 0) return null;
 
@@ -74,13 +92,86 @@ export function TestimonialFade({ className, variant = 'default' }: TestimonialF
       aria-live="polite"
       aria-atomic="true"
     >
+      <style>{`
+        @keyframes kansasQuoteIn {
+          0% {
+            opacity: 0;
+            transform: translate3d(42%, 0, 0) skewX(-2deg) scale(0.965);
+            clip-path: inset(0 100% 0 0);
+            filter: blur(10px);
+          }
+          42% {
+            opacity: 1;
+            filter: blur(2px);
+          }
+          100% {
+            opacity: 1;
+            transform: translate3d(0, 0, 0) skewX(0deg) scale(1);
+            clip-path: inset(0 0 0 0);
+            filter: blur(0);
+          }
+        }
+        @keyframes kansasQuoteOut {
+          0% {
+            opacity: 1;
+            transform: translate3d(0, 0, 0) skewX(0deg) scale(1);
+            clip-path: inset(0 0 0 0);
+            filter: blur(0);
+          }
+          100% {
+            opacity: 0;
+            transform: translate3d(-46%, 0, 0) skewX(-2deg) scale(0.975);
+            clip-path: inset(0 0 0 100%);
+            filter: blur(8px);
+          }
+        }
+        .kansas-quote-enter {
+          animation: kansasQuoteIn ${TRANSITION_MS}ms cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+        .kansas-quote-exit {
+          animation: kansasQuoteOut ${TRANSITION_MS}ms cubic-bezier(0.7, 0, 0.2, 1) both;
+        }
+      `}</style>
+
+      {previousIndex !== null && !reducedMotion && (() => {
+        const t = FEATURED_TESTIMONIALS[previousIndex];
+        if (!t) return null;
+        return (
+          <figure
+            key={`prev-${t.id}-${animationKey}`}
+            className="kansas-quote-exit absolute inset-0 flex flex-col items-center justify-center text-center px-4 will-change-transform"
+            aria-hidden="true"
+          >
+            <blockquote
+              className={[
+                'font-body italic text-[var(--color-ink)] leading-[1.35]',
+                variant === 'kansas'
+                  ? 'text-[clamp(1.375rem,1rem+1.6vw,2.75rem)] max-w-4xl'
+                  : 'text-body-md sm:text-body-lg max-w-2xl',
+              ].join(' ')}
+              style={{ textWrap: 'balance' as const }}
+            >
+              &ldquo;{t.quote}&rdquo;
+            </blockquote>
+            <figcaption
+              className="mt-4 font-mono text-mono-xs tracking-[0.08em] uppercase text-[var(--color-ink-quiet)]"
+            >
+              — {t.attribution}
+            </figcaption>
+          </figure>
+        );
+      })()}
+
       {(() => {
         const t = FEATURED_TESTIMONIALS[activeIndex] ?? FEATURED_TESTIMONIALS[0];
         if (!t) return null;
         return (
           <figure
-            key={t.id}
-            className="absolute inset-0 flex animate-[quoteFadeIn_900ms_cubic-bezier(0.22,1,0.36,1)_both] flex-col items-center justify-center text-center px-4"
+            key={`active-${t.id}-${animationKey}`}
+            className={[
+              'absolute inset-0 flex flex-col items-center justify-center text-center px-4 will-change-transform',
+              previousIndex !== null && !reducedMotion ? 'kansas-quote-enter' : '',
+            ].join(' ')}
           >
             <blockquote
               className={[

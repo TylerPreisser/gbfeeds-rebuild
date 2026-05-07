@@ -23,8 +23,8 @@ export function StickyAddToCartPlaceholder({ productName }: StickyAddToCartPlace
     <button
       type="button"
       onClick={handleClick}
-      className="inline-flex items-center justify-center px-4 py-2 shrink-0
-        font-display uppercase tracking-[0.02em] text-body-sm leading-none
+      className="inline-flex min-h-11 items-center justify-center px-5 py-3 shrink-0
+        font-display uppercase tracking-[0.035em] text-[1.05rem] leading-none
         bg-[var(--color-ink)] border border-[var(--color-ink)]
         hover:bg-[var(--color-gray-900)] transition-colors duration-200"
       aria-label={`Add ${productName} to cart`}

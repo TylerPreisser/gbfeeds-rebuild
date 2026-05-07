@@ -58,6 +58,7 @@ export function ProductDetail({ product }: ProductDetailProps) {
 
   const stockState = deriveStockState(product.available, null);
   const isPlaceholder = isPlaceholderLink(product.paymentLinkUrl);
+  const heroBase = `/products/${product.slug}/${product.slug}-hero`;
 
   return (
     <>
@@ -124,7 +125,7 @@ export function ProductDetail({ product }: ProductDetailProps) {
                     type="image/avif"
                     srcSet={[320, 640, 1024, 1600].map(
                       (w) =>
-                        `/products/${product.slug}/${product.slug}-hero-${w}.avif ${w}w`,
+                        `${withBasePath(`${heroBase}-${w}.avif`)} ${w}w`,
                     ).join(', ')}
                     sizes="(max-width: 1024px) 100vw, 50vw"
                   />
@@ -133,13 +134,13 @@ export function ProductDetail({ product }: ProductDetailProps) {
                     type="image/webp"
                     srcSet={[320, 640, 1024, 1600].map(
                       (w) =>
-                        `/products/${product.slug}/${product.slug}-hero-${w}.webp ${w}w`,
+                        `${withBasePath(`${heroBase}-${w}.webp`)} ${w}w`,
                     ).join(', ')}
                     sizes="(max-width: 1024px) 100vw, 50vw"
                   />
                   {/* JPEG fallback — priority for LCP */}
                   <img
-                    src={`/products/${product.slug}/${product.slug}-hero-1024.jpg`}
+                    src={withBasePath(`${heroBase}-1024.jpg`)}
                     alt={product.images[0]?.alt ?? product.displayName}
                     width={1024}
                     height={1024}
@@ -221,7 +222,7 @@ export function ProductDetail({ product }: ProductDetailProps) {
                         as="a"
                         href={product.paymentLinkUrl}
                         variant="primary"
-                        className="w-full justify-center"
+                        className="w-full min-h-14 justify-center"
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label={`Add ${product.displayName} to cart — opens Stripe checkout`}
@@ -234,10 +235,10 @@ export function ProductDetail({ product }: ProductDetailProps) {
                         type="button"
                         disabled
                         aria-label="Buy with Google Pay — coming soon"
-                        className="w-full inline-flex items-center justify-center gap-2 px-5 py-3
+                        className="w-full inline-flex min-h-14 items-center justify-center gap-2 px-6 py-4
                           bg-[var(--color-ink)] border border-[var(--color-ink)]
                           opacity-60 cursor-not-allowed
-                          font-body text-body-sm leading-none"
+                          font-body text-body-md leading-none"
                         style={{ color: '#ffffff' }}
                       >
                         Buy with G Pay
@@ -369,7 +370,7 @@ export function ProductDetail({ product }: ProductDetailProps) {
           aria-label="Add to cart"
         >
           <div className="flex flex-col">
-            <span className="font-display uppercase tracking-[0.02em] text-body-sm text-[var(--color-ink)] truncate max-w-[160px]">
+            <span className="font-display uppercase tracking-[0.02em] text-[1rem] text-[var(--color-ink)] truncate max-w-[170px]">
               {product.displayName}
             </span>
             <PriceTag
@@ -386,7 +387,7 @@ export function ProductDetail({ product }: ProductDetailProps) {
               as="a"
               href={product.paymentLinkUrl}
               variant="primary"
-              className="shrink-0"
+              className="min-h-11 shrink-0 px-5 py-3"
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`Add ${product.displayName} to cart`}

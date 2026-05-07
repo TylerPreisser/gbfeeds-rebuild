@@ -42,10 +42,10 @@ export function NavBar() {
         /* Nav link hover treatment — subtle underline animates 0→100% in 220ms */
         .nav-link {
           position: relative;
-          padding: 0.5rem 0.75rem;
+          padding: 0.75rem 0.95rem;
           color: var(--color-ink);
           font-family: var(--font-display);
-          font-size: 0.875rem;
+          font-size: clamp(1.2rem, 1rem + 0.45vw, 1.65rem);
           letter-spacing: 0.04em;
           text-transform: uppercase;
           line-height: 1;
@@ -54,10 +54,10 @@ export function NavBar() {
         .nav-link::after {
           content: '';
           position: absolute;
-          left: 0.75rem;
-          right: 0.75rem;
-          bottom: 0.25rem;
-          height: 1px;
+          left: 0.95rem;
+          right: 0.95rem;
+          bottom: 0.45rem;
+          height: 2px;
           background: var(--color-accent);
           transform: scaleX(0);
           transform-origin: left center;
@@ -73,10 +73,10 @@ export function NavBar() {
         }
       `}</style>
 
-      <div className="max-w-[88rem] mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[92rem] mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* ═════════════ DESKTOP (lg+) ═════════════ */}
-        <div className="hidden lg:flex items-center justify-between h-20">
+        <div className="hidden lg:flex items-center justify-between h-24">
 
           {/* Logo (left) */}
           <a
@@ -90,7 +90,7 @@ export function NavBar() {
               alt="GB Feeds"
               width={1024}
               height={1024}
-              className="h-14 w-14 object-cover"
+              className="h-20 w-20 object-cover"
               loading="eager"
             />
           </a>
@@ -110,7 +110,7 @@ export function NavBar() {
         </div>
 
         {/* ═════════════ MOBILE / TABLET (< lg) ═════════════ */}
-        <div className="lg:hidden grid grid-cols-[auto_1fr_auto] items-center h-16 sm:h-20">
+        <div className="lg:hidden grid grid-cols-[auto_1fr_auto] items-center h-20 sm:h-24">
 
           {/* Hamburger (left) — drawer self-contains <button> + <dialog> */}
           <NavMobileDrawer />
@@ -128,7 +128,7 @@ export function NavBar() {
                 alt="GB Feeds"
                 width={1024}
                 height={1024}
-                className="h-12 w-12 sm:h-14 sm:w-14 object-cover"
+                className="h-16 w-16 sm:h-20 sm:w-20 object-cover"
                 loading="eager"
               />
             </a>
