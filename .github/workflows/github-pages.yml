@@ -42,8 +42,8 @@ jobs:
           NEXT_PUBLIC_TRUSTEDSITE_ID: ''
           NEXT_PUBLIC_FEATURE_FIELD_CLUB: ''
 
-      - name: Preserve Next static assets on GitHub Pages
-        run: touch out/.nojekyll
+      - name: Rewrite static export for GitHub Pages project URL
+        run: npx tsx scripts/prepare-github-pages.ts
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
