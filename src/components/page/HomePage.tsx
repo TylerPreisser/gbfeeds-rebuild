@@ -291,6 +291,12 @@ export function HomePage({ harvests }: HomePageProps) {
                 <ContactForm />
               </div>
 
+              {/* Separator — between form and phone CTA, matching phone row border token */}
+              <div
+                className="border-t border-[var(--color-rule)] my-10 sm:my-12"
+                aria-hidden="true"
+              />
+
               {/* Phone CTA */}
               <div>
                 <p className="font-display uppercase tracking-[0.02em] text-center text-[var(--color-ink-muted)] text-body-sm mb-3">
