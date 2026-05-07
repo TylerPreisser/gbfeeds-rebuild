@@ -26,5 +26,25 @@ export default function Page() {
   // The data is baked into the static HTML — no runtime fetch needed.
   const harvests = harvestsJson as HarvestsFile;
 
-  return <HomePage harvests={harvests} />;
+  return (
+    <>
+      {/*
+       * Preload the LCP hero AVIF so the browser discovers it before HTML
+       * parsing reaches the <picture> element. Without this preload, the
+       * browser must parse to the <section> before the image download starts,
+       * adding ~300-500ms to LCP on a cold load.
+       *
+       * Next.js App Router hoists any <link> elements returned from RSCs into
+       * <head> automatically — no custom Document needed.
+       */}
+      {/* eslint-disable-next-line @next/next/no-head-element */}
+      <link
+        rel="preload"
+        as="image"
+        href="/photos/lifestyle/hero-buck-chow-original.avif"
+        type="image/avif"
+      />
+      <HomePage harvests={harvests} />
+    </>
+  );
 }

@@ -272,6 +272,9 @@ export function HomePage({ harvests }: HomePageProps) {
             <div className="border-y border-[var(--color-ink)] py-10 sm:py-12 lg:py-14 max-w-2xl mx-auto">
               {/* Heading block — centered, unified */}
               <div className="text-center mb-10 sm:mb-12">
+                <p className="font-mono text-mono-xs tracking-[0.14em] uppercase text-[var(--color-ink-muted)] mb-3">
+                  Questions, orders, field photos
+                </p>
                 <Heading as="h2" size="display-lg" className="tracking-[0.03em]">
                   Contact Us
                 </Heading>
@@ -280,8 +283,16 @@ export function HomePage({ harvests }: HomePageProps) {
                 </p>
               </div>
 
+              {/* Contact form */}
+              <div className="mb-10 sm:mb-12">
+                <p className="font-display uppercase tracking-[0.02em] text-center text-[var(--color-ink-muted)] text-body-sm mb-6">
+                  Send a message
+                </p>
+                <ContactForm />
+              </div>
+
               {/* Phone CTA */}
-              <div className="mb-8 sm:mb-10">
+              <div>
                 <p className="font-display uppercase tracking-[0.02em] text-center text-[var(--color-ink-muted)] text-body-sm mb-3">
                   Better yet, give us a call.
                 </p>
@@ -297,14 +308,6 @@ export function HomePage({ harvests }: HomePageProps) {
                     </span>
                   </a>
                 </div>
-              </div>
-
-              {/* Contact form */}
-              <div>
-                <p className="font-body text-body-sm text-[var(--color-ink-muted)] text-center mb-6">
-                  Or send a message — name, email, and a quick note are all we need.
-                </p>
-                <ContactForm />
               </div>
             </div>
           </Container>
