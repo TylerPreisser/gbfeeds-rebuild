@@ -27,10 +27,10 @@ const FEATURED_TESTIMONIALS = FEATURED_IDS
   .filter((t): t is (typeof testimonials)[number] => t !== undefined);
 
 const HOLD_MS = 3500;
-const FADE_MS = 1000;
 
 interface TestimonialFadeProps {
   className?: string;
+  variant?: 'default' | 'kansas';
 }
 
 /**
@@ -45,7 +45,7 @@ interface TestimonialFadeProps {
  * Use this BELOW the Kansas SVG inside the SignatureMove section to give the
  * "voices from inside Kansas" effect Tyler asked for.
  */
-export function TestimonialFade({ className }: TestimonialFadeProps) {
+export function TestimonialFade({ className, variant = 'default' }: TestimonialFadeProps) {
   const reducedMotion = useReducedMotion();
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -65,42 +65,42 @@ export function TestimonialFade({ className }: TestimonialFadeProps) {
       style={{
         position: 'relative',
         width: '100%',
-        maxWidth: '48rem',
+        maxWidth: variant === 'kansas' ? '56rem' : '48rem',
         margin: '0 auto',
-        height: 'clamp(140px, 16vh, 172px)',
+        height: variant === 'kansas'
+          ? 'clamp(160px, 18vh, 210px)'
+          : 'clamp(140px, 16vh, 172px)',
       }}
       aria-live="polite"
       aria-atomic="true"
     >
-      {FEATURED_TESTIMONIALS.map((t, i) => {
-        const isActive = i === activeIndex;
-        const slideOffset = isActive ? '0' : '12px';
+      {(() => {
+        const t = FEATURED_TESTIMONIALS[activeIndex] ?? FEATURED_TESTIMONIALS[0];
+        if (!t) return null;
         return (
           <figure
             key={t.id}
-            className="absolute inset-0 flex flex-col items-center justify-center text-center px-4"
-            style={{
-              opacity: isActive ? 1 : 0,
-              transform: `translateY(${slideOffset})`,
-              transition: `opacity ${FADE_MS}ms ease-in-out, transform ${FADE_MS}ms cubic-bezier(0.22, 1, 0.36, 1)`,
-              pointerEvents: isActive ? 'auto' : 'none',
-            }}
-            aria-hidden={!isActive}
+            className="absolute inset-0 flex animate-[quoteFadeIn_900ms_cubic-bezier(0.22,1,0.36,1)_both] flex-col items-center justify-center text-center px-4"
           >
             <blockquote
-              className="font-body italic text-body-md sm:text-body-lg text-[var(--color-ink)] leading-[1.45] max-w-2xl"
+              className={[
+                'font-body italic text-[var(--color-ink)] leading-[1.35]',
+                variant === 'kansas'
+                  ? 'text-[clamp(1.375rem,1rem+1.6vw,2.75rem)] max-w-4xl'
+                  : 'text-body-md sm:text-body-lg max-w-2xl',
+              ].join(' ')}
               style={{ textWrap: 'balance' as const }}
             >
               &ldquo;{t.quote}&rdquo;
             </blockquote>
             <figcaption
-              className="mt-3 font-mono text-mono-xs tracking-[0.08em] uppercase text-[var(--color-ink-quiet)]"
+              className="mt-4 font-mono text-mono-xs tracking-[0.08em] uppercase text-[var(--color-ink-quiet)]"
             >
               — {t.attribution}
             </figcaption>
           </figure>
         );
-      })}
+      })()}
     </div>
   );
 }

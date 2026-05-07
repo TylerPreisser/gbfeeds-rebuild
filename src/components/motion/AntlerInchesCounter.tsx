@@ -18,6 +18,8 @@ interface AntlerInchesCounterProps {
   asOf?: string;
   /** Hide the small unit/date text when the counter is used in a tighter layout. */
   showMeta?: boolean;
+  label?: string;
+  showDate?: boolean;
   /** scrollProgress — kept for API compatibility but no longer used */
   scrollProgress?: number;
   className?: string;
@@ -38,6 +40,8 @@ export function AntlerInchesCounter({
   total,
   asOf,
   showMeta = true,
+  label = 'Antler Inches Harvested',
+  showDate = true,
   className,
 }: AntlerInchesCounterProps) {
   const reducedMotion = useReducedMotion();
@@ -118,15 +122,15 @@ export function AntlerInchesCounter({
         {/* INCHES unit */}
         {showMeta && (
           <span
-            className="font-mono text-mono-xs tracking-[0.04em] uppercase text-[var(--color-ink-quiet)]"
+            className="font-mono text-mono-xs sm:text-body-sm tracking-[0.08em] uppercase text-[var(--color-ink-quiet)]"
           >
-            Antler Inches Harvested
+            {label}
           </span>
         )}
       </div>
 
       {/* AS OF stamp */}
-      {showMeta && asOf && (
+      {showMeta && showDate && asOf && (
         <span
           className="font-mono text-mono-xs tracking-[0.04em] uppercase text-[var(--color-ink-quiet)]
             border border-[var(--color-rule)] px-2 py-0.5"

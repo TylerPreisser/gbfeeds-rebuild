@@ -5,9 +5,9 @@
 // Next.js static export: Cloudflare Pages serves out/404.html for all 404 routes.
 
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import { PaperGrain } from '@/components/decoration/PaperGrain';
 import { HairlineRules } from '@/components/decoration/HairlineRules';
+import { withBasePath } from '@/lib/basePath';
 
 export const metadata: Metadata = {
   title: 'Page Not Found | GB Feeds',
@@ -54,8 +54,8 @@ export default function NotFound() {
         </p>
 
         {/* CTA */}
-        <Link
-          href="/"
+        <a
+          href={withBasePath('/')}
           className="inline-flex items-center justify-center px-8 py-3
             font-display uppercase tracking-[0.02em] text-body-md
             bg-[var(--color-ink)] text-[var(--color-paper)]
@@ -64,37 +64,37 @@ export default function NotFound() {
             focus-visible:outline-2 focus-visible:outline-[var(--color-accent)]"
         >
           Back to Home
-        </Link>
+        </a>
 
         {/* Quick links */}
         <div className="mt-8 flex flex-wrap gap-4 justify-center">
-          <Link
-            href="/products"
+          <a
+            href={withBasePath('/products/')}
             className="font-mono text-mono-xs tracking-[0.04em] uppercase
               text-[var(--color-ink-quiet)] hover:text-[var(--color-accent)]
               transition-colors duration-200
               focus-visible:outline-2 focus-visible:outline-[var(--color-accent)]"
           >
             Products
-          </Link>
-          <Link
-            href="/our-story"
+          </a>
+          <a
+            href={withBasePath('/our-story/')}
             className="font-mono text-mono-xs tracking-[0.04em] uppercase
               text-[var(--color-ink-quiet)] hover:text-[var(--color-accent)]
               transition-colors duration-200
               focus-visible:outline-2 focus-visible:outline-[var(--color-accent)]"
           >
             Our Story
-          </Link>
-          <Link
-            href="/contact"
+          </a>
+          <a
+            href={withBasePath('/#contact')}
             className="font-mono text-mono-xs tracking-[0.04em] uppercase
               text-[var(--color-ink-quiet)] hover:text-[var(--color-accent)]
               transition-colors duration-200
               focus-visible:outline-2 focus-visible:outline-[var(--color-accent)]"
           >
             Contact
-          </Link>
+          </a>
         </div>
       </div>
     </main>

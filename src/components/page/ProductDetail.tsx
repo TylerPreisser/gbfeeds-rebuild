@@ -4,7 +4,6 @@
 // 6D.4 fan-out: 16 slugs from generateStaticParams, this file unchanged.
 // Boundary: page/ imports composite/ + atomic/ + decoration/ + data/ + lib/.
 
-import Link from 'next/link';
 import type { Product } from '@/types/product';
 import { getCrossSells } from '@/data/cross-sell-map';
 import { getProductBySlug } from '@/data/products';
@@ -29,6 +28,7 @@ import { ProductCard } from '@/components/composite/ProductCard';
 import { AddToCartPlaceholder } from '@/components/composite/AddToCartPlaceholder';
 import { StickyAddToCartPlaceholder } from '@/components/composite/StickyAddToCartPlaceholder';
 import { cn } from '@/lib/cn';
+import { withBasePath } from '@/lib/basePath';
 
 // ─── Payment Link helper ──────────────────────────────────────────────────────
 
@@ -80,21 +80,21 @@ export function ProductDetail({ product }: ProductDetailProps) {
                 tracking-[0.04em] uppercase text-[var(--color-ink-quiet)]"
             >
               <li>
-                <Link
-                  href="/"
+                <a
+                  href={withBasePath('/')}
                   className="hover:text-[var(--color-ink)] transition-colors duration-200"
                 >
                   Home
-                </Link>
+                </a>
               </li>
               <li aria-hidden="true">/</li>
               <li>
-                <Link
-                  href="/products"
+                <a
+                  href={withBasePath('/products/')}
                   className="hover:text-[var(--color-ink)] transition-colors duration-200"
                 >
                   Products
-                </Link>
+                </a>
               </li>
               <li aria-hidden="true">/</li>
               <li

@@ -7,6 +7,7 @@
 
 import type { Testimonial } from '@/types/product';
 import { cn } from '@/lib/cn';
+import { withBasePath } from '@/lib/basePath';
 
 interface MarqueeTickerProps {
   testimonials: Testimonial[];
@@ -43,7 +44,7 @@ export function MarqueeTicker({ testimonials, className }: MarqueeTickerProps) {
             </blockquote>
           ))}
           <a
-            href="/customer-reviews"
+            href={withBasePath('/customer-reviews/')}
             className="font-mono text-mono-xs tracking-[0.04em] uppercase text-[var(--color-accent)]
               hover:text-[var(--color-accent-2)] transition-colors duration-200"
           >

@@ -51,8 +51,8 @@ export function KansasPhotoFade({ className }: KansasPhotoFadeProps) {
         />
       </svg>
 
-      <div className="absolute inset-x-[7%] inset-y-[8%] z-10 flex items-center justify-center">
-        <TestimonialFade className="kansas-quote-fade" />
+      <div className="absolute inset-x-[6%] inset-y-[7%] z-10 flex items-center justify-center">
+        <TestimonialFade className="kansas-quote-fade" variant="kansas" />
       </div>
     </div>
   );

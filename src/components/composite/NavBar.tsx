@@ -6,8 +6,8 @@
 // The search and account icons were dropped too — neither has a backing service in the rebuild.
 // Logo lives top-center on desktop, top-left on mobile.
 
-import NextLink from 'next/link';
 import { NavMobileDrawer } from './NavMobileDrawer';
+import { withBasePath } from '@/lib/basePath';
 
 const NAV_LINKS = [
   { href: '/', label: 'Home' },
@@ -79,9 +79,8 @@ export function NavBar() {
         <div className="hidden lg:flex items-center justify-between h-20">
 
           {/* Logo (left) */}
-          <NextLink
-            href="/"
-            prefetch={false}
+          <a
+            href={withBasePath('/')}
             aria-label="GB Feeds — Home"
             className="flex items-center"
           >
@@ -94,16 +93,16 @@ export function NavBar() {
               className="h-14 w-14 object-cover"
               loading="eager"
             />
-          </NextLink>
+          </a>
 
           {/* Inline nav (right) */}
           <nav aria-label="Primary navigation">
             <ul className="flex items-center gap-1 xl:gap-2">
               {NAV_LINKS.map((link) => (
                 <li key={link.href}>
-                  <NextLink href={link.href} prefetch={false} className="nav-link">
+                  <a href={withBasePath(link.href)} className="nav-link">
                     {link.label}
-                  </NextLink>
+                  </a>
                 </li>
               ))}
             </ul>
@@ -118,9 +117,8 @@ export function NavBar() {
 
           {/* Logo (centered) */}
           <div className="flex justify-center">
-            <NextLink
-              href="/"
-              prefetch={false}
+            <a
+              href={withBasePath('/')}
               aria-label="GB Feeds — Home"
               className="flex items-center"
             >
@@ -133,7 +131,7 @@ export function NavBar() {
                 className="h-12 w-12 sm:h-14 sm:w-14 object-cover"
                 loading="eager"
               />
-            </NextLink>
+            </a>
           </div>
 
           {/* Spacer (right) — keeps logo true-centered against hamburger width */}

@@ -91,12 +91,12 @@ export function ProductsIndex({ products }: ProductsIndexProps) {
 
       {/* ── 2. CATALOG ──────────────────────────────────────────────────── */}
       <Section bg="paper" className="py-12 md:py-16 lg:py-20">
-        <Container>
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+        <Container variant="wide">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10">
 
             {/* LEFT — vertical filter rail (lg+); horizontal scroll chip strip on <lg */}
             <aside
-              className="lg:col-span-3"
+              className="lg:col-span-2"
               aria-label="Filter products by category"
             >
               <Suspense
@@ -113,10 +113,10 @@ export function ProductsIndex({ products }: ProductsIndexProps) {
             </aside>
 
             {/* RIGHT — static product grid (always 16 cards in HTML) */}
-            <div className="lg:col-span-9">
+            <div className="lg:col-span-10">
               <div
                 id={PRODUCT_GRID_ID}
-                className="grid gap-5 grid-cols-1 sm:grid-cols-2 xl:grid-cols-3"
+                className="grid gap-5 grid-cols-1 sm:grid-cols-2 xl:grid-cols-4"
                 data-active-cat="all"
                 aria-label="Products"
               >

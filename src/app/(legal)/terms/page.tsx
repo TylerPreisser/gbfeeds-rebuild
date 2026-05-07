@@ -12,6 +12,7 @@ import { Section } from '@/components/atomic/Section';
 import { Rule } from '@/components/atomic/Rule';
 import { Stamp } from '@/components/atomic/Stamp';
 import { PaperGrain } from '@/components/decoration/PaperGrain';
+import { withBasePath } from '@/lib/basePath';
 
 export const metadata: Metadata = {
   ...buildMetadata({
@@ -142,7 +143,7 @@ export default function TermsPage() {
               <Text variant="body-md" className="text-[var(--color-ink-muted)] leading-[1.5]">
                 Questions about these Terms? Call (620) 639-3337 or{' '}
                 <a
-                  href="/contact"
+                  href={withBasePath('/#contact')}
                   className="text-[var(--color-ink)] underline decoration-[var(--color-rule)] hover:decoration-[var(--color-accent)] transition-colors duration-200"
                 >
                   send a message

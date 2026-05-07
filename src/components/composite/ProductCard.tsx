@@ -11,6 +11,7 @@ import { Heading } from '@/components/atomic/Heading';
 import { PriceTag } from '@/components/atomic/PriceTag';
 import { Stamp } from '@/components/atomic/Stamp';
 import { cn } from '@/lib/cn';
+import { withBasePath } from '@/lib/basePath';
 
 interface ProductCardProps {
   product: Product;
@@ -32,7 +33,7 @@ export function ProductCard({
   priority = false,
   density = 'default',
 }: ProductCardProps) {
-  const href = `/products/${product.slug}`;
+  const href = withBasePath(`/products/${product.slug}/`);
   const imageAlt = product.images[0]?.alt ?? product.displayName;
   const imageSrc = product.primaryImage;
   const isCompact = density === 'compact';

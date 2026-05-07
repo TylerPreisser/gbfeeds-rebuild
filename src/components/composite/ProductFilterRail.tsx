@@ -6,9 +6,9 @@
 
 import { useSearchParams } from 'next/navigation';
 import { useEffect } from 'react';
-import Link from 'next/link';
 import type { Category } from '@/types/product';
 import { cn } from '@/lib/cn';
+import { withBasePath } from '@/lib/basePath';
 
 interface FilterItem {
   value: Category;
@@ -57,8 +57,8 @@ export function ProductFilterRail({
         </p>
         <ul className="flex flex-col" role="list">
           <li>
-            <Link
-              href="/products/"
+            <a
+              href={withBasePath('/products/')}
               aria-current={activeCategory === null ? 'page' : undefined}
               className={cn(
                 'group flex items-baseline justify-between gap-3 py-3',
@@ -74,12 +74,12 @@ export function ProductFilterRail({
               <span className="font-mono text-mono-xs text-[var(--color-ink-quiet)] group-hover:text-[var(--color-accent)]">
                 {totalCount}
               </span>
-            </Link>
+            </a>
           </li>
           {items.map((item) => (
             <li key={item.value}>
-              <Link
-                href={`/products/?cat=${item.value}`}
+              <a
+                href={withBasePath(`/products/?cat=${item.value}`)}
                 aria-current={activeCategory === item.value ? 'page' : undefined}
                 className={cn(
                   'group flex items-baseline justify-between gap-3 py-3',
@@ -95,7 +95,7 @@ export function ProductFilterRail({
                 <span className="font-mono text-mono-xs text-[var(--color-ink-quiet)] group-hover:text-[var(--color-accent)]">
                   {item.count}
                 </span>
-              </Link>
+              </a>
             </li>
           ))}
         </ul>
@@ -113,8 +113,8 @@ export function ProductFilterRail({
           role="list"
         >
           <li className="snap-start shrink-0">
-            <Link
-              href="/products/"
+            <a
+              href={withBasePath('/products/')}
               aria-current={activeCategory === null ? 'page' : undefined}
               className={cn(
                 'inline-flex items-center gap-2 px-4 py-2',
@@ -126,12 +126,12 @@ export function ProductFilterRail({
               )}
             >
               All <span className="opacity-60">{totalCount}</span>
-            </Link>
+            </a>
           </li>
           {items.map((item) => (
             <li key={item.value} className="snap-start shrink-0">
-              <Link
-                href={`/products/?cat=${item.value}`}
+              <a
+                href={withBasePath(`/products/?cat=${item.value}`)}
                 aria-current={activeCategory === item.value ? 'page' : undefined}
                 className={cn(
                   'inline-flex items-center gap-2 px-4 py-2',
@@ -143,7 +143,7 @@ export function ProductFilterRail({
                 )}
               >
                 {item.label} <span className="opacity-60">{item.count}</span>
-              </Link>
+              </a>
             </li>
           ))}
         </ul>

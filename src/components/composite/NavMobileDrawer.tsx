@@ -5,8 +5,8 @@
 // Drawer contains the 6-item nav from the original site.
 
 import { useState, useEffect } from 'react';
-import NextLink from 'next/link';
 import { drawerNav } from '@/data/nav';
+import { withBasePath } from '@/lib/basePath';
 
 /**
  * <NavMobileDrawer> — hamburger button + full-screen drawer overlay.
@@ -90,9 +90,8 @@ export function NavMobileDrawer() {
       >
         {/* Drawer header */}
         <div className="flex items-center justify-between px-6 py-5 border-b border-white/10">
-          <NextLink
-            href="/"
-            prefetch={false}
+          <a
+            href={withBasePath('/')}
             onClick={() => setOpen(false)}
             aria-label="GB Feeds — Home"
           >
@@ -105,7 +104,7 @@ export function NavMobileDrawer() {
               className="h-9 w-auto"
               style={{ filter: 'invert(1)' }}
             />
-          </NextLink>
+          </a>
           <button
             className="flex items-center justify-center min-w-[44px] min-h-[44px]
               text-white hover:opacity-70 transition-opacity duration-200
@@ -133,10 +132,9 @@ export function NavMobileDrawer() {
         {/* Nav links — the original 6 items in exact order */}
         <nav className="flex-1 overflow-y-auto px-6 py-6 flex flex-col" aria-label="Primary navigation">
           {drawerNav.map((item) => (
-            <NextLink
+            <a
               key={item.href}
-              href={item.href}
-              prefetch={false}
+              href={withBasePath(item.href)}
               onClick={() => setOpen(false)}
               className="
                 font-display uppercase tracking-[0.04em]
@@ -147,7 +145,7 @@ export function NavMobileDrawer() {
               "
             >
               {item.label}
-            </NextLink>
+            </a>
           ))}
         </nav>
 

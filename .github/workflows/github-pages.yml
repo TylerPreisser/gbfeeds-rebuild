@@ -41,6 +41,7 @@ jobs:
           NEXT_PUBLIC_FORM_ENDPOINT: ''
           NEXT_PUBLIC_TRUSTEDSITE_ID: ''
           NEXT_PUBLIC_FEATURE_FIELD_CLUB: ''
+          NEXT_PUBLIC_BASE_PATH: /${{ github.event.repository.name }}
 
       - name: Rewrite static export for GitHub Pages project URL
         run: npx tsx scripts/prepare-github-pages.ts

@@ -90,17 +90,19 @@ export function SignatureMove({
     >
       <div
         ref={innerRef}
-        className="flex flex-col items-center gap-6 sm:gap-8 px-4 sm:px-8"
+        className="flex flex-col items-center gap-10 sm:gap-12 px-4 sm:px-8"
       >
         {/* Big oxblood counter — self-driven via IntersectionObserver one-shot tween */}
         <AntlerInchesCounter
           total={total}
           asOf={asOf}
-          showMeta={false}
+          showMeta
+          showDate={false}
+          label="Inches of antlers harvested"
         />
 
         {/* Kansas state with crossfading customer quotes over it */}
-        <div className="w-full max-w-4xl mx-auto mt-2 sm:mt-3">
+        <div className="w-full max-w-4xl mx-auto">
           <KansasPhotoFade />
         </div>
       </div>

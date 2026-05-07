@@ -12,7 +12,6 @@
 //   8. Footer (social links + legal)
 // Boundary: page/ may import composite/ + motion/ (via dynamic) + decoration/ + atomic/ + data/ + lib/.
 
-import Link from 'next/link';
 import { faqs } from '@/data/faq';
 import { getProductBySlug } from '@/data/products';
 import type { HarvestsFile } from '@/types/harvests';
@@ -24,6 +23,7 @@ import { ContactForm } from '@/components/composite/ContactForm';
 import { ProductCard } from '@/components/composite/ProductCard';
 import { orgSchema, webSiteSchema, faqSchema } from '@/lib/seo';
 import { SignatureMoveLoader } from '@/components/motion/SignatureMoveLoader';
+import { withBasePath } from '@/lib/basePath';
 
 // ─── Props ────────────────────────────────────────────────────────────────────
 
@@ -170,8 +170,8 @@ export function HomePage({ harvests }: HomePageProps) {
             </div>
 
             <div className="mt-8 text-center">
-              <Link
-                href="/products"
+              <a
+                href={withBasePath('/products/')}
                 className="inline-flex items-center justify-center px-8 py-3
                   font-display uppercase tracking-[0.04em]
                   bg-[var(--color-ink)] border border-[var(--color-ink)]
@@ -181,7 +181,7 @@ export function HomePage({ harvests }: HomePageProps) {
                 style={{ color: '#ffffff' }}
               >
                 SHOP ALL PRODUCTS
-              </Link>
+              </a>
             </div>
           </Container>
         </section>
@@ -208,9 +208,9 @@ export function HomePage({ harvests }: HomePageProps) {
           />
 
           <Container>
-            <div className="-mt-2 sm:-mt-3 text-center">
-              <Link
-                href="/customer-reviews"
+            <div className="mt-8 sm:mt-10 text-center">
+              <a
+                href={withBasePath('/customer-reviews/')}
                 className="inline-flex min-h-12 items-center justify-center px-8 py-4
                   font-display uppercase leading-none tracking-[0.04em]
                   bg-[var(--color-ink)] border border-[var(--color-ink)]
@@ -220,7 +220,7 @@ export function HomePage({ harvests }: HomePageProps) {
                   focus-visible:outline-2 focus-visible:outline-[var(--color-ink)]"
               >
                 READ ALL CUSTOMER REVIEWS
-              </Link>
+              </a>
             </div>
           </Container>
         </section>

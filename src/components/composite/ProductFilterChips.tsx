@@ -8,9 +8,9 @@
 
 import { useSearchParams } from 'next/navigation';
 import { useEffect } from 'react';
-import Link from 'next/link';
 import type { Category } from '@/types/product';
 import { cn } from '@/lib/cn';
+import { withBasePath } from '@/lib/basePath';
 
 interface CategoryChip {
   value: Category;
@@ -49,8 +49,8 @@ export function ProductFilterChips({ categoryChips, gridId }: ProductFilterChips
       <ul className="flex flex-wrap justify-center gap-2" role="list">
         {/* "All" chip */}
         <li>
-          <Link
-            href="/products/"
+          <a
+            href={withBasePath('/products/')}
             aria-current={activeCategory === null ? 'page' : undefined}
             className={cn(
               'font-mono text-mono-xs tracking-[0.04em] uppercase px-4 py-2',
@@ -63,13 +63,13 @@ export function ProductFilterChips({ categoryChips, gridId }: ProductFilterChips
             )}
           >
             All
-          </Link>
+          </a>
         </li>
 
         {categoryChips.map((chip) => (
           <li key={chip.value}>
-            <Link
-              href={`/products/?cat=${chip.value}`}
+            <a
+              href={withBasePath(`/products/?cat=${chip.value}`)}
               aria-current={activeCategory === chip.value ? 'page' : undefined}
               className={cn(
                 'font-mono text-mono-xs tracking-[0.04em] uppercase px-4 py-2',
@@ -82,7 +82,7 @@ export function ProductFilterChips({ categoryChips, gridId }: ProductFilterChips
               )}
             >
               {chip.label}
-            </Link>
+            </a>
           </li>
         ))}
       </ul>

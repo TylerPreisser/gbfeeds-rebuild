@@ -6,8 +6,8 @@
 // - Copyright line centered
 // Per ORIGINAL_TRUTH.md § 2.5 — no multi-column sitemap, no newsletter, no seasons.
 
-import NextLink from 'next/link';
 import { SocialLinks } from './SocialLinks';
+import { withBasePath } from '@/lib/basePath';
 
 /**
  * <Footer> — minimal footer matching the original gbfeeds.com.
@@ -29,20 +29,20 @@ export function Footer() {
 
         {/* Legal links */}
         <nav aria-label="Legal navigation" className="flex flex-wrap justify-center gap-x-6 gap-y-2">
-          <NextLink
-            href="/terms"
+          <a
+            href={withBasePath('/terms/')}
             className="font-body text-body-sm text-[var(--color-ink-muted)] underline
               hover:text-[var(--color-ink)] transition-colors duration-200"
           >
             Terms and Conditions
-          </NextLink>
-          <NextLink
-            href="/privacy"
+          </a>
+          <a
+            href={withBasePath('/privacy/')}
             className="font-body text-body-sm text-[var(--color-ink-muted)] underline
               hover:text-[var(--color-ink)] transition-colors duration-200"
           >
             Privacy Policy
-          </NextLink>
+          </a>
         </nav>
 
         {/* Business name */}
