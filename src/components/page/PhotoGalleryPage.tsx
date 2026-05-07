@@ -24,6 +24,7 @@ const LIFESTYLE_PHOTOS = [
   {
     src: '/photos/lifestyle/lifestyle-img-0001.webp',
     alt: 'Hunter with a trophy mule deer harvested at night in a Kansas field',
+    cropClassName: 'object-[50%_42%]',
   },
   {
     src: '/photos/lifestyle/lifestyle-img-1091-1.webp',
@@ -32,6 +33,7 @@ const LIFESTYLE_PHOTOS = [
   {
     src: '/photos/lifestyle/lifestyle-img-3622.webp',
     alt: 'Spin-feeder cup full of corn and Buck Chow pellets',
+    cropClassName: 'object-[50%_58%]',
   },
   {
     src: '/photos/lifestyle/lifestyle-img-4215.webp',
@@ -44,6 +46,7 @@ const LIFESTYLE_PHOTOS = [
   {
     src: '/photos/lifestyle/lifestyle-img-4439.webp',
     alt: 'Young hunter posed with his first Kansas whitetail',
+    cropClassName: 'object-[50%_38%]',
   },
   {
     src: '/photos/lifestyle/lifestyle-img-8584.webp',
@@ -60,10 +63,12 @@ const LIFESTYLE_PHOTOS = [
   {
     src: '/photos/lifestyle/lifestyle-20231008-234054.webp',
     alt: 'Family portrait with a harvested whitetail at night',
+    cropClassName: 'object-[50%_44%]',
   },
   {
     src: '/photos/lifestyle/lifestyle-07eb939d-6b5c-4f14-8c4b-a476a8c5b6b8.webp',
     alt: 'Couple with a Kansas whitetail harvested at night',
+    cropClassName: 'object-[50%_38%]',
   },
 ];
 
@@ -74,14 +79,17 @@ const GALLERY_PHOTOS = [
   {
     src: '/photos/gallery/blob-478b3b7.webp',
     alt: 'Boy with trophy buck and Corn Candy jug',
+    cropClassName: 'scale-[1.12]',
   },
   {
     src: '/photos/gallery/blob-8085ecb.webp',
     alt: 'Customer trophy buck collage — four harvest scenes',
+    cropClassName: 'scale-[1.2]',
   },
   {
     src: '/photos/gallery/blob-b7a2223.webp',
     alt: 'Handwritten thank-you note tied to a Buck Chow bag',
+    cropClassName: 'scale-[1.18]',
   },
 ];
 

@@ -115,13 +115,29 @@ export function OurStoryPage() {
 
       <Rule weight="hair" />
 
-      {/* ── ROW 3: Welcome copy + Greg signature */}
+      {/* ── ROW 3: Greg + harvested buck (Image LEFT) ── paragraphs 4+5 */}
       <section
         className="bg-white py-16 sm:py-20 lg:py-24"
         aria-label="Our Story — Welcome"
       >
-        <Container variant="narrow">
-            <div className="text-center">
+        <Container>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+
+            {/* Left — Greg crouched in corn-stubble field with harvested buck */}
+            <div className="overflow-hidden aspect-[4/3]">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/photos/lifestyle/lifestyle-20231008-234054.webp"
+                alt="Greg crouched in a corn-stubble field with a giant harvested whitetail buck"
+                width={800}
+                height={600}
+                className="w-full h-full object-cover"
+                loading="lazy"
+              />
+            </div>
+
+            {/* Right — paragraphs 4 + 5 + text signature */}
+            <div className="text-center lg:text-left">
               <Text variant="body-md" className="text-[var(--color-ink-muted)] leading-[1.6] mb-6">
                 If you&apos;re in the market for quality deer feed products, proven to help you develop
                 and harvest bigger bucks, at a value you can afford, I would like to be the first to
@@ -133,25 +149,17 @@ export function OurStoryPage() {
 
               <Rule weight="hair" className="mb-6" />
 
-              {/* Greg signature */}
+              {/* Text signature only — no signature image. */}
               <div
-                className="flex flex-col gap-2 items-center"
+                className="flex flex-col gap-2 items-center lg:items-start"
                 aria-label="Signed by Greg Brungardt"
               >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/brand/greg-signature.svg"
-                  alt="Greg Brungardt's signature"
-                  width={180}
-                  height={60}
-                  className="h-12 w-auto"
-                  loading="lazy"
-                />
                 <span className="font-mono text-mono-xs tracking-[0.04em] uppercase text-[var(--color-ink-quiet)]">
                   -Greg
                 </span>
               </div>
             </div>
+          </div>
         </Container>
       </section>
 

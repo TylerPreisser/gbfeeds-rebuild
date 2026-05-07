@@ -1,8 +1,8 @@
 'use client';
 // src/components/composite/TestimonialFade.tsx
 // Directional testimonial overlay for the Kansas signature.
-// Keeps the outgoing and incoming quotes mounted at the same time so the new
-// quote pushes the old one out instead of snapping the old text away.
+// Important: only one quote is mounted at a time. The current quote exits fully,
+// then the next quote mounts and enters, so the texts never overlap.
 
 import { useState, useEffect, useRef } from 'react';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
@@ -48,32 +48,41 @@ interface TestimonialFadeProps {
 export function TestimonialFade({ className, variant = 'default' }: TestimonialFadeProps) {
   const reducedMotion = useReducedMotion();
   const [activeIndex, setActiveIndex] = useState(0);
-  const [previousIndex, setPreviousIndex] = useState<number | null>(null);
+  const [phase, setPhase] = useState<'idle' | 'exiting' | 'entering'>('idle');
   const [animationKey, setAnimationKey] = useState(0);
-  const timeoutRef = useRef<number | null>(null);
+  const exitTimeoutRef = useRef<number | null>(null);
+  const enterTimeoutRef = useRef<number | null>(null);
 
   useEffect(() => {
     if (reducedMotion) return;
     const id = setInterval(() => {
       setActiveIndex((prev) => {
-        setPreviousIndex(prev);
+        const next = (prev + 1) % FEATURED_TESTIMONIALS.length;
+        setPhase('exiting');
         setAnimationKey((key) => key + 1);
-        return (prev + 1) % FEATURED_TESTIMONIALS.length;
+
+        if (exitTimeoutRef.current) window.clearTimeout(exitTimeoutRef.current);
+        if (enterTimeoutRef.current) window.clearTimeout(enterTimeoutRef.current);
+
+        exitTimeoutRef.current = window.setTimeout(() => {
+          setActiveIndex(next);
+          setPhase('entering');
+          setAnimationKey((key) => key + 1);
+
+          enterTimeoutRef.current = window.setTimeout(() => {
+            setPhase('idle');
+          }, TRANSITION_MS);
+        }, TRANSITION_MS);
+
+        return prev;
       });
     }, HOLD_MS);
-    return () => clearInterval(id);
-  }, [reducedMotion]);
-
-  useEffect(() => {
-    if (previousIndex === null) return;
-    if (timeoutRef.current) window.clearTimeout(timeoutRef.current);
-    timeoutRef.current = window.setTimeout(() => {
-      setPreviousIndex(null);
-    }, TRANSITION_MS);
     return () => {
-      if (timeoutRef.current) window.clearTimeout(timeoutRef.current);
+      clearInterval(id);
+      if (exitTimeoutRef.current) window.clearTimeout(exitTimeoutRef.current);
+      if (enterTimeoutRef.current) window.clearTimeout(enterTimeoutRef.current);
     };
-  }, [previousIndex, animationKey]);
+  }, [reducedMotion]);
 
   if (FEATURED_TESTIMONIALS.length === 0) return null;
 
@@ -133,35 +142,6 @@ export function TestimonialFade({ className, variant = 'default' }: TestimonialF
         }
       `}</style>
 
-      {previousIndex !== null && !reducedMotion && (() => {
-        const t = FEATURED_TESTIMONIALS[previousIndex];
-        if (!t) return null;
-        return (
-          <figure
-            key={`prev-${t.id}-${animationKey}`}
-            className="kansas-quote-exit absolute inset-0 flex flex-col items-center justify-center text-center px-4 will-change-transform"
-            aria-hidden="true"
-          >
-            <blockquote
-              className={[
-                'font-body italic text-[var(--color-ink)] leading-[1.35]',
-                variant === 'kansas'
-                  ? 'text-[clamp(1.375rem,1rem+1.6vw,2.75rem)] max-w-4xl'
-                  : 'text-body-md sm:text-body-lg max-w-2xl',
-              ].join(' ')}
-              style={{ textWrap: 'balance' as const }}
-            >
-              &ldquo;{t.quote}&rdquo;
-            </blockquote>
-            <figcaption
-              className="mt-4 font-mono text-mono-xs tracking-[0.08em] uppercase text-[var(--color-ink-quiet)]"
-            >
-              — {t.attribution}
-            </figcaption>
-          </figure>
-        );
-      })()}
-
       {(() => {
         const t = FEATURED_TESTIMONIALS[activeIndex] ?? FEATURED_TESTIMONIALS[0];
         if (!t) return null;
@@ -170,7 +150,8 @@ export function TestimonialFade({ className, variant = 'default' }: TestimonialF
             key={`active-${t.id}-${animationKey}`}
             className={[
               'absolute inset-0 flex flex-col items-center justify-center text-center px-4 will-change-transform',
-              previousIndex !== null && !reducedMotion ? 'kansas-quote-enter' : '',
+              phase === 'exiting' && !reducedMotion ? 'kansas-quote-exit' : '',
+              phase === 'entering' && !reducedMotion ? 'kansas-quote-enter' : '',
             ].join(' ')}
           >
             <blockquote

@@ -11,6 +11,7 @@ import { cn } from '@/lib/cn';
 interface GalleryPhoto {
   src: string;
   alt: string;
+  cropClassName?: string;
 }
 
 interface GalleryLightboxProps {
@@ -19,8 +20,8 @@ interface GalleryLightboxProps {
 }
 
 /**
- * <GalleryLightbox> — masonry grid of photos with click-to-enlarge.
- * Photos stay black-and-white in the grid; click opens the full-size lightbox.
+ * <GalleryLightbox> — masonry grid of cropped photos with click-to-enlarge.
+ * Photos start black-and-white and shift to color on hover/focus.
  * Lightbox: full-screen overlay, keyboard navigable, focus-trapped.
  */
 export function GalleryLightbox({ photos, className }: GalleryLightboxProps) {
@@ -92,16 +93,17 @@ export function GalleryLightbox({ photos, className }: GalleryLightboxProps) {
               className="group block w-full focus-visible:outline-2 focus-visible:outline-[var(--color-accent)]"
               aria-label={`View full size: ${photo.alt}`}
             >
-              <div className="overflow-hidden border border-[var(--color-rule)]">
+              <div className="overflow-hidden aspect-[4/3] bg-[var(--color-ink)]">
                 <img
                   src={photo.src}
                   alt={photo.alt}
                   loading="lazy"
                   className={cn(
-                    'w-full h-auto block',
-                    'filter grayscale transition-transform duration-500',
-                    // Scale on hover
-                    'group-hover:scale-[1.02] transform origin-center transition-transform duration-500',
+                    'w-full h-full block object-cover',
+                    'filter grayscale-[0.85] transition-all duration-700',
+                    'group-hover:grayscale-0 group-focus:grayscale-0',
+                    'group-hover:scale-[1.04] transform origin-center',
+                    photo.cropClassName,
                   )}
                 />
               </div>
@@ -141,7 +143,7 @@ export function GalleryLightbox({ photos, className }: GalleryLightboxProps) {
             <img
               src={activePhoto.src}
               alt={activePhoto.alt}
-              className="max-w-full max-h-[80vh] object-contain border border-[var(--color-gray-700)]"
+              className="max-w-full max-h-[80vh] object-contain"
             />
 
             {/* Caption + nav row */}

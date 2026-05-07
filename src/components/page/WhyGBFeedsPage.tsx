@@ -49,7 +49,7 @@ export function WhyGBFeedsPage() {
                 alt="Customer trophy buck collage"
                 width={960}
                 height={720}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover scale-[1.14]"
                 loading="lazy"
               />
             </div>
@@ -101,7 +101,7 @@ export function WhyGBFeedsPage() {
                 alt="Bag of Buck Chow on a truck tailgate in the field"
                 width={800}
                 height={600}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover scale-[1.16]"
                 loading="lazy"
               />
             </div>
