@@ -9,7 +9,6 @@ import type { Product } from '@/types/product';
 import { Image } from '@/components/atomic/Image';
 import { Heading } from '@/components/atomic/Heading';
 import { PriceTag } from '@/components/atomic/PriceTag';
-import { Stamp } from '@/components/atomic/Stamp';
 import { cn } from '@/lib/cn';
 import { withBasePath } from '@/lib/basePath';
 
@@ -24,7 +23,6 @@ interface ProductCardProps {
 /**
  * <ProductCard> — hairline-bordered product card.
  * Hover: border thickens 1px→2px, card translates -4px up, image scales 1.02.
- * SKU stamp in lower-left fades in on hover.
  * All hover effects are pure CSS — no JS.
  */
 export function ProductCard({
@@ -85,13 +83,6 @@ export function ProductCard({
           </span>
         )}
 
-        {/* SKU stamp in lower-left — fades in on hover */}
-        <span
-          className="absolute bottom-2 left-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
-          aria-hidden="true"
-        >
-          <Stamp value={product.sku} />
-        </span>
       </a>
 
       {/* Card body — name + price only, per ORIGINAL_TRUTH § 3.3.
