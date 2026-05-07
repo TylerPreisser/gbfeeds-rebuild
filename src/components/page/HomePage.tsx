@@ -74,9 +74,8 @@ export function HomePage({ harvests }: HomePageProps) {
             100svh on mobile, fixed tall height on desktop.
             ══════════════════════════════════════════════════════════════════ */}
         <section
-          className="relative overflow-hidden"
+          className="relative overflow-hidden h-[70svh] sm:h-[clamp(500px,82svh,760px)]"
           aria-label="GB Feeds hero image"
-          style={{ height: 'clamp(500px, 82svh, 760px)' }}
         >
           <picture>
             <source
@@ -92,8 +91,7 @@ export function HomePage({ harvests }: HomePageProps) {
               alt="Buck Chow deer-feed bag in a wooded Kansas field"
               width={2200}
               height={1760}
-              className="gb-hero-drift absolute inset-0 w-full h-full object-cover"
-              style={{ objectPosition: 'center 62%' }}
+              className="gb-hero-drift absolute inset-0 w-full h-full object-cover object-bottom sm:object-[center_62%]"
               loading="eager"
               fetchPriority="high"
             />
