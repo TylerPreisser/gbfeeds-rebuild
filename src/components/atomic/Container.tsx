@@ -20,15 +20,15 @@ interface ContainerProps {
 
 const variantStyles: Record<ContainerVariant, string> = {
   /** default: max-w-7xl — main content width for all standard pages */
-  default: 'max-w-7xl',
+  default: 'max-w-[72rem]',
   /** narrow: max-w-3xl — editorial / founder-narrative / journal article body */
   narrow: 'max-w-3xl',
   /** wide: max-w-screen-2xl — products grid, photo gallery, map section */
-  wide: 'max-w-screen-2xl',
+  wide: 'max-w-[88rem]',
 };
 
 const baseStyles =
-  'mx-auto w-full px-[clamp(1rem,4vw,2.5rem)]';
+  'mx-auto w-full px-[clamp(1rem,5vw,3rem)]';
 
 // ─── Component ───────────────────────────────────────────────────────────────
 

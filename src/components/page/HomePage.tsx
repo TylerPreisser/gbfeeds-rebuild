@@ -1,28 +1,31 @@
 // src/components/page/HomePage.tsx
 // RSC — no 'use client'.
-// Home page orchestrator. Composes all 7 sections.
+// Home page orchestrator. 9 sections matching ORIGINAL_TRUTH.md § 2 exactly.
+// Section order:
+//   1. Hero (full-bleed lifestyle photo, NO text overlay)
+//   2. FEATURED PRODUCTS (horizontal-scroll carousel)
+//   3. CUSTOMER REVIEWS (photo gallery strip + MORE CUSTOMER REVIEWS button)
+//   4. THE GB FEEDS DIFFERENCE (two-column: photo collage left, 4 pillars right)
+//   5. Our Story teaser (image + founder headline + Learn more)
+//   6. FREQUENTLY ASKED QUESTIONS (4 collapsible accordions)
+//   7. Contact Us (form left, phone right)
+//   8. CONNECT WITH US (4 social icons native brand colors)
+//   9. FEATURED PRODUCTS (second instance — per original truth)
 // Boundary: page/ may import composite/ + motion/ (via dynamic) + decoration/ + atomic/ + data/ + lib/.
 
 import Link from 'next/link';
 import { pillars } from '@/data/pillars';
 import { faqs } from '@/data/faq';
-import { getRecentJournalEntries } from '@/data/journal-index';
+import { getAllProducts } from '@/data/products';
 import type { HarvestsFile } from '@/types/harvests';
-import { Button } from '@/components/atomic/Button';
 import { Heading } from '@/components/atomic/Heading';
 import { Text } from '@/components/atomic/Text';
-import { Stamp } from '@/components/atomic/Stamp';
-import { Rule } from '@/components/atomic/Rule';
-import { Section } from '@/components/atomic/Section';
 import { Container } from '@/components/atomic/Container';
-import { PaperGrain } from '@/components/decoration/PaperGrain';
-import { HairlineRules } from '@/components/decoration/HairlineRules';
+import { Rule } from '@/components/atomic/Rule';
 import { FAQItem } from '@/components/composite/FAQItem';
-import { NewsletterForm } from '@/components/composite/NewsletterForm';
+import { ContactForm } from '@/components/composite/ContactForm';
+import { ProductCard } from '@/components/composite/ProductCard';
 import { orgSchema, webSiteSchema, faqSchema } from '@/lib/seo';
-import { cn } from '@/lib/cn';
-// SignatureMoveLoader is a 'use client' component that owns the dynamic() + ssr:false boundary.
-// App Router rule: ssr:false in dynamic() requires a Client Component file.
 import { SignatureMoveLoader } from '@/components/motion/SignatureMoveLoader';
 
 // ─── Props ────────────────────────────────────────────────────────────────────
@@ -31,15 +34,35 @@ interface HomePageProps {
   harvests: HarvestsFile;
 }
 
+// ─── Customer photos available for the gallery strip ─────────────────────────
+const CUSTOMER_GALLERY_PHOTOS = [
+  { src: '/photos/gallery/blob-16f87b2.webp', alt: 'Customer harvest photo' },
+  { src: '/photos/gallery/blob-478b3b7.webp', alt: 'Customer buck at feeder' },
+  { src: '/photos/gallery/blob-8085ecb.webp', alt: 'Hunter with harvested deer' },
+  { src: '/photos/gallery/blob-93bef42.webp', alt: 'Trail cam deer photo' },
+  { src: '/photos/gallery/blob-b7a2223.webp', alt: 'Customer with trophy buck' },
+  { src: '/photos/gallery/blob-de1da36.webp', alt: 'Big buck at GB Feeds station' },
+];
+
+// Photos for the "Proven Results" collage in GB Feeds Difference section
+const COLLAGE_PHOTOS = [
+  { src: '/photos/lifestyle/lifestyle-img-4172.webp', alt: 'Hunter with harvested whitetail' },
+  { src: '/photos/lifestyle/lifestyle-img-4433-1.webp', alt: 'Trophy buck in Kansas field' },
+  { src: '/photos/lifestyle/lifestyle-luke-2.webp', alt: 'Young hunter with first deer' },
+  { src: '/photos/lifestyle/lifestyle-luke.webp', alt: 'Successful season harvest' },
+];
+
 // ─── Component ───────────────────────────────────────────────────────────────
 
 export function HomePage({ harvests }: HomePageProps) {
-  const recentJournal = getRecentJournalEntries(3);
   const homeFaqs = faqs.slice(0, 4);
+  const allProducts = getAllProducts();
+  // Featured: first 6 products for carousel
+  const featuredProducts = allProducts.slice(0, 6);
 
   return (
     <>
-      {/* JSON-LD: Organization + WebSite */}
+      {/* JSON-LD: Organization + WebSite + FAQ */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(orgSchema()) }}
@@ -55,151 +78,162 @@ export function HomePage({ harvests }: HomePageProps) {
 
       <main id="main-content">
 
-        {/* ── 1. HERO ─────────────────────────────────────────────────────── */}
-        {/* min-h-[100svh] uses Small Viewport Height — accounts for iOS Safari
-            collapsing browser chrome (~52–84px). min-h-screen (100vh) includes
-            the toolbar height, clipping bottom CTAs on first load. */}
+        {/* ══════════════════════════════════════════════════════════════════
+            1. HERO — full-bleed lifestyle photo, NO text overlay
+            Per ORIGINAL_TRUTH.md § 2.1 item 1: "NO text overlay, NO headline, NO CTA."
+            100svh on mobile, fixed tall height on desktop.
+            ══════════════════════════════════════════════════════════════════ */}
         <section
-          className="relative min-h-[100svh] flex flex-col justify-end bg-[var(--color-paper)] overflow-hidden"
-          aria-label="GB Feeds hero"
+          className="relative overflow-hidden"
+          aria-label="GB Feeds hero image"
+          style={{ height: 'clamp(480px, 100svh, 900px)' }}
         >
-          {/* Atmosphere layers */}
-          <PaperGrain />
-          <HairlineRules />
-
-          {/* Left-margin logbook marker */}
+          <picture>
+            <source srcSet="/photos/lifestyle/lifestyle-img-3622-640w.avif" type="image/avif" media="(max-width: 640px)" />
+            <source srcSet="/photos/lifestyle/lifestyle-img-3622-640w.webp" type="image/webp" media="(max-width: 640px)" />
+            <source srcSet="/photos/lifestyle/lifestyle-img-3622.webp" type="image/webp" />
+            <img
+              src="/photos/lifestyle/lifestyle-img-3622.webp"
+              alt="Hunter in a wooded Kansas field with Buck Chow deer feed"
+              width={1600}
+              height={900}
+              className="absolute inset-0 w-full h-full object-cover object-center"
+              loading="eager"
+              fetchPriority="high"
+            />
+          </picture>
+          {/* Subtle bottom fade so next section transitions cleanly */}
           <div
-            className="absolute left-0 top-0 bottom-0 w-[clamp(4rem,6vw,6rem)] border-r border-[var(--color-rule)]
-              flex flex-col items-center pt-8 gap-4"
+            className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none"
+            style={{ background: 'linear-gradient(to bottom, transparent, rgba(255,255,255,0.6))' }}
             aria-hidden="true"
-          >
-            <Stamp value="2017" variant="date" />
-            <Stamp value="RILEY" variant="county" />
-            <Stamp value="NW 9" variant="wind" />
-            <Stamp value="40 LB" variant="weight" />
-          </div>
-
-          {/* Hero content — offset for left margin */}
-          <div className="relative z-10 pl-[clamp(4rem,6vw,6rem)] pr-4 md:pr-8 pb-16 pt-24 md:pt-32">
-            {/* Monospace eyebrow */}
-            <p
-              className="font-mono text-mono-xs tracking-[0.04em] uppercase text-[var(--color-ink-quiet)] mb-4"
-              aria-hidden="true"
-            >
-              MANHATTAN, KS · EST. 2017 · FIELD-TESTED
-            </p>
-
-            {/* Main headline — Bebas Neue, full-bleed */}
-            <Heading
-              as="h1"
-              size="display-xl"
-              className="max-w-4xl leading-[0.95]"
-            >
-              WORLD&apos;S BEST DEER FEEDS
-              <br />
-              FOR THE WORLD&apos;S BEST
-              <br />
-              DEER HUNTERS
-            </Heading>
-
-            {/* Sub-hero — DM Serif Display italic */}
-            <p
-              className="font-body italic text-body-lg text-[var(--color-ink-muted)] mt-6 mb-8 max-w-xl leading-[1.4]"
-            >
-              A deer feed company founded for hunters, by hunters.
-            </p>
-
-            {/* CTAs */}
-            <div className="flex flex-wrap gap-4">
-              <Button as="a" href="/products" variant="primary">
-                SHOP THE LINE
-              </Button>
-              <Button as="a" href="/feed-program" variant="secondary">
-                BUILD YOUR FEED PROGRAM
-              </Button>
-            </div>
-
-            {/* Stat strip below CTAs */}
-            <div
-              className="flex flex-wrap gap-6 mt-10 font-mono text-mono-xs tracking-[0.04em] uppercase
-                text-[var(--color-ink-quiet)]"
-              aria-label="Proof points"
-            >
-              <span>7,500+ Inches Documented</span>
-              <span>Kansas-Made</span>
-              <span>20% Protein</span>
-              <span>Direct to Hunter</span>
-            </div>
-          </div>
-
-          {/* Bottom hairline */}
-          <Rule weight="hair" className="relative z-10" />
+          />
         </section>
 
-        {/* ── 2. FOUR-PILLAR GB FEEDS DIFFERENCE ──────────────────────────── */}
-        <Section bg="paper-2" aria-label="The GB Feeds Difference">
-          <PaperGrain />
-          <HairlineRules />
+        <Rule weight="hair" />
+
+        {/* ══════════════════════════════════════════════════════════════════
+            2. FEATURED PRODUCTS — horizontally scrollable carousel
+            Per ORIGINAL_TRUTH.md § 2.1 item 2
+            ══════════════════════════════════════════════════════════════════ */}
+        <section
+          id="featured-products"
+          className="bg-white py-16 sm:py-20 lg:py-24"
+          aria-label="Featured GB Feeds products"
+        >
           <Container>
-            {/* Section label */}
-            <div className="flex items-center gap-4 mb-12">
-              <Rule weight="hair" className="flex-1" />
-              <Heading as="h2" size="display-sm" className="shrink-0">
-                THE GB FEEDS DIFFERENCE
-              </Heading>
-              <Rule weight="hair" className="flex-1" />
-            </div>
+            <Heading
+              as="h2"
+              size="display-sm"
+              className="text-center mb-10 tracking-[0.04em]"
+            >
+              FEATURED PRODUCTS
+            </Heading>
 
-            {/* 2×2 pillar grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-[var(--color-rule)]">
-              {pillars.map((pillar) => (
-                <article
-                  key={pillar.number}
-                  className="relative bg-[var(--color-paper-2)] p-8 md:p-10"
+            {/* Horizontal scroll container */}
+            <div
+              className="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory
+                scrollbar-hide -mx-4 px-4 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8"
+              style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+              aria-label="Featured products carousel"
+            >
+              {featuredProducts.map((product, i) => (
+                <div
+                  key={product.slug}
+                  className="snap-start shrink-0 w-[280px] sm:w-[320px]"
                 >
-                  {/* Monospace number stamp */}
-                  <span
-                    className="block font-mono text-[4rem] leading-none tracking-[0.04em]
-                      text-[var(--color-rule)] mb-4 select-none"
-                    aria-hidden="true"
-                  >
-                    {pillar.number}
-                  </span>
-
-                  {/* Pillar heading — Bebas Neue */}
-                  <Heading as="h3" size="display-md" className="mb-3">
-                    {pillar.heading}
-                  </Heading>
-
-                  {/* Body — DM Serif Display */}
-                  <Text variant="body-md" className="text-[var(--color-ink-muted)] leading-[1.4]">
-                    {pillar.body}
-                  </Text>
-                </article>
+                  <ProductCard product={product} priority={i < 2} />
+                </div>
               ))}
             </div>
 
-            {/* CTA */}
-            <div className="mt-10 flex justify-center">
-              <Button as="a" href="/why-gb-feeds" variant="ghost">
-                WHY GB FEEDS →
-              </Button>
+            <div className="mt-8 text-center">
+              <Link
+                href="/products"
+                className="inline-flex items-center justify-center px-8 py-3
+                  font-display uppercase tracking-[0.04em]
+                  bg-[var(--color-ink)] text-white border border-[var(--color-ink)]
+                  hover:bg-white hover:text-[var(--color-ink)]
+                  transition-colors duration-200
+                  focus-visible:outline-2 focus-visible:outline-[var(--color-ink)]"
+              >
+                SHOP ALL PRODUCTS
+              </Link>
             </div>
           </Container>
-        </Section>
+        </section>
 
-        {/* ── 3. SIGNATURE SCROLL MOMENT ───────────────────────────────────── */}
-        {/*
-          The RSC wrapper provides explicit min-height BEFORE hydration to prevent CLS.
-          SignatureMove is dynamic-imported with ssr:false — on first server render
-          this section is an empty bone-paper box at min-height 100svh. On hydration
-          the GSAP pin boots and the element is already the right height, so no CLS.
-          100svh (small viewport height) prevents iOS Safari chrome from clipping content.
-        */}
+        <Rule weight="hair" />
+
+        {/* ══════════════════════════════════════════════════════════════════
+            3. CUSTOMER REVIEWS — horizontal photo gallery strip
+            Per ORIGINAL_TRUTH.md § 2.1 item 3
+            Below gallery: antler counter + Kansas map (SignatureMoveLoader)
+            ══════════════════════════════════════════════════════════════════ */}
+        <section
+          id="customer-reviews"
+          className="bg-white py-16 sm:py-20 lg:py-24"
+          aria-label="Customer reviews photo gallery"
+        >
+          <Container>
+            <Heading
+              as="h2"
+              size="display-sm"
+              className="text-center mb-10 tracking-[0.04em]"
+            >
+              CUSTOMER REVIEWS
+            </Heading>
+          </Container>
+
+          {/* Full-bleed horizontal photo strip */}
+          <div
+            className="flex gap-3 overflow-x-auto pb-4 snap-x snap-mandatory
+              -mx-4 px-4 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8"
+            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+            aria-label="Customer harvest photos"
+          >
+            {CUSTOMER_GALLERY_PHOTOS.map((photo) => (
+              <div
+                key={photo.src}
+                className="snap-start shrink-0 w-[280px] sm:w-[340px] lg:w-[400px]
+                  aspect-square overflow-hidden"
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={photo.src}
+                  alt={photo.alt}
+                  width={400}
+                  height={400}
+                  className="w-full h-full object-cover"
+                  loading="lazy"
+                />
+              </div>
+            ))}
+          </div>
+
+          {/* MORE CUSTOMER REVIEWS CTA — per original */}
+          <Container>
+            <div className="mt-8 text-center">
+              <Link
+                href="/customer-reviews"
+                className="inline-flex items-center justify-center px-8 py-3
+                  font-display uppercase tracking-[0.04em]
+                  bg-[var(--color-ink)] text-white border border-[var(--color-ink)]
+                  hover:bg-white hover:text-[var(--color-ink)]
+                  transition-colors duration-200
+                  focus-visible:outline-2 focus-visible:outline-[var(--color-ink)]"
+              >
+                MORE CUSTOMER REVIEWS
+              </Link>
+            </div>
+          </Container>
+        </section>
+
+        {/* Antler counter + Kansas map signature */}
         <section
           className="signature-pin bg-[var(--color-paper)]"
-          style={{ minHeight: '100svh' }}
-          aria-label="Antler inches harvested — GB Feeds counter"
+          style={{ minHeight: '58svh' }}
+          aria-label="Antler inches harvested — GB Feeds"
         >
           <SignatureMoveLoader
             total={harvests.total_inches}
@@ -208,224 +242,323 @@ export function HomePage({ harvests }: HomePageProps) {
           />
         </section>
 
-        {/* ── 4. FOUNDER SIGNED-QUOTE MOMENT ───────────────────────────────── */}
-        <Section bg="paper" aria-label="Founder message from Greg Brungardt">
-          <PaperGrain />
-          <HairlineRules />
-          <Container variant="narrow">
-            <div className="flex flex-col md:flex-row gap-8 md:gap-16 items-start">
-              {/* Pull quote + signature */}
-              <div className="flex-1">
-                <blockquote>
-                  <p
-                    className="font-body italic text-body-lg text-[var(--color-ink-muted)]
-                      leading-[1.4] mb-6"
-                  >
-                    &ldquo;Being the biggest feed company has never been the goal,
-                    we want to be the{' '}
-                    <em className="not-italic text-[var(--color-ink)]">BEST</em>{' '}
-                    feed company. Our direct to consumer model is based on four pillars&hellip;
-                    these pillars guide the company in every decision we make.&rdquo;
-                  </p>
-                </blockquote>
+        <Rule weight="hair" />
 
-                {/* Greg signature SVG */}
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/brand/greg-signature.svg"
-                  alt="Greg Brungardt signature"
-                  width={160}
-                  height={48}
-                  className="mb-4"
-                  style={{ color: 'var(--color-accent)' }}
-                  loading="lazy"
-                />
+        {/* ══════════════════════════════════════════════════════════════════
+            4. THE GB FEEDS DIFFERENCE — two-column per original
+            Per ORIGINAL_TRUTH.md § 2.1 item 4 + § 2.2
+            LEFT: photo collage | RIGHT: 4 pillars with copy
+            ══════════════════════════════════════════════════════════════════ */}
+        <section
+          id="gb-feeds-difference"
+          className="bg-white py-16 sm:py-20 lg:py-24"
+          aria-label="The GB Feeds Difference"
+        >
+          <Container>
+            <Heading
+              as="h2"
+              size="display-sm"
+              className="text-center mb-12 tracking-[0.04em]"
+            >
+              THE GB FEEDS DIFFERENCE
+            </Heading>
 
-                <Link
-                  href="/our-story"
-                  className="font-mono text-mono-xs tracking-[0.04em] uppercase
-                    text-[var(--color-ink-quiet)] hover:text-[var(--color-accent)]
-                    transition-colors duration-200"
-                >
-                  READ GREG&apos;S STORY →
-                </Link>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
+
+              {/* LEFT — 2×2 photo collage */}
+              <div className="grid grid-cols-2 gap-2" aria-label="Customer harvest photo collage">
+                {COLLAGE_PHOTOS.map((photo) => (
+                  <div key={photo.src} className="aspect-square overflow-hidden">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={photo.src}
+                      alt={photo.alt}
+                      width={400}
+                      height={400}
+                      className="w-full h-full object-cover"
+                      loading="lazy"
+                    />
+                  </div>
+                ))}
               </div>
 
-              {/* Stamp column */}
-              <div
-                className="flex flex-col gap-3 md:pt-2 shrink-0"
-                aria-hidden="true"
-              >
-                <Stamp value="OCT 2017" variant="date" />
-                <Stamp value="RILEY COUNTY" variant="county" />
-                <Stamp value="FOUNDER" />
-                <Stamp value="MANHATTAN, KS" />
+              {/* RIGHT — 4 pillars */}
+              <div className="flex flex-col gap-8">
+                {pillars.map((pillar, index) => (
+                  <div key={pillar.number} className="flex flex-col gap-2">
+                    <Heading as="h3" size="display-sm" className="tracking-[0.02em]">
+                      {pillar.heading}
+                    </Heading>
+                    <Text variant="body-md" className="text-[var(--color-ink-muted)] leading-[1.5]">
+                      {pillar.body}
+                    </Text>
+                    {/* "Proven Results" gets the Learn more CTA per original */}
+                    {index === 0 && (
+                      <Link
+                        href="/why-gb-feeds"
+                        className="inline-flex items-center
+                          font-display uppercase tracking-[0.04em] text-body-sm
+                          text-[var(--color-ink)] underline hover:no-underline
+                          transition-all duration-200 mt-1"
+                      >
+                        LEARN MORE
+                      </Link>
+                    )}
+                  </div>
+                ))}
               </div>
             </div>
           </Container>
-        </Section>
+        </section>
 
-        {/* ── 5. ON-HOME FAQ ────────────────────────────────────────────────── */}
-        <Section bg="paper-3" aria-label="Frequently asked questions">
-          <PaperGrain />
-          <Container variant="narrow">
-            <div className="flex items-center gap-4 mb-10">
-              <Rule weight="hair" className="flex-1" />
-              <Heading as="h2" size="display-sm" className="shrink-0">
-                FREQUENTLY ASKED QUESTIONS
-              </Heading>
-              <Rule weight="hair" className="flex-1" />
+        <Rule weight="hair" />
+
+        {/* ══════════════════════════════════════════════════════════════════
+            5. OUR STORY TEASER
+            Per ORIGINAL_TRUTH.md § 2.1 item 5
+            Image + headline "A deer feed company founded for hunters, by hunters"
+            ══════════════════════════════════════════════════════════════════ */}
+        <section
+          id="our-story"
+          className="bg-white py-16 sm:py-20 lg:py-24"
+          aria-label="Our Story teaser"
+        >
+          <Container>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+
+              {/* Greg portrait image */}
+              <div className="overflow-hidden aspect-[4/3] lg:aspect-[3/2]">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/photos/lifestyle/lifestyle-img-1091-1.webp"
+                  alt="Greg Brungardt with three mounted whitetail bucks"
+                  width={800}
+                  height={600}
+                  className="w-full h-full object-cover"
+                  loading="lazy"
+                />
+              </div>
+
+              {/* Text block */}
+              <div className="text-center lg:text-left">
+                <Heading as="h2" size="display-md" className="mb-4">
+                  A deer feed company founded for hunters, by hunters
+                </Heading>
+                <Text variant="body-md" className="text-[var(--color-ink-muted)] leading-[1.5] mb-6">
+                  In 2017, Greg Brungardt began to envision a deer feed company unlike any other —
+                  tested right here in the Midwest with a proven track record of success.
+                </Text>
+                <Link
+                  href="/our-story"
+                  className="inline-flex items-center justify-center lg:justify-start px-8 py-3
+                    font-display uppercase tracking-[0.04em]
+                    bg-[var(--color-ink)] text-white border border-[var(--color-ink)]
+                    hover:bg-white hover:text-[var(--color-ink)]
+                    transition-colors duration-200
+                    focus-visible:outline-2 focus-visible:outline-[var(--color-ink)]"
+                >
+                  LEARN MORE
+                </Link>
+              </div>
             </div>
+          </Container>
+        </section>
+
+        <Rule weight="hair" />
+
+        {/* ══════════════════════════════════════════════════════════════════
+            6. FREQUENTLY ASKED QUESTIONS — 4 accordion rows
+            Per ORIGINAL_TRUTH.md § 2.3 verbatim
+            ══════════════════════════════════════════════════════════════════ */}
+        <section
+          id="faq"
+          className="bg-white py-16 sm:py-20 lg:py-24"
+          aria-label="Frequently asked questions"
+        >
+          <Container variant="narrow">
+            <Heading
+              as="h2"
+              size="display-sm"
+              className="text-center mb-10 tracking-[0.04em]"
+            >
+              FREQUENTLY ASKED QUESTIONS
+            </Heading>
 
             <div className="flex flex-col">
               {homeFaqs.map((faq) => (
                 <FAQItem key={faq.id} faq={faq} />
               ))}
             </div>
+          </Container>
+        </section>
 
-            <div className="mt-8 text-center">
-              <Link
-                href="/faq"
-                className="font-mono text-mono-xs tracking-[0.04em] uppercase
-                  text-[var(--color-ink-quiet)] hover:text-[var(--color-accent)]
-                  transition-colors duration-200"
-              >
-                MORE QUESTIONS → /FAQ
-              </Link>
+        <Rule weight="hair" />
+
+        {/* ══════════════════════════════════════════════════════════════════
+            7. CONTACT US — form left, phone right
+            Per ORIGINAL_TRUTH.md § 2.4 verbatim
+            ══════════════════════════════════════════════════════════════════ */}
+        <section
+          id="contact"
+          className="bg-white py-16 sm:py-20 lg:py-24"
+          aria-label="Contact GB Feeds"
+        >
+          <Container>
+            <Heading
+              as="h2"
+              size="display-sm"
+              className="text-center mb-10 tracking-[0.04em]"
+            >
+              Contact Us
+            </Heading>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 max-w-4xl mx-auto">
+
+              {/* LEFT: form */}
+              <div>
+                <Heading as="h3" size="display-sm" className="mb-6">
+                  Drop us a line!
+                </Heading>
+                <ContactForm />
+              </div>
+
+              {/* RIGHT: phone */}
+              <div className="flex flex-col justify-center">
+                <Heading as="h3" size="display-sm" className="mb-4">
+                  Better yet, give us a call!
+                </Heading>
+                <a
+                  href="tel:6206393337"
+                  className="font-display uppercase tracking-[0.02em] text-display-md
+                    text-[var(--color-ink)] hover:text-[var(--color-accent)]
+                    transition-colors duration-200"
+                  aria-label="Call GB Feeds at (620) 639-3337"
+                >
+                  (620) 639-3337
+                </a>
+              </div>
             </div>
           </Container>
-        </Section>
+        </section>
 
-        {/* ── 6. LATEST FROM THE JOURNAL ────────────────────────────────────── */}
-        <Section bg="paper-2" aria-label="Latest from the journal">
-          <PaperGrain />
-          <HairlineRules />
+        <Rule weight="hair" />
+
+        {/* ══════════════════════════════════════════════════════════════════
+            8. CONNECT WITH US — 4 social icons, native brand colors
+            Per ORIGINAL_TRUTH.md § 2.5
+            ══════════════════════════════════════════════════════════════════ */}
+        <section
+          id="connect"
+          className="bg-white py-16 sm:py-20"
+          aria-label="Connect with GB Feeds on social media"
+        >
           <Container>
-            <div className="flex items-center gap-4 mb-12">
-              <Rule weight="hair" className="flex-1" />
-              <Heading as="h2" size="display-sm" className="shrink-0">
-                FROM THE JOURNAL
-              </Heading>
-              <Rule weight="hair" className="flex-1" />
+            <Heading
+              as="h2"
+              size="display-sm"
+              className="text-center mb-8 tracking-[0.04em]"
+            >
+              CONNECT WITH US
+            </Heading>
+
+            <div className="flex justify-center items-center gap-8 flex-wrap">
+
+              {/* Facebook — #1877F2 */}
+              <a
+                href="#"
+                aria-label="GB Feeds on Facebook"
+                className="flex items-center justify-center w-12 h-12 transition-opacity duration-200 hover:opacity-75"
+              >
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="#1877F2" aria-hidden="true">
+                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                </svg>
+              </a>
+
+              {/* Instagram — gradient */}
+              <a
+                href="#"
+                aria-label="GB Feeds on Instagram"
+                className="flex items-center justify-center w-12 h-12 transition-opacity duration-200 hover:opacity-75"
+              >
+                <svg width="32" height="32" viewBox="0 0 24 24" aria-hidden="true">
+                  <defs>
+                    <radialGradient id="ig-grad" cx="30%" cy="107%" r="150%">
+                      <stop offset="0%" stopColor="#fdf497"/>
+                      <stop offset="5%" stopColor="#fdf497"/>
+                      <stop offset="45%" stopColor="#fd5949"/>
+                      <stop offset="60%" stopColor="#d6249f"/>
+                      <stop offset="90%" stopColor="#285AEB"/>
+                    </radialGradient>
+                  </defs>
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5" fill="url(#ig-grad)"/>
+                  <circle cx="12" cy="12" r="4.5" fill="none" stroke="white" strokeWidth="1.5"/>
+                  <circle cx="17.5" cy="6.5" r="1" fill="white"/>
+                </svg>
+              </a>
+
+              {/* TikTok — #000000 */}
+              <a
+                href="#"
+                aria-label="GB Feeds on TikTok"
+                className="flex items-center justify-center w-12 h-12 transition-opacity duration-200 hover:opacity-75"
+              >
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="#000000" aria-hidden="true">
+                  <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V9.54a8.16 8.16 0 004.77 1.52V7.62a4.85 4.85 0 01-1-.93z"/>
+                </svg>
+              </a>
+
+              {/* YouTube — #FF0000 */}
+              <a
+                href="#"
+                aria-label="GB Feeds on YouTube"
+                className="flex items-center justify-center w-12 h-12 transition-opacity duration-200 hover:opacity-75"
+              >
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="#FF0000" aria-hidden="true">
+                  <path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                </svg>
+              </a>
+
             </div>
+          </Container>
+        </section>
 
-            {/* Three-card row */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {recentJournal.map((entry) => (
-                <article
-                  key={entry.slug}
-                  className={cn(
-                    'group flex flex-col',
-                    'border border-[var(--color-rule)] bg-[var(--color-paper-3)]',
-                    'hover:border-[var(--color-ink)] hover:-translate-y-1',
-                    'transition-all duration-200',
-                  )}
+        <Rule weight="hair" />
+
+        {/* ══════════════════════════════════════════════════════════════════
+            9. FEATURED PRODUCTS — second instance per original
+            Per ORIGINAL_TRUTH.md § 2.1 item 9:
+            "yes, the home renders FEATURED PRODUCTS a SECOND TIME below the social row"
+            ══════════════════════════════════════════════════════════════════ */}
+        <section
+          className="bg-white py-16 sm:py-20 lg:py-24"
+          aria-label="Featured products — second display"
+        >
+          <Container>
+            <Heading
+              as="h2"
+              size="display-sm"
+              className="text-center mb-10 tracking-[0.04em]"
+            >
+              FEATURED PRODUCTS
+            </Heading>
+
+            <div
+              className="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory
+                -mx-4 px-4 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8"
+              style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+              aria-label="Featured products carousel"
+            >
+              {featuredProducts.map((product) => (
+                <div
+                  key={`second-${product.slug}`}
+                  className="snap-start shrink-0 w-[280px] sm:w-[320px]"
                 >
-                  {/* Cover image — <picture> with AVIF/WebP sources for optimized delivery */}
-                  {entry.coverImage && (
-                    <a
-                      href={`/journal/${entry.slug}`}
-                      className="block overflow-hidden aspect-video"
-                      tabIndex={-1}
-                      aria-hidden="true"
-                    >
-                      <picture>
-                        {/* AVIF variant — swap extension for .avif counterpart */}
-                        <source
-                          srcSet={entry.coverImage.replace(/\.webp$/, '.avif')}
-                          type="image/avif"
-                        />
-                        {/* WebP fallback */}
-                        <source srcSet={entry.coverImage} type="image/webp" />
-                        <img
-                          src={entry.coverImage}
-                          alt={`Cover image for ${entry.title}`}
-                          width={640}
-                          height={360}
-                          className="w-full h-full object-cover transition-transform duration-300
-                            group-hover:scale-[1.02]"
-                          loading="lazy"
-                        />
-                      </picture>
-                    </a>
-                  )}
-
-                  {/* Card body */}
-                  <div className="flex flex-col gap-2 p-5 flex-1">
-                    {/* Stamp row */}
-                    <div className="flex flex-wrap gap-2" aria-hidden="true">
-                      <Stamp value={entry.date} variant="date" />
-                      <Stamp value={entry.county} variant="county" />
-                      <Stamp value={entry.season.toUpperCase()} />
-                      {entry.wind && <Stamp value={entry.wind} variant="wind" />}
-                    </div>
-
-                    {/* Title */}
-                    <Heading as="h3" size="display-sm" className="mt-1">
-                      <a
-                        href={`/journal/${entry.slug}`}
-                        className="hover:text-[var(--color-accent)] transition-colors duration-200
-                          line-clamp-2"
-                      >
-                        {entry.title}
-                      </a>
-                    </Heading>
-
-                    {/* Dek — DM Serif Display */}
-                    <Text
-                      variant="body-sm"
-                      className="text-[var(--color-ink-muted)] leading-[1.4] line-clamp-3 mt-1"
-                    >
-                      {entry.dek}
-                    </Text>
-
-                    {/* Read time */}
-                    <p
-                      className="mt-auto pt-3 font-mono text-mono-xs tracking-[0.04em] uppercase
-                        text-[var(--color-ink-quiet)]"
-                    >
-                      {entry.readMinutes} MIN READ
-                    </p>
-                  </div>
-                </article>
+                  <ProductCard product={product} priority={false} />
+                </div>
               ))}
             </div>
-
-            {/* Journal CTA */}
-            <div className="mt-10 flex justify-center">
-              <Button as="a" href="/journal" variant="secondary">
-                ALL JOURNAL ENTRIES →
-              </Button>
-            </div>
           </Container>
-        </Section>
-
-        {/* ── 7. NEWSLETTER FORM ───────────────────────────────────────────── */}
-        <Section bg="paper" aria-label="Sign up for GB Feeds Field Notes">
-          <PaperGrain />
-          <Container variant="narrow">
-            <div className="flex flex-col md:flex-row gap-8 md:gap-16 items-start">
-              {/* Copy */}
-              <div className="flex-1">
-                <Stamp value="FIELD NOTES" className="mb-4" />
-                <Heading as="h2" size="display-md" className="mb-3">
-                  HUNT SMARTER.
-                  <br />
-                  FEED BETTER.
-                </Heading>
-                <Text variant="body-md" className="text-[var(--color-ink-muted)] leading-[1.4]">
-                  Greg sends field notes on deer nutrition, antler development, and
-                  what&apos;s working right here in Kansas. No spam. Just results.
-                </Text>
-              </div>
-
-              {/* Form */}
-              <div className="flex-1 w-full">
-                <NewsletterForm />
-              </div>
-            </div>
-          </Container>
-        </Section>
+        </section>
 
       </main>
     </>

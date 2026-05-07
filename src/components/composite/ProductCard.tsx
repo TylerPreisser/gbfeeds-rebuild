@@ -29,7 +29,7 @@ interface ProductCardProps {
 export function ProductCard({ product, className, priority = false }: ProductCardProps) {
   const href = `/products/${product.slug}`;
   const imageAlt = product.images[0]?.alt ?? product.displayName;
-  const imageSrc = `/products/${product.slug}/${product.primaryImage}`;
+  const imageSrc = product.primaryImage;
 
   return (
     <article
@@ -37,9 +37,8 @@ export function ProductCard({ product, className, priority = false }: ProductCar
         'group relative flex flex-col',
         'bg-[var(--color-paper-3)]',
         'border border-[var(--color-rule)]',
-        // Hover: border thickens + upward translate
-        'hover:border-2 hover:border-[var(--color-ink)]',
-        'transition-all duration-200',
+        'hover:border-[var(--color-ink)]',
+        'transition-colors duration-200',
         'hover:-translate-y-1',
         className,
       )}
@@ -47,7 +46,7 @@ export function ProductCard({ product, className, priority = false }: ProductCar
       {/* Image container with overflow-hidden for scale clip */}
       <a
         href={href}
-        className="block overflow-hidden aspect-square relative"
+        className="block overflow-hidden aspect-[4/5] relative bg-[var(--color-paper)]"
         tabIndex={-1}
         aria-hidden="true"
       >
@@ -85,8 +84,8 @@ export function ProductCard({ product, className, priority = false }: ProductCar
       </a>
 
       {/* Card body */}
-      <div className="flex flex-col gap-2 p-4 flex-1">
-        <Heading as="h3" size="display-sm" className="line-clamp-2">
+      <div className="flex flex-col gap-3 p-4 flex-1 border-t border-[var(--color-rule)]">
+        <Heading as="h3" size="display-sm" className="line-clamp-2 text-[clamp(1.75rem,1.45rem+1vw,2.4rem)]">
           <a
             href={href}
             className="hover:text-[var(--color-accent)] transition-colors duration-200"
@@ -104,7 +103,7 @@ export function ProductCard({ product, className, priority = false }: ProductCar
         <StockBadge stock={deriveStockState(product.available, null)} />
 
         {/* CTA */}
-        <div className="mt-auto pt-3">
+        <div className="mt-auto pt-2">
           <Button
             as="a"
             href={href}

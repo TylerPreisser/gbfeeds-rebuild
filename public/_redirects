@@ -44,6 +44,20 @@
 /terms-and-conditions-1                                                                                 /terms/                                            301
 /privacy-policy                                                                                         /privacy/                                          301
 
+# ── Invented routes from prior rebuild → home (301) ─────────────────────────
+/field-club                                                                                             /                                                  301
+/field-club/*                                                                                           /                                                  301
+/feed-program                                                                                           /                                                  301
+/feed-program/*                                                                                         /                                                  301
+/journal                                                                                                /                                                  301
+/journal/*                                                                                              /                                                  301
+/season                                                                                                 /                                                  301
+/season/*                                                                                               /                                                  301
+
+# ── Contact + FAQ → home anchors ─────────────────────────────────────────────
+/contact                                                                                                /#contact                                          301
+/faq                                                                                                    /#faq                                              301
+
 # ── OLS user portal → home ───────────────────────────────────────────────────
 # The GoDaddy OLS account portal (/m/*) is retired entirely in the rebuild.
 # All portal paths redirect to home; authenticated users can contact Greg directly.

@@ -83,6 +83,9 @@ export function PriceTag({ priceRegular, priceSale, size = 'sm', className }: Pr
         >
           {dollars}
         </span>
+        <span className={cn(centsClass, 'mx-px', onSale ? 'text-[var(--color-accent)]' : '')}>
+          .
+        </span>
         <span className={cn(centsClass, onSale ? 'text-[var(--color-accent)]' : '')}>
           {cents}
         </span>

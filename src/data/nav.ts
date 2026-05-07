@@ -1,49 +1,35 @@
 // src/data/nav.ts
 // Single source of truth for navigation structure.
-// Used by NavBar, Footer, sitemap.ts, and routes.ts.
+// Matches ORIGINAL_TRUTH.md § 1 exactly — hamburger-only, single drawer, 6 items.
 // RSC-only: no 'use client'.
 
 export interface NavItem {
   label: string;
   href: string;
-  /** Optional stamp text shown on hover (nav variant hover pattern) */
-  stamp?: string;
 }
 
-export const nav = {
-  primary: [
-    { label: 'Shop', href: '/products', stamp: '16 ITEMS' },
-    { label: 'Feed Program', href: '/feed-program', stamp: 'RX FOR SEASON' },
-    { label: 'Field Club', href: '/field-club', stamp: 'MEMBERS ONLY' },
-    { label: 'Journal', href: '/journal', stamp: 'FIELD NOTES' },
-    { label: 'Our Story', href: '/our-story', stamp: 'EST. 2017 KS' },
-  ] as NavItem[],
-
-  secondary: [
-    { label: 'Why GB Feeds', href: '/why-gb-feeds' },
-    { label: 'Reviews', href: '/customer-reviews' },
-    { label: 'Photos', href: '/photo-gallery' },
-    { label: 'FAQ', href: '/faq' },
-    { label: 'Contact', href: '/contact' },
-  ] as NavItem[],
-
-  seasons: [
-    { label: 'Pre-Rut', href: '/season/pre-rut', stamp: 'SEPT–OCT' },
-    { label: 'Rut', href: '/season/rut', stamp: 'OCT–NOV' },
-    { label: 'Post-Rut', href: '/season/post-rut', stamp: 'NOV–JAN' },
-    { label: 'Antler Growth', href: '/season/antler-growth', stamp: 'APR–AUG' },
-  ] as NavItem[],
-
-  legal: [
-    { label: 'Terms', href: '/terms' },
-    { label: 'Privacy', href: '/privacy' },
-  ] as NavItem[],
-} as const;
-
-/** Flat array of all nav items (useful for sitemap and routes.ts) */
-export const allNavItems: NavItem[] = [
-  ...nav.primary,
-  ...nav.secondary,
-  ...nav.seasons,
-  ...nav.legal,
+/**
+ * Six-item drawer nav in the exact order from the original gbfeeds.com.
+ * Per ORIGINAL_TRUTH.md § 1: Home / Products / Why GB Feeds / Our Story / Customer Reviews / Photo Gallery
+ */
+export const drawerNav: NavItem[] = [
+  { label: 'Home', href: '/' },
+  { label: 'Products', href: '/products' },
+  { label: 'Why GB Feeds', href: '/why-gb-feeds' },
+  { label: 'Our Story', href: '/our-story' },
+  { label: 'Customer Reviews', href: '/customer-reviews' },
+  { label: 'Photo Gallery', href: '/photo-gallery' },
 ];
+
+/** Legal links (footer only) */
+export const legalNav: NavItem[] = [
+  { label: 'Terms and Conditions', href: '/terms' },
+  { label: 'Privacy Policy', href: '/privacy' },
+];
+
+// Legacy named export to avoid breaking any remaining references
+// (Footer.tsx uses nav.legal — update footer separately)
+export const nav = {
+  drawer: drawerNav,
+  legal: legalNav,
+} as const;

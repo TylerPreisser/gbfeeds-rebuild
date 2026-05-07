@@ -14,10 +14,10 @@ const SignatureMove = dynamic(
     ssr: false,
     // Loading state: match the section's min-height to prevent CLS
     loading: () => (
-      // 100svh (small viewport height) avoids iOS Safari chrome clipping the CLS guard
+      // 58svh matches the hydrated static proof moment and prevents CLS.
       <div
         className="w-full bg-[var(--color-paper)]"
-        style={{ minHeight: '100svh' }}
+        style={{ minHeight: '58svh' }}
         aria-hidden="true"
       />
     ),

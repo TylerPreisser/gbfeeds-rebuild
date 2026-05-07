@@ -22,21 +22,14 @@
 //
 // Scrolling routes (Lenis + MotionContext fully active):
 //   /                     — home (SignatureMove GSAP pin)
-//   /season/*             — season pages (scroll-triggered left-margin markers)
-//   /journal              — journal index (scroll effects)
-//   /journal/*            — journal articles (sticky stamps)
 //   /our-story            — editorial (scroll motion)
 //   /why-gb-feeds         — editorial (scroll motion)
 //   /customer-reviews     — editorial (scroll motion)
 //   /photo-gallery        — editorial (scroll motion)
-//   /feed-program         — feed program wizard context
-//   /field-club           — membership (scroll motion)
 //
 // Static routes (MotionContext provided but Lenis NOT instantiated):
 //   /products             — shop index
 //   /products/*           — PDPs (no Lenis needed; framer handles BagTag)
-//   /contact              — support (no scroll motion)
-//   /faq                  — support (no scroll motion)
 //   /terms                — legal
 //   /privacy              — legal
 //   /404                  — not-found
@@ -55,14 +48,10 @@ import { MotionContext } from '@/hooks/useLenis';
 // segments (/season/rut, /journal/stand-7b-riley, etc.).
 const SCROLLING_PATHS = [
   '/',         // exact match — home only (not every route)
-  '/season/',
-  '/journal',  // covers /journal and /journal/[slug]
   '/our-story',
   '/why-gb-feeds',
   '/customer-reviews',
   '/photo-gallery',
-  '/feed-program',
-  '/field-club',
 ] as const;
 
 /** Returns true if the given pathname should activate Lenis. */

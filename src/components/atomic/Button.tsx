@@ -32,7 +32,7 @@ type ButtonProps = ButtonAsButtonProps | ButtonAsAnchorProps;
 
 const variantStyles: Record<ButtonVariant, string> = {
   primary:
-    'bg-[var(--color-ink)] text-[var(--color-paper)] border border-[var(--color-ink)] ' +
+    'bg-[var(--color-ink)] [color:#EDE7D9] border border-[var(--color-ink)] ' +
     'hover:bg-[var(--color-gray-900)]',
   secondary:
     'bg-transparent text-[var(--color-ink)] border border-[var(--color-ink)] ' +
@@ -50,7 +50,7 @@ const baseStyles = [
   'inline-flex items-center justify-center gap-2',
   'rounded-none',
   // Padding: 12px × 35px (design brief spec)
-  'px-3 py-[0.21875rem]',
+  'px-5 py-2.5 min-h-11',
   // Typography — Bebas Neue uppercase
   'font-display uppercase tracking-[0.02em] text-body-sm leading-none',
   // Transition for bg/color
@@ -81,7 +81,14 @@ export function Button(props: ButtonProps) {
   if (as === 'a') {
     const anchorProps = rest as React.AnchorHTMLAttributes<HTMLAnchorElement>;
     return (
-      <a className={classes} {...anchorProps}>
+      <a
+        className={classes}
+        {...anchorProps}
+        style={{
+          ...(variant === 'primary' ? { color: '#EDE7D9' } : null),
+          ...anchorProps.style,
+        }}
+      >
         {children}
       </a>
     );
@@ -93,6 +100,10 @@ export function Button(props: ButtonProps) {
       className={classes}
       disabled={variant === 'disabled' || buttonProps.disabled}
       {...buttonProps}
+      style={{
+        ...(variant === 'primary' ? { color: '#EDE7D9' } : null),
+        ...buttonProps.style,
+      }}
     >
       {children}
     </button>

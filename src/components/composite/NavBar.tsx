@@ -1,173 +1,120 @@
 // src/components/composite/NavBar.tsx
-// RSC outer shell. Mobile drawer is a small 'use client' child (NavMobileDrawer).
-// Sticky via position:sticky + CSS transition on height after 80px scroll.
-// Nav link hover: monospace stamp slides up below the link — pure CSS.
-// Boundary: imports only atomic/ + data/ + the NavMobileDrawer client child.
+// RSC outer shell. Drawer is a 'use client' child (NavMobileDrawer).
+// Three-column: hamburger (left) | logo centered | icons (right)
+// Matches ORIGINAL_TRUTH.md § 1 exactly: hamburger on BOTH desktop AND mobile.
+// No inline nav links on desktop — all links are inside the drawer.
 
 import NextLink from 'next/link';
-import { nav } from '@/data/nav';
 import { NavMobileDrawer } from './NavMobileDrawer';
 
 /**
- * <NavBar> — thin eyebrow + main nav row.
- * Main row: logo (left) + horizontal nav (center) + cart icon (right, links /products).
- * Mobile: hamburger opens <NavMobileDrawer> overlay.
- * Sticky: CSS-only scroll-driven height reduction via @keyframes scroll-linked (no JS).
+ * <NavBar> — hamburger-only header, identical on desktop and mobile.
+ * Header layout: [Hamburger] [Logo centered] [Search, Cart, Account]
+ * Sticky. Background transitions from transparent → bone-paper on scroll
+ * via CSS animation-timeline (progressive enhancement).
  */
 export function NavBar() {
   return (
-    // pt-[env(safe-area-inset-top)] ensures Dynamic Island / notch on iPhone 14 Pro+
-    // does not overlap the logo or hamburger when the header is sticky at top-0.
-    // Requires viewport-fit=cover in layout.tsx viewport export (P0-F).
     <header
-      className="sticky top-0 z-50 w-full bg-[var(--color-paper)] border-b border-[var(--color-rule)]
+      className="sticky top-0 z-50 w-full bg-[var(--color-ink)] border-b border-[var(--color-rule)]
         pt-[env(safe-area-inset-top)]"
-      style={{ transition: 'padding 200ms ease' }}
     >
-      {/* ── Scroll-aware height reduction via CSS animation-timeline ────────── */}
       <style>{`
+        /* Scroll-driven background opacity — progressive enhancement */
         @supports (animation-timeline: scroll()) {
-          header.sticky {
-            animation: navShrink linear both;
+          .navbar-inner {
+            animation: navBg linear both;
             animation-timeline: scroll(root block);
-            animation-range: 0px 80px;
+            animation-range: 0px 60px;
           }
-          @keyframes navShrink {
-            from { padding-top: 0.75rem; padding-bottom: 0.75rem; }
-            to   { padding-top: 0.375rem; padding-bottom: 0.375rem; }
+          @keyframes navBg {
+            from { --nav-bg-opacity: 0.92; }
+            to   { --nav-bg-opacity: 1; }
           }
         }
 
-        /* Nav link hover: monospace stamp slides up below the link */
-        .nav-link-group {
-          position: relative;
-          display: inline-flex;
-          flex-direction: column;
+        /* Icon hover */
+        .nav-icon-btn {
+          display: flex;
           align-items: center;
+          justify-content: center;
+          min-width: 44px;
+          min-height: 44px;
+          color: #ffffff;
+          transition: opacity 200ms ease;
         }
-        .nav-link-stamp {
-          position: absolute;
-          top: 100%;
-          left: 50%;
-          transform: translateX(-50%) translateY(4px);
-          opacity: 0;
-          pointer-events: none;
-          white-space: nowrap;
-          transition: opacity 240ms ease, transform 240ms ease;
-          font-family: var(--font-mono), monospace;
-          font-size: clamp(0.6875rem, 0.625rem + 0.25vw, 0.75rem);
-          letter-spacing: 0.04em;
-          text-transform: uppercase;
-          color: var(--color-ink-quiet);
-          padding: 1px 4px;
-          border: 1px solid var(--color-rule);
-          background: var(--color-paper);
-          line-height: 1.2;
+        .nav-icon-btn:hover {
+          opacity: 0.7;
         }
-        .nav-link-group:hover .nav-link-stamp,
-        .nav-link-group:focus-within .nav-link-stamp {
-          opacity: 1;
-          transform: translateX(-50%) translateY(2px);
-        }
-        @media (prefers-reduced-motion: reduce) {
-          .nav-link-stamp {
-            transition: none;
-            transform: translateX(-50%) translateY(2px);
-          }
-        }
-
-        /* Accent underline on hover */
-        .nav-link-anchor {
-          position: relative;
-          text-decoration: none;
-          color: var(--color-ink);
-          font-family: var(--font-display), sans-serif;
-          font-size: clamp(0.875rem, 0.8125rem + 0.3125vw, 1rem);
-          text-transform: uppercase;
-          letter-spacing: 0.02em;
-          line-height: 1;
-        }
-        .nav-link-anchor::after {
-          content: '';
-          position: absolute;
-          left: 0;
-          bottom: -1px;
-          width: 0;
-          height: 1px;
-          background: var(--color-accent);
-          transition: width 220ms cubic-bezier(0.22, 1, 0.36, 1);
-        }
-        .nav-link-anchor:hover::after,
-        .nav-link-anchor:focus::after {
-          width: 100%;
-        }
-        @media (prefers-reduced-motion: reduce) {
-          .nav-link-anchor::after { transition: none; }
+        .nav-icon-btn:focus-visible {
+          outline: 2px solid #ffffff;
+          outline-offset: 2px;
         }
       `}</style>
 
-      <div className="max-w-[80rem] mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between py-3">
+      <div className="navbar-inner max-w-[88rem] mx-auto px-4 sm:px-6 lg:px-8">
+        {/*
+          Three-column grid:
+          - col 1 (auto): hamburger button
+          - col 2 (1fr): logo, centered
+          - col 3 (auto): icons cluster
+        */}
+        <div className="grid grid-cols-[auto_1fr_auto] items-center h-16 sm:h-20 lg:h-24">
 
-          {/* Logo — prefetch={false} prevents Next.js from auto-prefetching the home
-              page chunk (which includes SignatureMoveLoader ~4KB gz) on every route. */}
-          <NextLink
-            href="/"
-            prefetch={false}
-            className="flex items-center shrink-0"
-            aria-label="GB Feeds — Home"
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/brand/logo.svg"
-              alt="GB Feeds"
-              width={120}
-              height={40}
-              className="h-8 w-auto"
-              loading="eager"
-            />
-          </NextLink>
+          {/* LEFT — Hamburger, triggers drawer on all viewports */}
+          <NavMobileDrawer />
 
-          {/* Desktop nav — hidden on mobile */}
-          <nav
-            className="hidden md:flex items-center gap-8"
-            aria-label="Primary navigation"
-          >
-            {nav.primary.map((item) => (
-              <div key={item.href} className="nav-link-group">
-                <NextLink href={item.href} className="nav-link-anchor">
-                  {item.label}
-                </NextLink>
-                {item.stamp && (
-                  <span className="nav-link-stamp" aria-hidden="true">
-                    {item.stamp}
-                  </span>
-                )}
-              </div>
-            ))}
-          </nav>
-
-          {/* Right actions */}
-          <div className="flex items-center gap-4">
-            {/* BUILD YOUR PROGRAM persistent CTA */}
+          {/* CENTER — GB Feeds logo, centered via justify-self */}
+          <div className="flex justify-center">
             <NextLink
-              href="/feed-program"
-              className="hidden lg:inline-flex items-center gap-1
-                font-mono text-mono-xs tracking-[0.04em] uppercase
-                text-[var(--color-accent)] border border-[var(--color-accent)]
-                px-3 py-1.5 hover:bg-[var(--color-accent)] hover:text-[var(--color-paper)]
-                transition-colors duration-200"
-              aria-label="Build your feed program"
+              href="/"
+              prefetch={false}
+              aria-label="GB Feeds — Home"
+              className="flex items-center"
             >
-              Build Program →
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/brand/logo.svg"
+                alt="GB Feeds"
+                width={160}
+                height={72}
+                className="h-14 sm:h-16 lg:h-20 w-auto"
+                loading="eager"
+              />
             </NextLink>
+          </div>
 
-            {/* Cart icon — links to /products (visual parity).
-                p-[12px] around 20×20px SVG = 44×44px min touch target (Apple HIG / WCAG 2.5.5). */}
+          {/* RIGHT — Search, Cart, Account icons */}
+          <div className="flex items-center gap-1 sm:gap-2">
+
+            {/* Search icon — visual placeholder (no search backend) */}
+            <button
+              type="button"
+              className="nav-icon-btn"
+              aria-label="Search (coming soon)"
+              style={{ cursor: 'not-allowed' }}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <circle cx="11" cy="11" r="8" />
+                <path d="m21 21-4.35-4.35" />
+              </svg>
+            </button>
+
+            {/* Cart icon — links to /products (no cart backend yet) */}
             <NextLink
               href="/products"
-              className="flex items-center justify-center p-[12px] -m-[12px]
-                text-[var(--color-ink)] hover:text-[var(--color-accent)] transition-colors duration-200"
+              className="nav-icon-btn"
               aria-label="Shop products"
             >
               <svg
@@ -188,8 +135,30 @@ export function NavBar() {
               </svg>
             </NextLink>
 
-            {/* Mobile menu button — client-side */}
-            <NavMobileDrawer />
+            {/* Account icon — visual placeholder */}
+            <button
+              type="button"
+              className="nav-icon-btn"
+              aria-label="Account (coming soon)"
+              style={{ cursor: 'not-allowed' }}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                <circle cx="12" cy="7" r="4" />
+              </svg>
+            </button>
+
           </div>
         </div>
       </div>

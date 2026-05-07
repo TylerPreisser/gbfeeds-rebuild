@@ -46,7 +46,7 @@ export function ProductFilterChips({ categoryChips, gridId }: ProductFilterChips
 
   return (
     <nav aria-label="Filter products by category" className="mb-8">
-      <ul className="flex flex-wrap gap-2" role="list">
+      <ul className="flex flex-wrap justify-center gap-2" role="list">
         {/* "All" chip */}
         <li>
           <Link

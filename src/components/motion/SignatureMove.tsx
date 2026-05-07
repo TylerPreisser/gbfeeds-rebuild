@@ -5,7 +5,7 @@
 // Any other file importing GSAP will fail the lint gate.
 //
 // Composes: <AntlerInchesCounter> + <KansasMap> + trail-cam cross-fade.
-// Pin via ScrollTrigger: 3 viewport heights of scroll buffer.
+// Pin via ScrollTrigger: compact scroll buffer.
 // Mobile (< 768px): static fallback, no pin. iOS Safari: detected, bailout.
 // Reduced-motion: static final state from first paint.
 // Boundary: imports motion/ + composite/ + hooks/.
@@ -23,6 +23,8 @@ import { cn } from '@/lib/cn';
 // Register GSAP plugin — ONLY done here
 gsap.registerPlugin(ScrollTrigger);
 
+const ENABLE_PINNED_COUNTER = false;
+
 interface SignatureMoveProps {
   total: number;
   asOf: string;
@@ -35,7 +37,7 @@ interface SignatureMoveProps {
 /**
  * <SignatureMove> — the home-page scroll-pinned signature moment.
  *
- * Desktop: 3 viewport heights of scroll (≈ 30 seconds at typical wheel speed).
+ * Desktop: a compact pinned proof moment.
  *   - Counter ticks 0 → total_inches
  *   - Trail-cam image cross-fades grayscale(1) → grayscale(0)
  *   - Kansas map pins drop sequentially
@@ -103,7 +105,7 @@ export function SignatureMove({
   useEffect(() => {
     const section = sectionRef.current;
     const image = imageRef.current;
-    if (!section || reducedMotion || isMobile || isIOSSafari) return;
+    if (!section || !ENABLE_PINNED_COUNTER || reducedMotion || isMobile || isIOSSafari) return;
 
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({
@@ -112,7 +114,7 @@ export function SignatureMove({
           pin: true,
           scrub: 1,
           start: 'top top',
-          end: '+=3000',
+          end: '+=1200',
           onUpdate: (self) => {
             setScrollProgress(self.progress);
           },
@@ -136,7 +138,7 @@ export function SignatureMove({
   }, [reducedMotion, isMobile, isIOSSafari]);
 
   // Static fallback: show final state for reduced-motion, mobile, iOS Safari
-  const showStatic = reducedMotion || isMobile || isIOSSafari;
+  const showStatic = !ENABLE_PINNED_COUNTER || reducedMotion || isMobile || isIOSSafari;
 
   return (
     <section
@@ -144,9 +146,9 @@ export function SignatureMove({
       id="counter"
       className={cn(
         'relative w-full bg-[var(--color-paper)] overflow-hidden',
-        // min-h-[100svh]: small viewport height accounts for iOS Safari chrome
-        // min-h-[70svh]: static fallback uses svh for same iOS compatibility
-        showStatic ? 'min-h-[70svh]' : 'min-h-[100svh]',
+        // svh accounts for iOS Safari chrome without letting this proof moment
+        // consume several blank screens of page flow.
+        showStatic ? 'min-h-[58svh]' : 'min-h-[82svh]',
         className,
       )}
       aria-label="Antler inches harvested — GB Feeds counter"
@@ -180,12 +182,12 @@ export function SignatureMove({
       <div className="absolute inset-0 bg-[var(--color-paper)] opacity-70" aria-hidden="true" />
 
       {/* Content */}
-      <div className="relative z-10 flex flex-col items-center justify-center gap-8 min-h-[inherit] px-6 py-16">
+      <div className="relative z-10 flex flex-col items-center justify-center gap-6 min-h-[inherit] px-6 py-12">
 
         {/* Counter */}
         <AntlerInchesCounter
           total={total}
-          scrollProgress={showStatic ? undefined : scrollProgress}
+          scrollProgress={showStatic ? 1 : scrollProgress}
           asOf={asOf}
         />
 
