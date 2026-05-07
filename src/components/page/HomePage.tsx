@@ -279,7 +279,7 @@ export function HomePage({ harvests }: HomePageProps) {
                   Contact Us
                 </Heading>
                 <p className="font-body text-body-md text-[var(--color-ink-muted)] mt-4">
-                  Reach out with a product question.
+                  Ask us anything. We know this feed.
                 </p>
               </div>
 
@@ -302,7 +302,7 @@ export function HomePage({ harvests }: HomePageProps) {
                 <p className="font-display uppercase tracking-[0.02em] text-center text-[var(--color-ink-muted)] text-body-sm mb-3">
                   Better yet, give us a call.
                 </p>
-                <div className="border-y border-[var(--color-rule)]">
+                <div className="border-t border-[var(--color-rule)]">
                   <a
                     href="tel:6206393337"
                     className="flex items-center justify-between gap-4 py-5 font-display uppercase text-[clamp(1.75rem,1.35rem+1.2vw,2.75rem)] leading-none tracking-[0.02em] text-[var(--color-ink)] hover:text-[var(--color-accent)] transition-colors duration-200"
