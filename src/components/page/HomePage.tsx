@@ -159,7 +159,7 @@ export function HomePage({ harvests }: HomePageProps) {
 
             {/* Featured products grid — the three core feed cards only. */}
             <div
-              className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,15.5rem),1fr))] gap-4 lg:gap-5 max-w-[58rem] mx-auto"
+              className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,20rem),1fr))] gap-5 lg:gap-6 max-w-[68rem] mx-auto"
               aria-label="Featured GB Feeds products"
             >
               {featuredProducts.map((product, i) => (
@@ -269,47 +269,42 @@ export function HomePage({ harvests }: HomePageProps) {
           aria-label="Contact GB Feeds"
         >
           <Container>
-            <div className="border-y border-[var(--color-ink)] py-10 sm:py-12 lg:py-14 max-w-6xl mx-auto">
-              <div className="text-center mb-10 sm:mb-14">
+            <div className="border-y border-[var(--color-ink)] py-10 sm:py-12 lg:py-14 max-w-2xl mx-auto">
+              {/* Heading block — centered, unified */}
+              <div className="text-center mb-10 sm:mb-12">
                 <Heading as="h2" size="display-lg" className="tracking-[0.03em]">
                   Contact Us
                 </Heading>
                 <p className="font-body text-body-md text-[var(--color-ink-muted)] mt-4">
-                  Customer service is our thing. Reach out with a product question.
+                  Reach out with a product question.
                 </p>
               </div>
 
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-center px-0 sm:px-4 lg:px-8">
-                <div className="flex flex-col items-center text-center">
-                  <Heading as="h3" size="display-sm" className="leading-[1] tracking-[0.02em] mb-5">
-                    Better yet, give us a call.
-                  </Heading>
-
-                  <div className="w-full mt-4 border-y border-[var(--color-rule)]">
-                    <a
-                      href="tel:6206393337"
-                      className="flex items-center justify-between gap-4 py-5 font-display uppercase text-[clamp(1.75rem,1.35rem+1.2vw,2.75rem)] leading-none tracking-[0.02em] text-[var(--color-ink)] hover:text-[var(--color-accent)] transition-colors duration-200"
-                      aria-label="Call GB Feeds at (620) 639-3337"
-                    >
-                      <span>(620) 639-3337</span>
-                      <span className="font-mono text-mono-xs tracking-[0.08em]" aria-hidden="true">
-                        Reach out
-                      </span>
-                    </a>
-                  </div>
+              {/* Phone CTA */}
+              <div className="mb-8 sm:mb-10">
+                <p className="font-display uppercase tracking-[0.02em] text-center text-[var(--color-ink-muted)] text-body-sm mb-3">
+                  Better yet, give us a call.
+                </p>
+                <div className="border-y border-[var(--color-rule)]">
+                  <a
+                    href="tel:6206393337"
+                    className="flex items-center justify-between gap-4 py-5 font-display uppercase text-[clamp(1.75rem,1.35rem+1.2vw,2.75rem)] leading-none tracking-[0.02em] text-[var(--color-ink)] hover:text-[var(--color-accent)] transition-colors duration-200"
+                    aria-label="Call GB Feeds at (620) 639-3337"
+                  >
+                    <span>(620) 639-3337</span>
+                    <span className="font-mono text-mono-xs tracking-[0.08em]" aria-hidden="true">
+                      Reach out
+                    </span>
+                  </a>
                 </div>
+              </div>
 
-                <div className="flex flex-col items-center text-center">
-                  <Heading as="h3" size="display-sm" className="mb-3">
-                    Send a message
-                  </Heading>
-                  <p className="font-body text-body-sm text-[var(--color-ink-muted)] mb-6 max-w-md">
-                    Name, email, and a quick note are all we need.
-                  </p>
-                  <div className="w-full max-w-md">
-                    <ContactForm />
-                  </div>
-                </div>
+              {/* Contact form */}
+              <div>
+                <p className="font-body text-body-sm text-[var(--color-ink-muted)] text-center mb-6">
+                  Or send a message — name, email, and a quick note are all we need.
+                </p>
+                <ContactForm />
               </div>
             </div>
           </Container>
