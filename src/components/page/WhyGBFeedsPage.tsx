@@ -188,8 +188,8 @@ export function WhyGBFeedsPage() {
             <div className="overflow-hidden aspect-[4/3] lg:order-2">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/photos/gallery/blob-b7a2223.webp"
-                alt="Handwritten customer note attached to a bag of GB Feeds Buck Chow"
+                src="/photos/lifestyle/lifestyle-img-4439.webp"
+                alt="Hunter at a GB Feeds station — the kind of customer relationship we earn one bag at a time"
                 width={800}
                 height={600}
                 className="w-full h-full object-cover"

@@ -114,10 +114,10 @@ export function ProductDetail({ product }: ProductDetailProps) {
         >
           <PaperGrain />
           <Container>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 py-12 lg:py-20">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 py-12 lg:py-20">
 
-              {/* LEFT: product hero image */}
-              <div className="relative">
+              {/* LEFT: product hero image — col-span-5 of 12 (was 1/2 = 6/12) */}
+              <div className="relative lg:col-span-5">
                 <picture>
                   {/* AVIF source */}
                   <source
@@ -160,8 +160,8 @@ export function ProductDetail({ product }: ProductDetailProps) {
                 )}
               </div>
 
-              {/* RIGHT: product details */}
-              <div className="flex flex-col gap-6">
+              {/* RIGHT: product details — col-span-7 of 12 (was 1/2 = 6/12; widened so PDP title fits 1-2 lines) */}
+              <div className="flex flex-col gap-6 lg:col-span-7">
                 {/* Category stamp */}
                 <Stamp value={product.category.replace(/-/g, ' ').toUpperCase()} />
 
