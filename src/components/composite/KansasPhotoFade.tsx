@@ -9,17 +9,19 @@
 import { useState, useEffect } from 'react';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 
-// Kansas state outline path — clean 11-vertex approximation of the state border.
-// viewBox 0 0 800 414. Kansas is nearly rectangular with two key border features:
-//   1. The NE corner has a small Missouri River notch (~37px wide, 28px tall)
-//      starting at x≈706 along the top edge.
-//   2. The south border is dead straight (Missouri Compromise line 37°N).
-//   3. The west border is dead straight.
-//   4. The east border jogs slightly: straight from SE corner up to the notch,
-//      then the notch cuts inward, then continues to the true NE corner.
-// This gives a recognizable, iconic Kansas silhouette with correct proportions.
+// Kansas state outline — generated from us-atlas/states-10m.json (US Census Bureau
+// cartographic boundary file, 1:10m scale) via mapshaper Douglas-Peucker simplification
+// at 15% tolerance. ViewBox 0 0 800 325. 14 vertices.
+//
+// The path captures the iconic Kansas silhouette:
+//   1. Mostly straight north edge (40°N parallel)
+//   2. The NE Missouri-River notch — Atchison/Doniphan/Leavenworth counties cut in
+//      following the actual river boundary (sequence: 740.66 14.5 → 762.92 13.22 →
+//      768.68 30.12 → 744.11 51.25 → 772.9 84.97 → 799 91.67)
+//   3. Straight east, south, and west edges — exactly how Kansas looks on a map
 const KANSAS_PATH =
-  'M 8,8 L 706,8 L 706,36 L 743,36 L 743,8 L 792,8 L 792,406 L 8,406 Z';
+  'M 1 1 345.3 1.09 722.23 1.28 740.66 14.5 762.92 13.22 768.68 30.12 744.11 51.25 772.9 84.97 799 91.67 795.93 322.26 396.74 322.35 2.15 322.9 1 1 Z';
+const KANSAS_VIEWBOX = '0 0 800 325';
 
 // Customer photos for the Kansas fade — pull from gallery (harvest/buck shots)
 const KANSAS_PHOTOS = [
@@ -63,7 +65,7 @@ export function KansasPhotoFade({ className }: KansasPhotoFadeProps) {
   return (
     <div className={className} aria-label="Customer harvest photos inside Kansas state outline">
       <svg
-        viewBox="0 0 800 414"
+        viewBox={KANSAS_VIEWBOX}
         className="w-full h-auto"
         role="img"
         aria-label="Kansas state silhouette with customer harvest photos"
@@ -84,7 +86,7 @@ export function KansasPhotoFade({ className }: KansasPhotoFadeProps) {
               x="0"
               y="0"
               width="800"
-              height="414"
+              height="325"
               preserveAspectRatio="xMidYMid slice"
               style={{
                 opacity: i === activeIndex ? 1 : 0,
