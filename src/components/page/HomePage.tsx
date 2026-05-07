@@ -270,51 +270,45 @@ export function HomePage({ harvests }: HomePageProps) {
         >
           <Container>
             <div className="border-y border-[var(--color-ink)] py-10 sm:py-12 lg:py-14 max-w-6xl mx-auto">
-              <div className="text-center mb-10 sm:mb-12">
-                <p className="font-mono text-mono-xs tracking-[0.14em] uppercase text-[var(--color-accent)] mb-3">
-                  Questions, orders, field photos
-                </p>
+              <div className="text-center mb-10 sm:mb-14">
                 <Heading as="h2" size="display-lg" className="tracking-[0.03em]">
                   Contact Us
                 </Heading>
+                <p className="font-body text-body-md text-[var(--color-ink-muted)] mt-4">
+                  Customer service is our thing. Reach out with a product question.
+                </p>
               </div>
 
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-start px-0 sm:px-4 lg:px-8">
-                <div>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-center px-0 sm:px-4 lg:px-8">
+                <div className="flex flex-col items-center text-center">
                   <Heading as="h3" size="display-sm" className="leading-[1] tracking-[0.02em] mb-5">
                     Better yet, give us a call.
                   </Heading>
-                  <p className="font-body text-body-md text-[var(--color-ink-muted)] leading-[1.55] max-w-md">
-                    Customer service is our thing. Call with a product question, send a field
-                    photo, or tell us what you&apos;re trying to improve on your hunting property.
-                  </p>
 
-                  <div className="mt-8 divide-y divide-[var(--color-rule)] border-y border-[var(--color-rule)]">
-                  <a
-                    href="tel:6206393337"
-                    className="flex items-center justify-between gap-4 py-5 font-display uppercase text-[clamp(1.75rem,1.35rem+1.2vw,2.75rem)] leading-none tracking-[0.02em] text-[var(--color-ink)] hover:text-[var(--color-accent)] transition-colors duration-200"
-                    aria-label="Call GB Feeds at (620) 639-3337"
-                  >
-                    <span>(620) 639-3337</span>
-                    <span className="font-mono text-mono-xs tracking-[0.08em]" aria-hidden="true">
-                      Call
-                    </span>
-                  </a>
-                  <p className="py-4 font-mono text-mono-xs uppercase tracking-[0.08em] text-[var(--color-ink-quiet)] leading-relaxed">
-                    Manhattan, Kansas<br />
-                    Real products. Real field results.
-                  </p>
+                  <div className="w-full mt-4 border-y border-[var(--color-rule)]">
+                    <a
+                      href="tel:6206393337"
+                      className="flex items-center justify-between gap-4 py-5 font-display uppercase text-[clamp(1.75rem,1.35rem+1.2vw,2.75rem)] leading-none tracking-[0.02em] text-[var(--color-ink)] hover:text-[var(--color-accent)] transition-colors duration-200"
+                      aria-label="Call GB Feeds at (620) 639-3337"
+                    >
+                      <span>(620) 639-3337</span>
+                      <span className="font-mono text-mono-xs tracking-[0.08em]" aria-hidden="true">
+                        Reach out
+                      </span>
+                    </a>
                   </div>
                 </div>
 
-                <div className="lg:border-l lg:border-[var(--color-rule)] lg:pl-14">
+                <div className="flex flex-col items-center text-center">
                   <Heading as="h3" size="display-sm" className="mb-3">
                     Send a message
                   </Heading>
                   <p className="font-body text-body-sm text-[var(--color-ink-muted)] mb-6 max-w-md">
                     Name, email, and a quick note are all we need.
                   </p>
-                  <ContactForm />
+                  <div className="w-full max-w-md">
+                    <ContactForm />
+                  </div>
                 </div>
               </div>
             </div>
