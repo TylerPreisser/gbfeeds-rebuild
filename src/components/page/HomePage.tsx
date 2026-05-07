@@ -272,18 +272,21 @@ export function HomePage({ harvests }: HomePageProps) {
             <div className="grid grid-cols-1 lg:grid-cols-[0.85fr_1.15fr] gap-10 lg:gap-16 max-w-5xl mx-auto items-start">
               <div className="lg:sticky lg:top-28">
                 <p className="font-mono text-mono-xs tracking-[0.14em] uppercase text-[var(--color-accent)] mb-3">
-                  Talk with GB Feeds
+                  Contact Us
                 </p>
                 <Heading as="h2" size="display-md" className="leading-[0.98] tracking-[0.01em] mb-5">
-                  Let&apos;s talk through your setup.
+                  Drop us a line.
                 </Heading>
                 <p className="font-body text-body-md text-[var(--color-ink-muted)] leading-[1.55] max-w-md">
-                  Tell us what you&apos;re feeding, how often you&apos;re filling,
-                  and what kind of deer activity you&apos;re trying to build.
-                  We&apos;ll help you make the next bag or feeder count.
+                  Customer service is our thing, and we love to hear your
+                  success stories. Send us a message with a question, a field
+                  photo, or what you&apos;re trying to improve on your property.
                 </p>
 
                 <div className="mt-8 border-y border-[var(--color-rule)] divide-y divide-[var(--color-rule)] max-w-md">
+                  <p className="py-4 font-display uppercase text-[clamp(1.5rem,1.25rem+0.8vw,2.25rem)] leading-none tracking-[0.02em] text-[var(--color-ink)]">
+                    Better yet, give us a call.
+                  </p>
                   <a
                     href="tel:6206393337"
                     className="flex items-center justify-between gap-4 py-4 font-display uppercase text-[clamp(1.5rem,1.25rem+0.8vw,2.25rem)] leading-none tracking-[0.02em] text-[var(--color-ink)] hover:text-[var(--color-accent)] transition-colors duration-200"
@@ -300,10 +303,10 @@ export function HomePage({ harvests }: HomePageProps) {
 
               <div className="border border-[var(--color-rule)] bg-[var(--color-paper-3)] p-5 sm:p-7 lg:p-8">
                 <Heading as="h3" size="display-sm" className="mb-2">
-                  Send a message
+                  Drop us a line!
                 </Heading>
                 <p className="font-body text-body-sm text-[var(--color-ink-muted)] mb-6">
-                  Property size, feeder type, season, and goal are the details that help.
+                  Name, email, and a quick note are all we need.
                 </p>
                 <ContactForm />
               </div>
