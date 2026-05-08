@@ -54,7 +54,9 @@ export function ProductCard({
         href={href}
         className={cn(
           'premium-media block overflow-hidden relative bg-[var(--color-paper)]',
-          isCompact ? 'aspect-[4/3]' : 'aspect-[4/5]',
+          /* compact (carousel): portrait on mobile so cards are taller and more
+             visually present; landscape on md+ to match the desktop grid look. */
+          isCompact ? 'aspect-[3/4] md:aspect-[4/3]' : 'aspect-[4/5]',
         )}
         tabIndex={-1}
         aria-hidden="true"

@@ -23,6 +23,7 @@ import { ContactForm } from '@/components/composite/ContactForm';
 import { ProductCard } from '@/components/composite/ProductCard';
 import { orgSchema, webSiteSchema, faqSchema } from '@/lib/seo';
 import { SignatureMoveLoader } from '@/components/motion/SignatureMoveLoader';
+import { HomeReveal } from '@/components/motion/HomeReveal';
 import { withBasePath } from '@/lib/basePath';
 
 // ─── Props ────────────────────────────────────────────────────────────────────
@@ -74,7 +75,7 @@ export function HomePage({ harvests }: HomePageProps) {
             100svh on mobile, fixed tall height on desktop.
             ══════════════════════════════════════════════════════════════════ */}
         <section
-          className="relative overflow-hidden h-[70svh] sm:h-[clamp(500px,82svh,760px)]"
+          className="relative overflow-hidden h-[58svh] sm:h-[clamp(500px,82svh,760px)]"
           aria-label="GB Feeds hero image"
         >
           <picture>
@@ -91,7 +92,7 @@ export function HomePage({ harvests }: HomePageProps) {
               alt="Buck Chow deer-feed bag in a wooded Kansas field"
               width={2200}
               height={1760}
-              className="gb-hero-drift absolute inset-0 w-full h-full object-cover object-bottom sm:object-[center_62%]"
+              className="gb-hero-drift absolute inset-0 w-full h-full object-cover object-[center_100%] sm:object-[center_62%]"
               loading="eager"
               fetchPriority="high"
             />
@@ -141,6 +142,7 @@ export function HomePage({ harvests }: HomePageProps) {
             2. FEATURED PRODUCTS — horizontally scrollable carousel
             Per ORIGINAL_TRUTH.md § 2.1 item 2
             ══════════════════════════════════════════════════════════════════ */}
+        <HomeReveal>
         <section
           id="featured-products"
           className="bg-white py-20 sm:py-24 lg:py-32"
@@ -157,27 +159,33 @@ export function HomePage({ harvests }: HomePageProps) {
 
             {/* Featured products grid — the three core feed cards only.
                 Mobile: horizontal-scroll snap row (swipeable, no arrows).
+                  - data-lenis-prevent: exempts this element from Lenis smooth-scroll
+                    hijacking so native horizontal swipe works correctly on iOS/Android.
+                  - touch-pan-x: tells the browser this element handles horizontal panning,
+                    preventing any outer gesture handler from claiming the swipe.
+                  - px-4 scroll-px-4: inset padding so first card isn't flush to screen edge;
+                    scroll-snap padding matches so snap stops respect the inset.
                 Desktop (md+): auto-fit grid, 3 columns at ~68rem container.
-                -mx-6 px-6 gives bleed-to-edge with inset start; pb-2 reserves
-                room so the scrollbar doesn't clip card shadows on mobile. */}
+                pb-2 reserves room so the scrollbar doesn't clip card shadows on mobile. */}
             <div
+              data-lenis-prevent
               className={[
                 /* ── Mobile: horizontal scroll row ── */
-                'flex gap-4 overflow-x-auto snap-x snap-mandatory -mx-6 px-6 pb-2',
+                'flex gap-4 overflow-x-auto snap-x snap-mandatory touch-pan-x px-4 pb-2 scroll-px-4',
                 /* ── md+: revert to the existing auto-fit grid ── */
                 'md:overflow-visible md:grid md:gap-5 lg:gap-6',
                 'md:[grid-template-columns:repeat(auto-fit,minmax(20rem,1fr))]',
-                'md:max-w-[68rem] md:mx-auto md:px-0 md:pb-0',
+                'md:max-w-[68rem] md:mx-auto md:px-0 md:pb-0 md:scroll-px-0',
               ].join(' ')}
               aria-label="Featured GB Feeds products"
             >
               {featuredProducts.map((product, i) => (
-                /* Mobile: fixed-width snap target (72vw ≈ ~3 cards with bleed peek,
+                /* Mobile: fixed-width snap target (74vw gives clear peek of next card,
                    capped at 20rem so it doesn't over-expand on tablet).
                    Desktop (md+): normal flow inside grid. */
                 <div
                   key={product.slug}
-                  className="flex-none basis-[72vw] max-w-[20rem] snap-start md:flex-auto md:basis-auto md:max-w-none md:h-full"
+                  className="flex-none basis-[74vw] max-w-[20rem] snap-start md:flex-auto md:basis-auto md:max-w-none md:h-full"
                 >
                   <ProductCard product={product} priority={i < 3} density="compact" />
                 </div>
@@ -200,6 +208,7 @@ export function HomePage({ harvests }: HomePageProps) {
             </div>
           </Container>
         </section>
+        </HomeReveal>
 
         <Rule weight="hair" />
 
@@ -251,6 +260,7 @@ export function HomePage({ harvests }: HomePageProps) {
             6. FREQUENTLY ASKED QUESTIONS — 4 accordion rows
             Per ORIGINAL_TRUTH.md § 2.3 verbatim
             ══════════════════════════════════════════════════════════════════ */}
+        <HomeReveal>
         <section
           id="faq"
           className="bg-white py-20 sm:py-24 lg:py-32"
@@ -272,12 +282,14 @@ export function HomePage({ harvests }: HomePageProps) {
             </div>
           </Container>
         </section>
+        </HomeReveal>
 
         <Rule weight="hair" />
 
         {/* ══════════════════════════════════════════════════════════════════
             7. CONTACT US
             ══════════════════════════════════════════════════════════════════ */}
+        <HomeReveal>
         <section
           id="contact"
           className="bg-[var(--color-paper-3)] py-16 sm:py-20 lg:py-24"
@@ -333,6 +345,7 @@ export function HomePage({ harvests }: HomePageProps) {
             </div>
           </Container>
         </section>
+        </HomeReveal>
 
         <Rule weight="hair" />
 
