@@ -75,7 +75,7 @@ export function HomePage({ harvests }: HomePageProps) {
             100svh on mobile, fixed tall height on desktop.
             ══════════════════════════════════════════════════════════════════ */}
         <section
-          className="relative overflow-hidden h-[45svh] sm:h-[clamp(500px,82svh,760px)]"
+          className="relative overflow-hidden h-[clamp(500px,82svh,760px)]"
           aria-label="GB Feeds hero image"
         >
           <picture>
@@ -92,7 +92,7 @@ export function HomePage({ harvests }: HomePageProps) {
               alt="Buck Chow deer-feed bag in a wooded Kansas field"
               width={2200}
               height={1760}
-              className="gb-hero-drift absolute inset-0 w-full h-full object-cover object-[center_100%] sm:object-[center_62%]"
+              className="gb-hero-drift absolute inset-0 w-full h-full object-cover object-[center_100%] sm:object-[center_62%] scale-[1.4] origin-bottom sm:scale-100 sm:origin-center"
               loading="eager"
               fetchPriority="high"
             />
@@ -317,12 +317,6 @@ export function HomePage({ harvests }: HomePageProps) {
                 </p>
                 <ContactForm />
               </div>
-
-              {/* Separator — between form and phone CTA, matching phone row border token */}
-              <div
-                className="border-t border-[var(--color-rule)] my-10 sm:my-12"
-                aria-hidden="true"
-              />
 
               {/* Phone CTA */}
               <div>
