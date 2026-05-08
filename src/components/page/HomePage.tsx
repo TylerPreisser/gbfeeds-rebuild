@@ -75,7 +75,7 @@ export function HomePage({ harvests }: HomePageProps) {
             100svh on mobile, fixed tall height on desktop.
             ══════════════════════════════════════════════════════════════════ */}
         <section
-          className="relative overflow-hidden h-[58svh] sm:h-[clamp(500px,82svh,760px)]"
+          className="relative overflow-hidden h-[45svh] sm:h-[clamp(500px,82svh,760px)]"
           aria-label="GB Feeds hero image"
         >
           <picture>
