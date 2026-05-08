@@ -43,9 +43,10 @@ export function ProductCard({
         'premium-card group relative flex flex-col h-full',
         'bg-[var(--color-paper-3)]',
         'border border-[var(--color-rule)]',
-        'hover:border-[var(--color-ink)]',
+        /* hover:border and hover:-translate-y-1 intentionally removed here —
+           they are reinstated via @media (hover: hover) and (pointer: fine) in
+           globals.css so they only fire on real cursor devices, not touch taps. */
         'transition-colors duration-200',
-        'hover:-translate-y-1',
         className,
       )}
     >
@@ -67,10 +68,11 @@ export function ProductCard({
           width={600}
           height={600}
           className={cn(
-            'w-full h-full object-cover',
-            // Hover: scale 1.02 with transform-origin bottom
+            'w-full h-full object-cover origin-bottom',
+            /* transition-transform kept so the scale eases in on desktop.
+               group-hover:scale-[1.02] removed — reinstated via CSS media query
+               in globals.css to prevent the flash-scale on touch taps. */
             'transition-transform duration-200 ease-out',
-            'group-hover:scale-[1.02] origin-bottom',
           )}
           priority={priority}
         />

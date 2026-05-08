@@ -45,3 +45,22 @@
     }
   }
 }
+
+/* Product card hover animations — DESKTOP ONLY.
+   (hover: hover) and (pointer: fine) = real cursor device (mouse/trackpad).
+   Touch devices report (hover: none) / (pointer: coarse) and are excluded,
+   preventing the scale/lift flash that fires on tap in iOS Safari and Android Chrome.
+   This reinstates the effects removed from the Tailwind className strings in
+   ProductCard.tsx so desktop behavior is 100% identical to before. */
+@media (hover: hover) and (pointer: fine) {
+  .premium-card:hover {
+    /* card lifts 4px — was hover:-translate-y-1 */
+    transform: translateY(-0.25rem);
+    /* border thickens from hairline to ink — was hover:border-[var(--color-ink)] */
+    border-color: var(--color-ink);
+  }
+  /* image scales 1.02 inside the card on hover — was group-hover:scale-[1.02] */
+  .premium-card:hover .premium-media img {
+    transform: scale(1.02);
+  }
+}
