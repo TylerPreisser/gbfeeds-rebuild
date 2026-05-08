@@ -52,7 +52,7 @@ export function ProductsIndex({ products }: ProductsIndexProps) {
       <section
         className="relative overflow-hidden bg-[var(--color-ink)]"
         aria-label="Products page banner"
-        style={{ height: 'clamp(180px, 28vh, 320px)' }}
+        style={{ height: 'clamp(220px, 32vh, 380px)' }}
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
@@ -72,14 +72,14 @@ export function ProductsIndex({ products }: ProductsIndexProps) {
           }}
         />
         <Container>
-          <div className="relative z-10 flex h-full flex-col items-center justify-center text-center pt-16 pb-12">
+          <div className="relative z-10 flex h-full flex-col items-center justify-center text-center py-6 sm:py-8 lg:py-10">
             <p className="font-mono text-mono-xs tracking-[0.06em] uppercase text-white/80 mb-3">
               Manhattan, KS · Est. 2017 · Field-Tested
             </p>
             <Heading
               as="h1"
               size="display-lg"
-              className="text-white leading-[0.9] text-[clamp(4.75rem,14vw,13rem)]"
+              className="text-white leading-[0.9] text-[clamp(3rem,9vw,8rem)]"
             >
               All Products
             </Heading>
