@@ -45,11 +45,6 @@ export function Footer() {
           </a>
         </nav>
 
-        {/* Business name */}
-        <p className="font-body text-body-sm font-bold text-[var(--color-ink)]">
-          GB Feeds, LLC
-        </p>
-
         {/* Copyright */}
         <p className="font-body text-body-sm text-[var(--color-ink-muted)]">
           Copyright &copy; {new Date().getFullYear()} GB Feeds - All Rights Reserved.
