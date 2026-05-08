@@ -101,15 +101,6 @@
   }
 }
 
-@keyframes gb-media-shimmer {
-  from {
-    transform: translateX(-140%);
-  }
-  to {
-    transform: translateX(140%);
-  }
-}
-
 .premium-card {
   box-shadow: 0 0 0 rgba(0, 0, 0, 0);
   transition:
@@ -122,26 +113,6 @@
   box-shadow: 0 1rem 2.25rem rgba(18, 15, 11, 0.08);
 }
 
-.premium-media::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: linear-gradient(
-    105deg,
-    transparent 0%,
-    transparent 42%,
-    rgba(255, 255, 255, 0.22) 50%,
-    transparent 58%,
-    transparent 100%
-  );
-  transform: translateX(-140%);
-  mix-blend-mode: screen;
-}
-
-.premium-card:hover .premium-media::after {
-  animation: gb-media-shimmer 650ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
-}
 
 @media (prefers-reduced-motion: reduce) {
   .paper-grain,
@@ -149,7 +120,6 @@
   .scanned-grain,
   .gb-hero-drift,
   .premium-card,
-  .premium-media::after,
   .kansas-quote-fade figure {
     /* Already static — no animation transitions to cancel. */
     animation: none;
