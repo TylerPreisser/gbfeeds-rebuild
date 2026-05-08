@@ -289,11 +289,11 @@ export function HomePage({ harvests }: HomePageProps) {
         <HomeReveal>
         <section
           id="contact"
-          className="bg-[var(--color-paper-3)] py-16 sm:py-20 lg:py-24"
+          className="bg-[var(--color-paper-3)] pt-16 pb-10 sm:py-20 lg:py-24"
           aria-label="Contact GB Feeds"
         >
           <Container>
-            <div className="py-10 sm:py-12 lg:py-14 max-w-2xl mx-auto">
+            <div className="pt-10 pb-0 sm:py-12 lg:py-14 max-w-2xl mx-auto">
               {/* Heading block — centered, unified */}
               <div className="text-center mb-10 sm:mb-12">
                 <p className="font-mono text-mono-xs tracking-[0.14em] uppercase text-[var(--color-ink-muted)] mb-3">
