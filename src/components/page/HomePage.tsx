@@ -171,7 +171,7 @@ export function HomePage({ harvests }: HomePageProps) {
               data-lenis-prevent
               className={[
                 /* ── Mobile: horizontal scroll row ── */
-                'flex gap-4 overflow-x-auto snap-x snap-mandatory touch-pan-x px-4 pb-2 scroll-px-4',
+                'flex gap-4 overflow-x-auto snap-x snap-mandatory px-4 pb-2 scroll-px-4',
                 /* ── md+: revert to the existing auto-fit grid ── */
                 'md:overflow-visible md:grid md:gap-5 lg:gap-6',
                 'md:[grid-template-columns:repeat(auto-fit,minmax(20rem,1fr))]',
