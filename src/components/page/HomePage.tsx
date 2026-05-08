@@ -110,13 +110,10 @@ export function HomePage({ harvests }: HomePageProps) {
 
           {/* Centered hero text — "GB FEEDS / GROW BIGGER BUCKS" */}
           <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6 z-10">
-            <p className="font-mono text-mono-xs sm:text-body-sm tracking-[0.18em] uppercase text-white/85 mb-5">
-              Manhattan, KS · Est. 2017 · Field-Tested
-            </p>
             <h1
               className="font-display uppercase text-white leading-[0.92] tracking-[0.01em]"
               style={{
-                fontSize: 'clamp(3.25rem, 10vw, 9.5rem)',
+                fontSize: 'clamp(4.5rem, 14vw, 13rem)',
                 textShadow: '0 4px 28px rgba(0,0,0,0.55)',
                 letterSpacing: '0.005em',
               }}
@@ -126,7 +123,7 @@ export function HomePage({ harvests }: HomePageProps) {
             <p
               className="font-display uppercase text-white/95 mt-2 leading-[1.0]"
               style={{
-                fontSize: 'clamp(1.5rem, 4.4vw, 4rem)',
+                fontSize: 'clamp(2.25rem, 6.5vw, 6rem)',
                 letterSpacing: '0.04em',
                 textShadow: '0 2px 18px rgba(0,0,0,0.55)',
               }}
