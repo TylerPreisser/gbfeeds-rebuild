@@ -21,3 +21,27 @@
 
 /* 6. Product filter — [data-active-cat] CSS visibility rules for /products grid */
 @import './product-filter.css';
+
+/* 7. Mobile-only: unify all section backgrounds to bone (--color-paper-3).
+   Desktop sections intentionally alternate between white / paper / paper-2 / paper-3.
+   On mobile that alternating rhythm reads as jarring contrast; one uniform bone
+   surface looks far cleaner.
+   Placed inside @layer utilities so it sits after all Tailwind utility classes in
+   the same layer — later source order wins, no !important needed.
+   Excludes: hero (image bg), footer (dark bg), card backgrounds, form inputs. */
+@layer utilities {
+  @media (max-width: 767px) {
+    /* bg-white sections → bone */
+    .bg-white {
+      background-color: var(--color-paper-3);
+    }
+    /* bg-[var(--color-paper)] sections (the mid-dark bone) → bone */
+    .bg-\[var\(--color-paper\)\] {
+      background-color: var(--color-paper-3);
+    }
+    /* bg-[var(--color-paper-2)] sections → bone (paper-2 is already close, but unify) */
+    .bg-\[var\(--color-paper-2\)\] {
+      background-color: var(--color-paper-3);
+    }
+  }
+}
