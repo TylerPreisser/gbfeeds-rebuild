@@ -46,3 +46,5 @@ next-env.d.ts
 
 # Phase 1 + 2 source mirror staging — re-derivable; not part of the deployed build
 _inherited_assets/
+.claude/settings.local.json
+CLAUDE.local.md
