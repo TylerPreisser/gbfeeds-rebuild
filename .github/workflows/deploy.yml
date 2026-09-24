@@ -1,9 +1,9 @@
 name: Deploy to Cloudflare Pages
 
+# PR validation is the `ci-local` commit status (scripts/ci-steps.sh), per workspace CLAUDE.md §4a: Actions is a
+# manual fallback, never primary, so there is no pull_request trigger here. push to main still deploys.
 on:
   push:
-    branches: [main]
-  pull_request:
     branches: [main]
   workflow_dispatch:
 
