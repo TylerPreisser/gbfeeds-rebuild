@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+# EVERY PUSH GETS THE CI GATE, WITHOUT GITHUB ACTIONS (canonical: _workspace/tools/ci-local/pre-push).
+# For the tip of each pushed branch: post a pending status now, run scripts/ci-local.sh --status in the
+# background, and let the push go. The result lands on GitHub as the "ci-local" commit status a few minutes
+# later, where the PR page and `gh pr checks` show it, so merging waits on green exactly as it did with a
+# workflow. The push itself is never held. Installed by _workspace/tools/ci-local/install.sh (core.hooksPath).
+REPO="$(git rev-parse --show-toplevel)"
+[ -x "$REPO/scripts/ci-local.sh" ] || { echo "ci-local: scripts/ci-local.sh missing; push goes ungated (run _workspace/tools/ci-local/install.sh)"; exit 0; }
+# Logs are filed under the REPO's name (from origin), not the checkout's: a worktree under .claude/worktrees
+# must not scatter them under its own directory name.
+NAME="$(git remote get-url origin 2>/dev/null | sed -E 's#.*/##; s#\.git$##')"; NAME="${NAME:-$(basename "$REPO")}"
+LOGDIR="${CI_LOCAL_LOGS:-$HOME/.cache/ci-local/$NAME}"
+mkdir -p "$LOGDIR"
+while read -r local_ref local_sha remote_ref remote_sha; do
+  [ "$local_sha" = "0000000000000000000000000000000000000000" ] && continue   # deleting a branch
+  OUT="$LOGDIR/hook-${local_sha}.out"
+  # The status can only attach once the commit exists on GitHub: give the push a moment, then run the gate.
+  # stdout/stderr go to a file so git does not wait on the background job.
+  nohup bash -c "sleep 20; exec '$REPO/scripts/ci-local.sh' --status '$local_sha'" > "$OUT" 2>&1 < /dev/null &
+  echo "ci-local: gate queued for ${local_sha:0:7} (${remote_ref#refs/heads/}); watch it with 'gh pr checks'. Output: $OUT"
+done
+exit 0
